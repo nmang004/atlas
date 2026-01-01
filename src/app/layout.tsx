@@ -1,6 +1,7 @@
 import { Outfit } from 'next/font/google'
 
 import './globals.css'
+import { QueryProvider } from '@/components/providers/QueryProvider'
 import { Toaster } from '@/components/ui/toaster'
 import { TooltipProvider } from '@/components/ui/tooltip'
 
@@ -32,7 +33,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${outfit.variable}`}>
-        <TooltipProvider>{children}</TooltipProvider>
+        <QueryProvider>
+          <TooltipProvider>{children}</TooltipProvider>
+        </QueryProvider>
         <Toaster />
       </body>
     </html>

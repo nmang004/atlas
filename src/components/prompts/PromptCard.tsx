@@ -1,5 +1,7 @@
 'use client'
 
+import { memo } from 'react'
+
 import Link from 'next/link'
 
 import { ThumbsUp, Clock, AlertTriangle } from 'lucide-react'
@@ -14,7 +16,8 @@ interface PromptCardProps {
   prompt: PromptCardData
 }
 
-export function PromptCard({ prompt }: PromptCardProps) {
+// Memoized PromptCard component to prevent unnecessary re-renders in lists
+export const PromptCard = memo(function PromptCard({ prompt }: PromptCardProps) {
   const isStale = needsReview(prompt.last_verified_at)
   const visibleTags = prompt.tags.slice(0, MAX_VISIBLE_TAGS)
   const remainingTags = prompt.tags.length - MAX_VISIBLE_TAGS
@@ -76,4 +79,7 @@ export function PromptCard({ prompt }: PromptCardProps) {
       </Card>
     </Link>
   )
-}
+})
+
+// Display name for dev tools
+PromptCard.displayName = 'PromptCard'

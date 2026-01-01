@@ -5,6 +5,114 @@ import { z } from 'zod'
 import { requireAdmin } from '@/lib/auth'
 import { createClient } from '@/lib/supabase/server'
 
+// Pagination constants
+const DEFAULT_PAGE_SIZE = 12
+const MAX_PAGE_SIZE = 50
+
+// GET /api/prompts - Fetch paginated prompts
+export async function GET(request: NextRequest) {
+  try {
+    const supabase = createClient()
+    const { searchParams } = new URL(request.url)
+
+    // Parse pagination params
+    const cursor = searchParams.get('cursor') // last_verified_at of last item
+    const limit = Math.min(
+      parseInt(searchParams.get('limit') || String(DEFAULT_PAGE_SIZE), 10),
+      MAX_PAGE_SIZE
+    )
+    const categoryId = searchParams.get('category')
+    const search = searchParams.get('search')
+
+    // Build query
+    let query = supabase
+      .from('prompts')
+      .select(
+        `
+        id,
+        title,
+        content,
+        tags,
+        rating_score,
+        vote_count,
+        last_verified_at,
+        is_flagged,
+        model_version,
+        category_id,
+        category:categories(name)
+      `
+      )
+      .order('last_verified_at', { ascending: false })
+      .limit(limit + 1) // Fetch one extra to check if there are more
+
+    // Apply cursor-based pagination
+    if (cursor) {
+      query = query.lt('last_verified_at', cursor)
+    }
+
+    // Apply category filter
+    if (categoryId) {
+      query = query.eq('category_id', categoryId)
+    }
+
+    // Apply search filter (case-insensitive)
+    if (search?.trim()) {
+      query = query.or(`title.ilike.%${search}%,content.ilike.%${search}%`)
+    }
+
+    const { data, error } = await query
+
+    if (error) {
+      console.error('Prompts fetch error:', error)
+      return NextResponse.json({ error: 'Failed to fetch prompts' }, { status: 500 })
+    }
+
+    interface PromptRow {
+      id: string
+      title: string
+      content: string
+      tags: string[] | null
+      rating_score: number
+      vote_count: number
+      last_verified_at: string
+      is_flagged: boolean
+      model_version: string | null
+      category_id: string | null
+      category: { name: string } | null
+    }
+
+    const prompts = (data as unknown as PromptRow[]) || []
+
+    // Check if there are more items
+    const hasMore = prompts.length > limit
+    const items = hasMore ? prompts.slice(0, limit) : prompts
+
+    // Get the cursor for the next page
+    const nextCursor = hasMore && items.length > 0 ? items[items.length - 1].last_verified_at : null
+
+    return NextResponse.json({
+      prompts: items.map((prompt) => ({
+        id: prompt.id,
+        title: prompt.title,
+        content: prompt.content,
+        category_id: prompt.category_id,
+        category_name: prompt.category?.name || null,
+        tags: prompt.tags || [],
+        rating_score: prompt.rating_score,
+        vote_count: prompt.vote_count,
+        last_verified_at: prompt.last_verified_at,
+        is_flagged: prompt.is_flagged,
+        model_version: prompt.model_version,
+      })),
+      nextCursor,
+      hasMore,
+    })
+  } catch (error) {
+    console.error('Prompts API error:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}
+
 const variableSchema = z.object({
   key: z.string().min(1).max(50),
   label: z.string().min(1).max(100),
