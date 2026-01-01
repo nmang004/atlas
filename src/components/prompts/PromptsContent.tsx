@@ -37,13 +37,18 @@ export function PromptsContent({ prompts }: PromptsContentProps) {
   const [sortBy, setSortBy] = useState<SortOption>(DEFAULT_SORT)
   const [filtersOpen, setFiltersOpen] = useState(false)
 
-  // Extract unique tags from all prompts
-  const availableTags = useMemo(() => {
-    const tagSet = new Set<string>()
+  // Extract tags with usage counts, sorted by popularity
+  const tagsWithCounts = useMemo(() => {
+    const tagCounts = new Map<string, number>()
     prompts.forEach((prompt) => {
-      prompt.tags.forEach((tag) => tagSet.add(tag))
+      prompt.tags.forEach((tag) => {
+        tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1)
+      })
     })
-    return Array.from(tagSet).sort()
+    // Sort by count descending, then alphabetically
+    return Array.from(tagCounts.entries())
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .map(([tag, count]) => ({ tag, count }))
   }, [prompts])
 
   // Filter and sort prompts
@@ -152,7 +157,7 @@ export function PromptsContent({ prompts }: PromptsContentProps) {
       <Collapsible open={filtersOpen} onOpenChange={setFiltersOpen} className="md:hidden">
         <CollapsibleContent className="space-y-4">
           <TagFilter
-            availableTags={availableTags}
+            tagsWithCounts={tagsWithCounts}
             selectedTags={selectedTags}
             onTagToggle={handleTagToggle}
             onClearAll={handleClearTags}
@@ -163,7 +168,7 @@ export function PromptsContent({ prompts }: PromptsContentProps) {
       {/* Desktop tag filter - always visible */}
       <div className="hidden md:block">
         <TagFilter
-          availableTags={availableTags}
+          tagsWithCounts={tagsWithCounts}
           selectedTags={selectedTags}
           onTagToggle={handleTagToggle}
           onClearAll={handleClearTags}
