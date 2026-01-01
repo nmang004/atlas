@@ -25,14 +25,20 @@ const config: Config = {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
+          light: 'hsl(var(--primary-light))',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
+          light: 'hsl(var(--secondary-light))',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
+        },
+        success: {
+          DEFAULT: 'hsl(var(--success))',
+          foreground: 'hsl(var(--success-foreground))',
         },
         muted: {
           DEFAULT: 'hsl(var(--muted))',
@@ -50,6 +56,15 @@ const config: Config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        navy: 'hsl(var(--navy))',
+      },
+      fontFamily: {
+        heading: ['var(--font-outfit)', 'Outfit', 'system-ui', 'sans-serif'],
+        body: ['"Host Grotesk"', 'system-ui', 'sans-serif'],
+      },
+      boxShadow: {
+        'glow-primary': '0 0 0 0.35rem rgba(0, 127, 253, 0.25)',
+        'glow-secondary': '0 0 0 0.35rem rgba(109, 90, 255, 0.25)',
       },
       borderRadius: {
         lg: 'var(--radius)',

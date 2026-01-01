@@ -39,11 +39,11 @@ export function MobileSidebar({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="left" className="w-[280px] p-0">
-        <SheetHeader className="border-b px-4 py-4">
-          <SheetTitle className="flex items-center gap-2">
-            <FileText className="h-5 w-5" />
-            <span>Atlas</span>
+      <SheetContent side="left" className="w-[280px] bg-navy p-0 text-white border-none">
+        <SheetHeader className="border-b border-white/10 px-4 py-4">
+          <SheetTitle className="flex items-center gap-2 font-heading text-white">
+            <FileText className="h-5 w-5 text-primary" />
+            <span className="text-gradient">Atlas</span>
           </SheetTitle>
         </SheetHeader>
 
@@ -52,8 +52,11 @@ export function MobileSidebar({
             <SheetClose asChild>
               <Link href="/prompts" onClick={handleNavClick}>
                 <Button
-                  variant={pathname === '/prompts' && !currentCategory ? 'secondary' : 'ghost'}
-                  className="min-h-11 w-full justify-start"
+                  variant="ghost"
+                  className={cn(
+                    'min-h-11 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
+                    pathname === '/prompts' && !currentCategory && 'bg-white/10 text-white'
+                  )}
                 >
                   <FileText className="mr-2 h-4 w-4" />
                   All Prompts
@@ -63,8 +66,11 @@ export function MobileSidebar({
             <SheetClose asChild>
               <Link href="/categories" onClick={handleNavClick}>
                 <Button
-                  variant={pathname === '/categories' ? 'secondary' : 'ghost'}
-                  className="min-h-11 w-full justify-start"
+                  variant="ghost"
+                  className={cn(
+                    'min-h-11 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
+                    pathname === '/categories' && 'bg-white/10 text-white'
+                  )}
                 >
                   <FolderOpen className="mr-2 h-4 w-4" />
                   Categories
@@ -73,10 +79,10 @@ export function MobileSidebar({
             </SheetClose>
           </div>
 
-          <Separator className="my-4" />
+          <Separator className="my-4 bg-white/10" />
 
           <div className="space-y-1">
-            <p className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <p className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-white/50">
               Categories
             </p>
             {categories.map((category) => (
@@ -85,13 +91,13 @@ export function MobileSidebar({
                   <Button
                     variant="ghost"
                     className={cn(
-                      'min-h-11 w-full justify-between',
-                      pathname === '/prompts' && currentCategory === category.id && 'bg-secondary'
+                      'min-h-11 w-full justify-between text-white/80 hover:bg-white/10 hover:text-white',
+                      pathname === '/prompts' && currentCategory === category.id && 'bg-white/10 text-white'
                     )}
                   >
                     <span className="truncate">{category.name}</span>
                     {category.prompt_count !== undefined && (
-                      <span className="ml-2 text-xs text-muted-foreground">
+                      <span className="ml-2 text-xs text-white/50">
                         {category.prompt_count}
                       </span>
                     )}
@@ -103,17 +109,20 @@ export function MobileSidebar({
 
           {isAdmin && (
             <>
-              <Separator className="my-4" />
+              <Separator className="my-4 bg-white/10" />
 
               <div className="space-y-1">
-                <p className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <p className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-white/50">
                   Admin
                 </p>
                 <SheetClose asChild>
                   <Link href="/admin" onClick={handleNavClick}>
                     <Button
-                      variant={pathname === '/admin' ? 'secondary' : 'ghost'}
-                      className="min-h-11 w-full justify-start"
+                      variant="ghost"
+                      className={cn(
+                        'min-h-11 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
+                        pathname === '/admin' && 'bg-white/10 text-white'
+                      )}
                     >
                       <LayoutDashboard className="mr-2 h-4 w-4" />
                       Dashboard
@@ -123,8 +132,11 @@ export function MobileSidebar({
                 <SheetClose asChild>
                   <Link href="/admin/flagged" onClick={handleNavClick}>
                     <Button
-                      variant={pathname === '/admin/flagged' ? 'secondary' : 'ghost'}
-                      className="min-h-11 w-full justify-start"
+                      variant="ghost"
+                      className={cn(
+                        'min-h-11 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
+                        pathname === '/admin/flagged' && 'bg-white/10 text-white'
+                      )}
                     >
                       <Flag className="mr-2 h-4 w-4" />
                       Flagged Prompts
@@ -134,8 +146,11 @@ export function MobileSidebar({
                 <SheetClose asChild>
                   <Link href="/prompts/new" onClick={handleNavClick}>
                     <Button
-                      variant={pathname === '/prompts/new' ? 'secondary' : 'ghost'}
-                      className="min-h-11 w-full justify-start"
+                      variant="ghost"
+                      className={cn(
+                        'min-h-11 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
+                        pathname === '/prompts/new' && 'bg-white/10 text-white'
+                      )}
                     >
                       <Plus className="mr-2 h-4 w-4" />
                       New Prompt
