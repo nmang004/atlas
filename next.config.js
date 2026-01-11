@@ -41,7 +41,7 @@ const nextConfig = {
               // Default to self only
               "default-src 'self'",
               // Scripts: self + inline (needed for Next.js hydration) + PostHog
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.posthog.com https://*.i.posthog.com",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://us.posthog.com https://us.i.posthog.com https://us-assets.i.posthog.com",
               // Styles: self + inline (needed for Tailwind) + Google Fonts
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               // Images: self + data URIs + Supabase storage
@@ -49,7 +49,7 @@ const nextConfig = {
               // Fonts: self + data URIs + Google Fonts
               "font-src 'self' data: https://fonts.gstatic.com",
               // Connect to: self + Supabase APIs + PostHog
-              "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.posthog.com https://*.i.posthog.com",
+              "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://us.posthog.com https://us.i.posthog.com https://us-assets.i.posthog.com",
               // Frame ancestors: none (prevent embedding)
               "frame-ancestors 'none'",
               // Base URI: self only
