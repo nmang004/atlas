@@ -1,12 +1,13 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 
 import { Header } from '@/components/layout/Header'
 import { MobileSidebar } from '@/components/layout/MobileSidebar'
 import { Sidebar } from '@/components/layout/Sidebar'
+import { identifyUser } from '@/lib/posthog'
 import type { User } from '@/types'
 
 interface Category {
@@ -27,6 +28,18 @@ export function DashboardShell({ categories, user, isAdmin, children }: Dashboar
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  // Identify user in PostHog for analytics tracking
+  useEffect(() => {
+    if (user) {
+      identifyUser({
+        id: user.id,
+        email: user.email,
+        name: user.name ?? undefined,
+        role: user.role ?? undefined,
+      })
+    }
+  }, [user])
 
   const handleSearch = useCallback(
     (query: string) => {

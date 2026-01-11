@@ -23,6 +23,7 @@ import { FormError, FormErrorSummary } from '@/components/ui/form-error'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
+import { identifyUser } from '@/lib/posthog'
 import { createClient } from '@/lib/supabase/client'
 
 const loginSchema = z.object({
@@ -54,7 +55,7 @@ export default function LoginPage() {
 
     const supabase = createClient()
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data: authData, error } = await supabase.auth.signInWithPassword({
       email: data.email,
       password: data.password,
     })
@@ -62,6 +63,14 @@ export default function LoginPage() {
     if (error) {
       setServerError(error.message)
       return
+    }
+
+    // Identify user in PostHog for analytics tracking
+    if (authData.user) {
+      identifyUser({
+        id: authData.user.id,
+        email: authData.user.email || data.email,
+      })
     }
 
     toast({

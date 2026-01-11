@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 
 import { useSearchParams } from 'next/navigation'
 
@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { SORT_OPTIONS, DEFAULT_SORT, type SortOption } from '@/lib/constants'
+import { trackEvent } from '@/lib/posthog'
 import type { PromptCardData } from '@/types'
 
 interface PromptListItem extends PromptCardData {
@@ -101,6 +102,36 @@ export function PromptsContent({ prompts }: PromptsContentProps) {
   }
 
   const hasActiveFilters = selectedTags.length > 0 || sortBy !== DEFAULT_SORT
+
+  // Track search - use ref to avoid tracking on initial mount
+  const isInitialMount = useRef(true)
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false
+      return
+    }
+    if (searchQuery?.trim()) {
+      trackEvent.searchPerformed({
+        query: searchQuery,
+        results_count: filteredPrompts.length,
+      })
+    }
+  }, [searchQuery, filteredPrompts.length])
+
+  // Track tag filter changes
+  const prevTagsRef = useRef<string[]>([])
+  useEffect(() => {
+    if (
+      selectedTags.length > 0 &&
+      JSON.stringify(selectedTags) !== JSON.stringify(prevTagsRef.current)
+    ) {
+      trackEvent.tagFiltered({
+        tags: selectedTags,
+        tags_count: selectedTags.length,
+      })
+    }
+    prevTagsRef.current = selectedTags
+  }, [selectedTags])
 
   return (
     <div className="space-y-4 md:space-y-6">

@@ -1,6 +1,7 @@
 import { Outfit } from 'next/font/google'
 
 import './globals.css'
+import { PostHogProvider } from '@/components/providers/PostHogProvider'
 import { QueryProvider } from '@/components/providers/QueryProvider'
 import { Toaster } from '@/components/ui/toaster'
 import { TooltipProvider } from '@/components/ui/tooltip'
@@ -33,10 +34,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${outfit.variable}`}>
-        <QueryProvider>
-          <TooltipProvider>{children}</TooltipProvider>
-        </QueryProvider>
-        <Toaster />
+        <PostHogProvider>
+          <QueryProvider>
+            <TooltipProvider>{children}</TooltipProvider>
+          </QueryProvider>
+          <Toaster />
+        </PostHogProvider>
       </body>
     </html>
   )

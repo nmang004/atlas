@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -33,6 +33,7 @@ import {
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/hooks/use-toast'
 import { useVoting } from '@/hooks/useVoting'
+import { trackEvent } from '@/lib/posthog'
 import { cn, formatRelativeTime, formatRating, needsReview, assemblePrompt } from '@/lib/utils'
 import type { PromptWithDetails, PromptVote, VoteOutcome } from '@/types'
 
@@ -82,6 +83,15 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
   const isStale = needsReview(prompt.last_verified_at)
   const categoryName = prompt.category?.name || 'Uncategorized'
 
+  // Track prompt view on mount
+  useEffect(() => {
+    trackEvent.promptViewed({
+      prompt_id: prompt.id,
+      prompt_title: prompt.title,
+      category: categoryName,
+    })
+  }, [prompt.id, prompt.title, categoryName])
+
   const allRequiredFilled = prompt.variables
     .filter((v) => v.is_required)
     .every((v) => variables[v.key]?.trim())
@@ -93,6 +103,16 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
     setCopied(true)
     setShowVoting(true)
     setTimeout(() => setCopied(false), 2000)
+
+    // Track prompt copy event
+    const filledVariables = Object.values(variables).filter((v) => v?.trim()).length
+    trackEvent.promptCopied({
+      prompt_id: prompt.id,
+      prompt_title: prompt.title,
+      category: categoryName,
+      had_variables: prompt.variables.length > 0,
+      variables_filled: filledVariables,
+    })
   }
 
   const handleVote = async (outcome: VoteOutcome) => {
@@ -103,6 +123,14 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
 
     setCurrentVote(outcome)
     await submitVote(outcome, outcome === 'negative' ? feedbackText : undefined)
+
+    // Track vote event
+    trackEvent.promptVoted({
+      prompt_id: prompt.id,
+      prompt_title: prompt.title,
+      outcome,
+      had_feedback: outcome === 'negative' && !!feedbackText.trim(),
+    })
   }
 
   const handleCancelFeedback = () => {
