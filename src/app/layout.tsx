@@ -1,5 +1,6 @@
-import * as Sentry from '@sentry/nextjs'
 import { Outfit } from 'next/font/google'
+
+import * as Sentry from '@sentry/nextjs'
 
 import './globals.css'
 import { PostHogProvider } from '@/components/providers/PostHogProvider'
