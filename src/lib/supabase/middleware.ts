@@ -5,11 +5,23 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import type { Database } from '@/types/database'
 
 // Routes that require authentication
-const protectedRoutes = ['/prompts', '/categories', '/admin']
+const protectedRoutes = ['/prompts', '/categories', '/admin', '/profile']
 // Routes that should redirect to dashboard if already authenticated
 const authRoutes = ['/login', '/signup']
+// Public marketing routes that don't need auth checks at all
+const publicRoutes = ['/about']
 
 export async function updateSession(request: NextRequest) {
+  const pathname = request.nextUrl.pathname
+
+  // Skip auth middleware entirely for public marketing routes
+  const isPublicRoute = publicRoutes.some(
+    (route) => pathname === route || pathname.startsWith(`${route}/`)
+  )
+  if (isPublicRoute) {
+    return NextResponse.next()
+  }
+
   let response = NextResponse.next({
     request: {
       headers: request.headers,
@@ -67,8 +79,6 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  const pathname = request.nextUrl.pathname
-
   // Check if the route is protected
   const isProtectedRoute = protectedRoutes.some(
     (route) => pathname === route || pathname.startsWith(`${route}/`)
@@ -89,12 +99,12 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(new URL('/prompts', request.url))
   }
 
-  // Redirect root to prompts page
+  // Redirect root to prompts page for authenticated users, or about page for visitors
   if (pathname === '/') {
     if (user) {
       return NextResponse.redirect(new URL('/prompts', request.url))
     } else {
-      return NextResponse.redirect(new URL('/login', request.url))
+      return NextResponse.redirect(new URL('/about', request.url))
     }
   }
 
