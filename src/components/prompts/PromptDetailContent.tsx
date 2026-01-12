@@ -102,9 +102,28 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
 
   // Get the basic variant content (or generate fallback from default)
   const basicVariant = prompt.variants?.find((v) => v.variant_type === 'basic')
-  const basicVariantContent =
+  const basicVariantRaw =
     basicVariant?.content ||
     prompt.content.replace(/\{\{(\w+)\}\}/g, (_, key) => `[${key.toUpperCase()}]`)
+
+  // Parse the basic variant to separate prompt content from "Recommended Data to Attach" section
+  const parseBasicVariant = (content: string) => {
+    const separator = '---\n**Recommended Data to Attach:**'
+    const separatorIndex = content.indexOf(separator)
+    if (separatorIndex === -1) {
+      return { promptContent: content.trim(), recommendedData: null }
+    }
+    const promptContent = content.substring(0, separatorIndex).trim()
+    const recommendedDataSection = content.substring(separatorIndex + separator.length).trim()
+    // Parse the bullet points
+    const recommendedData = recommendedDataSection
+      .split('\n')
+      .map((line) => line.replace(/^-\s*/, '').trim())
+      .filter((line) => line.length > 0)
+    return { promptContent, recommendedData }
+  }
+
+  const { promptContent: basicVariantContent, recommendedData } = parseBasicVariant(basicVariantRaw)
 
   // Content to copy depends on active variant
   const contentToCopy = activeVariant === 'default' ? assembledPrompt : basicVariantContent
@@ -360,12 +379,35 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
 
         {/* Basic Tab - Simple copy-paste version */}
         <TabsContent value="basic" className="mt-4 space-y-4">
+          {/* Recommended Data to Attach - shown first as a checklist */}
+          {recommendedData && recommendedData.length > 0 && (
+            <Card className="border-primary/20 bg-primary/5">
+              <CardHeader className="pb-2 md:pb-4">
+                <CardTitle className="text-base md:text-lg">Recommended Data to Attach</CardTitle>
+                <p className="text-sm text-muted-foreground">
+                  Gather this data before using the prompt. Paste it after the prompt in your AI
+                  tool.
+                </p>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  {recommendedData.map((item, index) => (
+                    <li key={index} className="flex items-start gap-2 text-sm">
+                      <span className="mt-0.5 text-muted-foreground">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Basic Prompt Content */}
           <Card>
             <CardHeader className="pb-2 md:pb-4">
-              <CardTitle className="text-base md:text-lg">Basic Prompt</CardTitle>
+              <CardTitle className="text-base md:text-lg">Prompt</CardTitle>
               <p className="text-sm text-muted-foreground">
-                Copy this prompt and replace [PLACEHOLDERS] with your data before pasting into your
-                AI tool.
+                Copy this prompt, then paste your data after it in your AI tool.
               </p>
             </CardHeader>
             <CardContent>
