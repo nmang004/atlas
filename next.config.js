@@ -41,7 +41,7 @@ const nextConfig = {
               // Default to self only
               "default-src 'self'",
               // Scripts: self + inline (needed for Next.js hydration) + PostHog
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://us.posthog.com https://us.i.posthog.com https://us-assets.i.posthog.com",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://us.posthog.com https://us.i.posthog.com https://us-assets.i.posthog.com https://static.cloudflareinsights.com",
               // Styles: self + inline (needed for Tailwind) + Google Fonts
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               // Images: self + data URIs + Supabase storage
