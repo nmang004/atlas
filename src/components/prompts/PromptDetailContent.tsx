@@ -23,6 +23,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SafeMarkdown } from '@/components/ui/safe-markdown'
+import { DataRequirements } from '@/components/prompts/DataRequirements'
 import {
   Select,
   SelectContent,
@@ -256,13 +257,14 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
         <>
           {/* Desktop view */}
           <Card className="hidden md:block">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="text-lg">Data Requirements</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                Gather this information before using the prompt
+              </p>
             </CardHeader>
             <CardContent>
-              <div className="prose prose-sm max-w-none dark:prose-invert">
-                <SafeMarkdown>{prompt.data_requirements}</SafeMarkdown>
-              </div>
+              <DataRequirements content={prompt.data_requirements} />
             </CardContent>
           </Card>
           {/* Mobile collapsible */}
@@ -280,9 +282,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <CardContent className="pt-0">
-                  <div className="prose prose-sm max-w-none dark:prose-invert">
-                    <SafeMarkdown>{prompt.data_requirements}</SafeMarkdown>
-                  </div>
+                  <DataRequirements content={prompt.data_requirements} />
                 </CardContent>
               </CollapsibleContent>
             </Card>
