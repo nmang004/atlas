@@ -10,7 +10,7 @@ Agencies face dangerous variance in AI output quality. One strategist uses LLMs 
 
 Atlas is a living governance system that:
 
-- **Stores battle-tested prompts** with variable injection for consistent, reusable outputs
+- **Stores proven prompts** with variable injection for consistent, reusable outputs
 - **Self-maintains through crowdsourced voting** at the moment of use
 - **Teaches users why prompts work** (not just what to copy)
 - **Meets users where they work** (webapp now, browser extension later)

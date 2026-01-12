@@ -18,7 +18,7 @@ This Software Requirements Specification (SRS) document describes the functional
 
 Atlas is a web-based application that enables SEO agency teams to:
 
-- Store, organize, and retrieve battle-tested LLM prompts
+- Store, organize, and retrieve proven LLM prompts
 - Inject variables into prompts for customization
 - Maintain prompt quality through crowdsourced voting
 - Learn prompt engineering best practices through examples

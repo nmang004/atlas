@@ -52,7 +52,7 @@ export default function AboutPage() {
 
             <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground sm:text-xl">
               Atlas is a living prompt library that self-maintains through collective verification.
-              Store battle-tested prompts, inject variables on-the-fly, and ensure every team member
+              Store proven prompts, inject variables on-the-fly, and ensure every team member
               produces consistent, high-quality AI work.
             </p>
 
@@ -299,7 +299,7 @@ export default function AboutPage() {
                 <WorkflowStep
                   number={1}
                   title="Find Your Prompt"
-                  description="Browse by category, search by keyword, or filter by tags. Find battle-tested prompts in seconds."
+                  description="Browse by category, search by keyword, or filter by tags. Find proven prompts in seconds."
                 />
                 <WorkflowStep
                   number={2}

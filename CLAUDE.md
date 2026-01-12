@@ -4,7 +4,7 @@ This file provides context for AI assistants working on the Atlas codebase.
 
 ## Project Purpose
 
-Atlas is an internal SEO agency tool for prompt governance. It stores battle-tested LLM prompts with variable injection, enables crowdsourced quality maintenance through voting at the point of use, and reduces output variance across team members. The system is designed to be a "living" prompt library that self-maintains through collective verification.
+Atlas is an internal SEO agency tool for prompt governance. It stores proven LLM prompts with variable injection, enables crowdsourced quality maintenance through voting at the point of use, and reduces output variance across team members. The system is designed to be a "living" prompt library that self-maintains through collective verification.
 
 ## Tech Stack
 
