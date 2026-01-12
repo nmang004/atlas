@@ -10,6 +10,14 @@ import { STALE_THRESHOLD_DAYS } from '@/lib/constants'
 import { createClient } from '@/lib/supabase/server'
 import { formatRelativeTime } from '@/lib/utils'
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Review Flagged Prompts - Quality Control',
+  description:
+    'Review and resolve flagged or stale prompts. Maintain prompt quality by addressing user feedback and outdated content.',
+}
+
 interface FlaggedPrompt {
   id: string
   title: string

@@ -8,6 +8,14 @@ import { Button } from '@/components/ui/button'
 import { createClient } from '@/lib/supabase/server'
 import type { Category } from '@/types'
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Create New Prompt - Add to Library',
+  description:
+    'Create a new AI prompt with variables, examples, and categories. Build reusable prompts your whole team can use.',
+}
+
 async function getCategories(): Promise<Category[]> {
   const supabase = createClient()
 

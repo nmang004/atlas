@@ -7,6 +7,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { STALE_THRESHOLD_DAYS } from '@/lib/constants'
 import { createClient } from '@/lib/supabase/server'
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Admin Dashboard - Manage Your Prompt Library',
+  description:
+    'Monitor prompt health, review flagged content, and track voting activity. Keep your team\'s AI prompts current and effective.',
+}
+
 interface AdminStats {
   totalPrompts: number
   flaggedPrompts: number

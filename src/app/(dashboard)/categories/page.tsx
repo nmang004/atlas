@@ -5,6 +5,14 @@ import { FolderOpen } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { createClient } from '@/lib/supabase/server'
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Prompt Categories - Organized by Use Case',
+  description:
+    'Explore AI prompts by category: SEO, content writing, client communication, and more. Find the right prompts for every task.',
+}
+
 interface CategoryWithCount {
   id: string
   name: string

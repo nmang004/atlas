@@ -4,6 +4,14 @@ import { PromptsContent } from '@/components/prompts/PromptsContent'
 import { createClient } from '@/lib/supabase/server'
 import type { PromptCardData } from '@/types'
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'AI Prompt Library - Browse & Search Prompts',
+  description:
+    'Browse proven AI prompts organized by category and tags. Copy prompts with one click, vote on quality, and keep your team aligned.',
+}
+
 interface PromptRow {
   id: string
   title: string

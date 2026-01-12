@@ -24,9 +24,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Security - Atlas',
+  title: 'Security & Data Protection - Atlas Platform Security',
   description:
-    'Learn about how Atlas protects your data with enterprise-grade security measures including encryption, row-level security, and secure authentication.',
+    'Enterprise-grade security for your prompts. TLS encryption, row-level security, SOC 2 compliant infrastructure, and secure authentication.',
+  openGraph: {
+    title: 'Atlas Security - Enterprise-Grade Data Protection',
+    description:
+      'Enterprise-grade security for your prompts. TLS encryption, row-level security, SOC 2 compliant infrastructure, and secure authentication.',
+  },
 }
 
 export default function SecurityPage() {

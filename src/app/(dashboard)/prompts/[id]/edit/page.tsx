@@ -8,6 +8,14 @@ import { Button } from '@/components/ui/button'
 import { createClient } from '@/lib/supabase/server'
 import type { PromptWithDetails, Category } from '@/types'
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Edit Prompt - Update & Improve',
+  description:
+    'Update prompt content, variables, and examples. Keep your AI prompts current and effective for your team.',
+}
+
 async function getPrompt(id: string): Promise<PromptWithDetails | null> {
   const supabase = createClient()
 

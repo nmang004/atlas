@@ -4,6 +4,36 @@ import { PromptDetailContent } from '@/components/prompts/PromptDetailContent'
 import { createClient } from '@/lib/supabase/server'
 import type { PromptWithDetails, PromptVote } from '@/types'
 
+import type { Metadata } from 'next'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string }
+}): Promise<Metadata> {
+  const supabase = createClient()
+  const { data } = await supabase
+    .from('prompts')
+    .select('title, content')
+    .eq('id', params.id)
+    .single()
+
+  const prompt = data as { title: string; content: string } | null
+
+  if (!prompt) {
+    return {
+      title: 'Prompt Not Found',
+    }
+  }
+
+  const description = prompt.content.slice(0, 155).replace(/\n/g, ' ') + '...'
+
+  return {
+    title: `${prompt.title} - AI Prompt Template`,
+    description,
+  }
+}
+
 async function getPrompt(id: string): Promise<PromptWithDetails | null> {
   const supabase = createClient()
 

@@ -26,9 +26,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'About Atlas - Prompt Governance for Teams',
+  title: 'About Atlas - AI Prompt Governance Platform for Teams',
   description:
-    'Atlas is a living prompt library that standardizes LLM usage across your agency team through crowdsourced quality maintenance and voting at the point of use.',
+    'Eliminate AI output variance with Atlas. A living prompt library with crowdsourced quality voting, variable injection, and team-wide standardization.',
+  openGraph: {
+    title: 'Atlas - AI Prompt Governance Platform',
+    description:
+      'Eliminate AI output variance with Atlas. A living prompt library with crowdsourced quality voting, variable injection, and team-wide standardization.',
+  },
 }
 
 export default function AboutPage() {

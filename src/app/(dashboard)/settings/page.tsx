@@ -4,6 +4,14 @@ import { SettingsContent } from '@/components/settings/SettingsContent'
 import { createClient } from '@/lib/supabase/server'
 import type { User, UserPreferences, PromptVote } from '@/types'
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Account Settings - Preferences & History',
+  description:
+    'Manage your profile, notification preferences, and review your voting history. Customize your Atlas experience.',
+}
+
 interface VoteWithPrompt extends PromptVote {
   prompt: {
     id: string
