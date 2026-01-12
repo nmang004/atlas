@@ -38,22 +38,17 @@ export function PromptsContent({ prompts }: PromptsContentProps) {
   const [sortBy, setSortBy] = useState<SortOption>(DEFAULT_SORT)
   const [filtersOpen, setFiltersOpen] = useState(false)
 
-  // Extract tags with usage counts, sorted by popularity
-  const tagsWithCounts = useMemo(() => {
-    const tagCounts = new Map<string, number>()
-    prompts.forEach((prompt) => {
-      prompt.tags.forEach((tag) => {
-        tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1)
-      })
-    })
-    // Sort by count descending, then alphabetically
-    return Array.from(tagCounts.entries())
-      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-      .map(([tag, count]) => ({ tag, count }))
-  }, [prompts])
+  // Clear selected tags when category changes (tags may not exist in new category)
+  const prevCategoryRef = useRef(categoryFilter)
+  useEffect(() => {
+    if (prevCategoryRef.current !== categoryFilter) {
+      setSelectedTags([])
+      prevCategoryRef.current = categoryFilter
+    }
+  }, [categoryFilter])
 
-  // Filter and sort prompts
-  const filteredPrompts = useMemo(() => {
+  // First, filter prompts by category and search (before tag filtering)
+  const categoryFilteredPrompts = useMemo(() => {
     let filtered = [...prompts]
 
     // Filter by search query (title and content, case-insensitive)
@@ -69,6 +64,27 @@ export function PromptsContent({ prompts }: PromptsContentProps) {
     if (categoryFilter) {
       filtered = filtered.filter((prompt) => prompt.category_id === categoryFilter)
     }
+
+    return filtered
+  }, [prompts, searchQuery, categoryFilter])
+
+  // Extract tags with usage counts from category-filtered prompts
+  const tagsWithCounts = useMemo(() => {
+    const tagCounts = new Map<string, number>()
+    categoryFilteredPrompts.forEach((prompt) => {
+      prompt.tags.forEach((tag) => {
+        tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1)
+      })
+    })
+    // Sort by count descending, then alphabetically
+    return Array.from(tagCounts.entries())
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .map(([tag, count]) => ({ tag, count }))
+  }, [categoryFilteredPrompts])
+
+  // Apply tag filters and sorting to category-filtered prompts
+  const filteredPrompts = useMemo(() => {
+    let filtered = [...categoryFilteredPrompts]
 
     // Filter by selected tags
     if (selectedTags.length > 0) {
@@ -91,7 +107,7 @@ export function PromptsContent({ prompts }: PromptsContentProps) {
     })
 
     return filtered
-  }, [prompts, searchQuery, categoryFilter, selectedTags, sortBy])
+  }, [categoryFilteredPrompts, selectedTags, sortBy])
 
   const handleTagToggle = (tag: string) => {
     setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]))
