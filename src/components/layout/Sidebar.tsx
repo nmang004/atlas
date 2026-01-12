@@ -27,10 +27,15 @@ export function Sidebar({ categories, isAdmin = false }: SidebarProps) {
 
   return (
     <aside className="flex h-full w-64 flex-col bg-navy text-white">
+      {/* Gradient accent line at top */}
+      <div className="h-1 bg-gradient-to-r from-primary to-secondary" />
+
       <div className="flex h-14 items-center border-b border-white/10 px-4">
-        <Link href="/prompts" className="flex items-center gap-2 font-heading font-semibold text-white">
-          <FileText className="h-5 w-5 text-primary" />
-          <span className="text-gradient">Atlas</span>
+        <Link href="/prompts" className="group flex items-center gap-2 font-heading font-semibold text-white">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary shadow-lg transition-all group-hover:shadow-glow-primary">
+            <FileText className="h-5 w-5 text-white" />
+          </div>
+          <span className="text-xl font-bold">Atlas</span>
         </Link>
       </div>
 
@@ -41,7 +46,7 @@ export function Sidebar({ categories, isAdmin = false }: SidebarProps) {
               variant="ghost"
               className={cn(
                 'min-h-10 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
-                pathname === '/prompts' && !currentCategory && 'bg-white/10 text-white'
+                pathname === '/prompts' && !currentCategory && 'bg-gradient-to-r from-primary/20 to-transparent text-white border-l-2 border-primary rounded-l-none'
               )}
             >
               <FileText className="mr-2 h-4 w-4" />
@@ -53,7 +58,7 @@ export function Sidebar({ categories, isAdmin = false }: SidebarProps) {
               variant="ghost"
               className={cn(
                 'min-h-10 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
-                pathname === '/categories' && 'bg-white/10 text-white'
+                pathname === '/categories' && 'bg-gradient-to-r from-primary/20 to-transparent text-white border-l-2 border-primary rounded-l-none'
               )}
             >
               <FolderOpen className="mr-2 h-4 w-4" />
@@ -74,7 +79,7 @@ export function Sidebar({ categories, isAdmin = false }: SidebarProps) {
                 variant="ghost"
                 className={cn(
                   'min-h-10 w-full justify-between text-white/80 hover:bg-white/10 hover:text-white',
-                  pathname === '/prompts' && currentCategory === category.id && 'bg-white/10 text-white'
+                  pathname === '/prompts' && currentCategory === category.id && 'bg-gradient-to-r from-secondary/20 to-transparent text-white border-l-2 border-secondary rounded-l-none'
                 )}
               >
                 <span className="truncate">{category.name}</span>
@@ -101,7 +106,7 @@ export function Sidebar({ categories, isAdmin = false }: SidebarProps) {
                   variant="ghost"
                   className={cn(
                     'min-h-10 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
-                    pathname === '/admin' && 'bg-white/10 text-white'
+                    pathname === '/admin' && 'bg-gradient-to-r from-primary/20 to-transparent text-white border-l-2 border-primary rounded-l-none'
                   )}
                 >
                   <LayoutDashboard className="mr-2 h-4 w-4" />
@@ -113,7 +118,7 @@ export function Sidebar({ categories, isAdmin = false }: SidebarProps) {
                   variant="ghost"
                   className={cn(
                     'min-h-10 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
-                    pathname === '/admin/flagged' && 'bg-white/10 text-white'
+                    pathname === '/admin/flagged' && 'bg-gradient-to-r from-primary/20 to-transparent text-white border-l-2 border-primary rounded-l-none'
                   )}
                 >
                   <Flag className="mr-2 h-4 w-4" />
@@ -125,7 +130,7 @@ export function Sidebar({ categories, isAdmin = false }: SidebarProps) {
                   variant="ghost"
                   className={cn(
                     'min-h-10 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
-                    pathname === '/prompts/new' && 'bg-white/10 text-white'
+                    pathname === '/prompts/new' && 'bg-gradient-to-r from-primary/20 to-transparent text-white border-l-2 border-primary rounded-l-none'
                   )}
                 >
                   <Plus className="mr-2 h-4 w-4" />

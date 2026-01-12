@@ -23,8 +23,8 @@ export const PromptCard = memo(function PromptCard({ prompt }: PromptCardProps) 
   const remainingTags = prompt.tags.length - MAX_VISIBLE_TAGS
 
   return (
-    <Link href={`/prompts/${prompt.id}`} className="block">
-      <Card className="h-full transition-shadow hover:shadow-md active:shadow-sm">
+    <Link href={`/prompts/${prompt.id}`} className="block group">
+      <Card className="h-full transition-all hover:shadow-md hover:border-primary/20 active:shadow-sm">
         <CardHeader className="pb-2 md:pb-3">
           <div className="flex items-start justify-between gap-2">
             <CardTitle className="line-clamp-2 text-base md:text-lg">{prompt.title}</CardTitle>
@@ -59,13 +59,17 @@ export const PromptCard = memo(function PromptCard({ prompt }: PromptCardProps) 
 
           {/* Stats - responsive layout */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground md:text-sm">
-            <div className="flex items-center gap-1">
-              <ThumbsUp className="h-3.5 w-3.5 md:h-4 md:w-4" />
-              <span>{formatRating(prompt.rating_score)}</span>
+            <div className="flex items-center gap-1.5">
+              <div className="flex h-5 w-5 items-center justify-center rounded bg-gradient-to-br from-primary/10 to-secondary/10 md:h-6 md:w-6">
+                <ThumbsUp className="h-3 w-3 text-primary md:h-3.5 md:w-3.5" />
+              </div>
+              <span className="font-medium text-foreground">{formatRating(prompt.rating_score)}</span>
               <span className="text-[10px] md:text-xs">({prompt.vote_count})</span>
             </div>
-            <div className="flex items-center gap-1">
-              <Clock className="h-3.5 w-3.5 md:h-4 md:w-4" />
+            <div className="flex items-center gap-1.5">
+              <div className="flex h-5 w-5 items-center justify-center rounded bg-gradient-to-br from-primary/10 to-secondary/10 md:h-6 md:w-6">
+                <Clock className="h-3 w-3 text-secondary md:h-3.5 md:w-3.5" />
+              </div>
               <span>{formatRelativeTime(prompt.last_verified_at)}</span>
             </div>
           </div>

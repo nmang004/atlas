@@ -40,10 +40,15 @@ export function MobileSidebar({
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="left" className="w-[280px] bg-navy p-0 text-white border-none">
+        {/* Gradient accent line at top */}
+        <div className="h-1 bg-gradient-to-r from-primary to-secondary" />
+
         <SheetHeader className="border-b border-white/10 px-4 py-4">
           <SheetTitle className="flex items-center gap-2 font-heading text-white">
-            <FileText className="h-5 w-5 text-primary" />
-            <span className="text-gradient">Atlas</span>
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary shadow-lg">
+              <FileText className="h-5 w-5 text-white" />
+            </div>
+            <span className="text-xl font-bold">Atlas</span>
           </SheetTitle>
         </SheetHeader>
 
@@ -55,7 +60,7 @@ export function MobileSidebar({
                   variant="ghost"
                   className={cn(
                     'min-h-11 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
-                    pathname === '/prompts' && !currentCategory && 'bg-white/10 text-white'
+                    pathname === '/prompts' && !currentCategory && 'bg-gradient-to-r from-primary/20 to-transparent text-white border-l-2 border-primary rounded-l-none'
                   )}
                 >
                   <FileText className="mr-2 h-4 w-4" />
@@ -69,7 +74,7 @@ export function MobileSidebar({
                   variant="ghost"
                   className={cn(
                     'min-h-11 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
-                    pathname === '/categories' && 'bg-white/10 text-white'
+                    pathname === '/categories' && 'bg-gradient-to-r from-primary/20 to-transparent text-white border-l-2 border-primary rounded-l-none'
                   )}
                 >
                   <FolderOpen className="mr-2 h-4 w-4" />
@@ -92,7 +97,7 @@ export function MobileSidebar({
                     variant="ghost"
                     className={cn(
                       'min-h-11 w-full justify-between text-white/80 hover:bg-white/10 hover:text-white',
-                      pathname === '/prompts' && currentCategory === category.id && 'bg-white/10 text-white'
+                      pathname === '/prompts' && currentCategory === category.id && 'bg-gradient-to-r from-secondary/20 to-transparent text-white border-l-2 border-secondary rounded-l-none'
                     )}
                   >
                     <span className="truncate">{category.name}</span>
@@ -121,7 +126,7 @@ export function MobileSidebar({
                       variant="ghost"
                       className={cn(
                         'min-h-11 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
-                        pathname === '/admin' && 'bg-white/10 text-white'
+                        pathname === '/admin' && 'bg-gradient-to-r from-primary/20 to-transparent text-white border-l-2 border-primary rounded-l-none'
                       )}
                     >
                       <LayoutDashboard className="mr-2 h-4 w-4" />
@@ -135,7 +140,7 @@ export function MobileSidebar({
                       variant="ghost"
                       className={cn(
                         'min-h-11 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
-                        pathname === '/admin/flagged' && 'bg-white/10 text-white'
+                        pathname === '/admin/flagged' && 'bg-gradient-to-r from-primary/20 to-transparent text-white border-l-2 border-primary rounded-l-none'
                       )}
                     >
                       <Flag className="mr-2 h-4 w-4" />
@@ -149,7 +154,7 @@ export function MobileSidebar({
                       variant="ghost"
                       className={cn(
                         'min-h-11 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
-                        pathname === '/prompts/new' && 'bg-white/10 text-white'
+                        pathname === '/prompts/new' && 'bg-gradient-to-r from-primary/20 to-transparent text-white border-l-2 border-primary rounded-l-none'
                       )}
                     >
                       <Plus className="mr-2 h-4 w-4" />
