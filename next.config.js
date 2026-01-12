@@ -1,3 +1,5 @@
+const { withSentryConfig } = require('@sentry/nextjs')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Security headers
@@ -40,16 +42,18 @@ const nextConfig = {
             value: [
               // Default to self only
               "default-src 'self'",
-              // Scripts: self + inline (needed for Next.js hydration) + PostHog
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://us.posthog.com https://us.i.posthog.com https://us-assets.i.posthog.com https://static.cloudflareinsights.com",
+              // Scripts: self + inline (needed for Next.js hydration) + PostHog + Sentry
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://us.posthog.com https://us.i.posthog.com https://us-assets.i.posthog.com https://static.cloudflareinsights.com https://*.sentry-cdn.com https://browser.sentry-cdn.com",
               // Styles: self + inline (needed for Tailwind) + Google Fonts
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               // Images: self + data URIs + Supabase storage
               "img-src 'self' data: blob: https://*.supabase.co",
               // Fonts: self + data URIs + Google Fonts
               "font-src 'self' data: https://fonts.gstatic.com",
-              // Connect to: self + Supabase APIs + PostHog
-              "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://us.posthog.com https://us.i.posthog.com https://us-assets.i.posthog.com",
+              // Connect to: self + Supabase APIs + PostHog + Sentry
+              "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://us.posthog.com https://us.i.posthog.com https://us-assets.i.posthog.com https://*.sentry.io https://*.ingest.us.sentry.io",
+              // Worker sources for Sentry
+              "worker-src 'self' blob:",
               // Frame ancestors: none (prevent embedding)
               "frame-ancestors 'none'",
               // Base URI: self only
@@ -72,4 +76,35 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+module.exports = withSentryConfig(nextConfig, {
+  // For all available options, see:
+  // https://github.com/getsentry/sentry-webpack-plugin#options
+
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+
+  // Only print logs for uploading source maps in CI
+  silent: !process.env.CI,
+
+  // Upload source maps for better stack traces
+  // Requires SENTRY_AUTH_TOKEN environment variable
+  widenClientFileUpload: true,
+
+  // Hide source maps from generated client bundles
+  hideSourceMaps: true,
+
+  // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers
+  tunnelRoute: '/monitoring',
+
+  // Webpack configuration for Sentry
+  webpack: {
+    // Automatically tree-shake Sentry logger statements to reduce bundle size
+    treeshake: {
+      removeDebugLogging: true,
+    },
+    // Automatically instrument React components for tracing
+    reactComponentAnnotation: {
+      enabled: true,
+    },
+  },
+})

@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/nextjs'
 import posthog from 'posthog-js'
 
 export const initPostHog = () => {
@@ -13,20 +14,36 @@ export const initPostHog = () => {
   return posthog
 }
 
-// User identification
+// User identification - also sets Sentry user context
 export const identifyUser = (user: { id: string; email: string; name?: string; role?: string }) => {
-  if (typeof window !== 'undefined' && posthog.__loaded) {
-    posthog.identify(user.id, {
+  if (typeof window !== 'undefined') {
+    // PostHog identification
+    if (posthog.__loaded) {
+      posthog.identify(user.id, {
+        email: user.email,
+        name: user.name,
+        role: user.role,
+      })
+    }
+
+    // Sentry user identification
+    Sentry.setUser({
+      id: user.id,
       email: user.email,
-      name: user.name,
-      role: user.role,
+      username: user.name,
     })
   }
 }
 
 export const resetUser = () => {
-  if (typeof window !== 'undefined' && posthog.__loaded) {
-    posthog.reset()
+  if (typeof window !== 'undefined') {
+    // Reset PostHog
+    if (posthog.__loaded) {
+      posthog.reset()
+    }
+
+    // Clear Sentry user context
+    Sentry.setUser(null)
   }
 }
 
