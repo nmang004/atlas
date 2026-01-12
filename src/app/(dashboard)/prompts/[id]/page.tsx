@@ -14,7 +14,8 @@ async function getPrompt(id: string): Promise<PromptWithDetails | null> {
       *,
       category:categories(*),
       variables:prompt_variables(*),
-      examples:prompt_examples(*)
+      examples:prompt_examples(*),
+      variants:prompt_variants(*)
     `
     )
     .eq('id', id)

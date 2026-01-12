@@ -192,6 +192,41 @@ export interface Database {
           created_at?: string
         }
       }
+      prompt_variants: {
+        Row: {
+          id: string
+          prompt_id: string
+          variant_type: 'basic' | 'advanced' | 'custom'
+          name: string
+          content: string
+          description: string | null
+          order_index: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          prompt_id: string
+          variant_type: 'basic' | 'advanced' | 'custom'
+          name: string
+          content: string
+          description?: string | null
+          order_index?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          prompt_id?: string
+          variant_type?: 'basic' | 'advanced' | 'custom'
+          name?: string
+          content?: string
+          description?: string | null
+          order_index?: number
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
     Views: {
       prompts_needing_review: {

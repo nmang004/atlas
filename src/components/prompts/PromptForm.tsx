@@ -47,6 +47,7 @@ const promptSchema = z.object({
   data_requirements: z.string().optional(),
   review_checklist: z.string().optional(),
   variables: z.array(variableSchema).default([]),
+  basic_variant_content: z.string().optional(),
 })
 
 type PromptFormData = z.infer<typeof promptSchema>
@@ -62,6 +63,10 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
   const { toast } = useToast()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [additionalOpen, setAdditionalOpen] = useState(false)
+  const [variantsOpen, setVariantsOpen] = useState(false)
+
+  // Get existing basic variant content if editing
+  const existingBasicVariant = prompt?.variants?.find((v) => v.variant_type === 'basic')
 
   const defaultValues: PromptFormData = {
     title: prompt?.title ?? '',
@@ -84,6 +89,7 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
           : [],
         order_index: v.order_index ?? idx,
       })) ?? [],
+    basic_variant_content: existingBasicVariant?.content ?? '',
   }
 
   const {
@@ -132,6 +138,19 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
     })
   }
 
+  const autoGenerateBasicVariant = () => {
+    const defaultContent = watch('content')
+    const basicContent = defaultContent.replace(
+      /\{\{(\w+)\}\}/g,
+      (_, key: string) => `[${key.toUpperCase()}]`
+    )
+    setValue('basic_variant_content', basicContent)
+    toast({
+      title: 'Basic variant generated',
+      description: 'The basic variant has been auto-generated from the default content.',
+    })
+  }
+
   const onSubmit = async (data: PromptFormData) => {
     setIsSubmitting(true)
 
@@ -141,6 +160,20 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
             .split(',')
             .map((t) => t.trim())
             .filter(Boolean)
+        : []
+
+      // Build variants array from basic_variant_content
+      const variants = data.basic_variant_content?.trim()
+        ? [
+            {
+              variant_type: 'basic' as const,
+              name: 'Basic Version',
+              content: data.basic_variant_content,
+              description:
+                'Simpler copy-paste version. Replace [PLACEHOLDERS] with your data before pasting into your AI tool.',
+              order_index: 0,
+            },
+          ]
         : []
 
       const payload = {
@@ -156,6 +189,7 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
           order_index: idx,
           options: v.type === 'select' ? v.options : [],
         })),
+        variants,
       }
 
       const url = mode === 'edit' ? `/api/prompts/${prompt?.id}` : '/api/prompts'
@@ -489,6 +523,88 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
                     placeholder="- [ ] Check for accuracy"
                     className="min-h-[100px]"
                   />
+                </div>
+              </CardContent>
+            </CollapsibleContent>
+          </Card>
+        </Collapsible>
+      </>
+
+      {/* Basic Variant - collapsible on mobile */}
+      <>
+        {/* Desktop view */}
+        <Card className="hidden md:block">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="text-lg">Basic Variant</CardTitle>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  A simpler copy-paste version for users who prefer not to fill in form fields
+                </p>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={autoGenerateBasicVariant}
+                className="shrink-0"
+              >
+                Auto-generate
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="basic_variant_content">Basic Version Content</Label>
+              <Textarea
+                id="basic_variant_content"
+                {...register('basic_variant_content')}
+                placeholder="Paste the basic version here. Use [PLACEHOLDER_NAME] format for manual data replacement..."
+                className="min-h-[200px] font-mono text-sm"
+              />
+              <p className="text-xs text-muted-foreground">
+                Use [PLACEHOLDER_NAME] format (e.g., [CLIENT_NAME]) for values users should replace
+                manually.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Mobile collapsible */}
+        <Collapsible open={variantsOpen} onOpenChange={setVariantsOpen} className="md:hidden">
+          <Card>
+            <CollapsibleTrigger asChild>
+              <CardHeader className="cursor-pointer">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-base">Basic Variant</CardTitle>
+                  <ChevronDown
+                    className={cn('h-5 w-5 transition-transform', variantsOpen && 'rotate-180')}
+                  />
+                </div>
+              </CardHeader>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <CardContent className="space-y-4 pt-0">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={autoGenerateBasicVariant}
+                  className="w-full"
+                >
+                  Auto-generate from Default
+                </Button>
+                <div className="space-y-2">
+                  <Label htmlFor="basic_variant_content_mobile">Basic Version Content</Label>
+                  <Textarea
+                    id="basic_variant_content_mobile"
+                    {...register('basic_variant_content')}
+                    placeholder="Basic version with [PLACEHOLDERS]..."
+                    className="min-h-[150px] font-mono text-sm"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Use [PLACEHOLDER_NAME] for manual replacement.
+                  </p>
                 </div>
               </CardContent>
             </CollapsibleContent>

@@ -30,6 +30,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/hooks/use-toast'
 import { useVoting } from '@/hooks/useVoting'
@@ -53,6 +54,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
   )
   const [feedbackText, setFeedbackText] = useState('')
   const [showFeedbackInput, setShowFeedbackInput] = useState(false)
+  const [activeVariant, setActiveVariant] = useState<'default' | 'basic'>('default')
 
   // Collapsible states for mobile
   const [dataReqOpen, setDataReqOpen] = useState(false)
@@ -98,8 +100,20 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
 
   const assembledPrompt = assemblePrompt(prompt.content, variables)
 
+  // Get the basic variant content (or generate fallback from default)
+  const basicVariant = prompt.variants?.find((v) => v.variant_type === 'basic')
+  const basicVariantContent =
+    basicVariant?.content ||
+    prompt.content.replace(/\{\{(\w+)\}\}/g, (_, key) => `[${key.toUpperCase()}]`)
+
+  // Content to copy depends on active variant
+  const contentToCopy = activeVariant === 'default' ? assembledPrompt : basicVariantContent
+
+  // For basic variant, always allow copy (no required fields)
+  const canCopy = activeVariant === 'basic' || allRequiredFilled
+
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(assembledPrompt)
+    await navigator.clipboard.writeText(contentToCopy)
     setCopied(true)
     setShowVoting(true)
     setTimeout(() => setCopied(false), 2000)
@@ -110,9 +124,19 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
       prompt_id: prompt.id,
       prompt_title: prompt.title,
       category: categoryName,
-      had_variables: prompt.variables.length > 0,
-      variables_filled: filledVariables,
+      had_variables: activeVariant === 'default' && prompt.variables.length > 0,
+      variables_filled: activeVariant === 'default' ? filledVariables : 0,
+      variant: activeVariant,
     })
+  }
+
+  // Reset voting state when switching variants
+  const handleVariantChange = (value: string) => {
+    setActiveVariant(value as 'default' | 'basic')
+    setCopied(false)
+    setShowVoting(false)
+    setShowFeedbackInput(false)
+    setFeedbackText('')
   }
 
   const handleVote = async (outcome: VoteOutcome) => {
@@ -247,82 +271,118 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
         </>
       )}
 
-      {/* Variables */}
-      {prompt.variables.length > 0 && (
-        <Card>
-          <CardHeader className="pb-2 md:pb-4">
-            <CardTitle className="text-base md:text-lg">Variables</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {prompt.variables.map((variable) => (
-              <div key={variable.id} className="space-y-2">
-                <Label htmlFor={variable.key} className="text-sm">
-                  {variable.label}
-                  {variable.is_required && <span className="ml-1 text-destructive">*</span>}
-                </Label>
-                {variable.type === 'textarea' ? (
-                  <Textarea
-                    id={variable.key}
-                    placeholder={variable.placeholder || ''}
-                    value={variables[variable.key] || ''}
-                    onChange={(e) =>
-                      setVariables((prev) => ({ ...prev, [variable.key]: e.target.value }))
-                    }
-                    className="min-h-[100px]"
-                  />
-                ) : variable.type === 'select' ? (
-                  <Select
-                    value={variables[variable.key] || ''}
-                    onValueChange={(value) =>
-                      setVariables((prev) => ({ ...prev, [variable.key]: value }))
-                    }
-                  >
-                    <SelectTrigger className="min-h-11">
-                      <SelectValue placeholder={variable.placeholder || 'Select...'} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {getSelectOptions(variable.options).map((option) => (
-                        <SelectItem key={option} value={option}>
-                          {option}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                ) : (
-                  <Input
-                    id={variable.key}
-                    placeholder={variable.placeholder || ''}
-                    value={variables[variable.key] || ''}
-                    onChange={(e) =>
-                      setVariables((prev) => ({ ...prev, [variable.key]: e.target.value }))
-                    }
-                    className="min-h-11"
-                  />
-                )}
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-      )}
+      {/* Variant Tabs */}
+      <Tabs value={activeVariant} onValueChange={handleVariantChange} className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="default" className="gap-2">
+            Default
+            {prompt.variables.length > 0 && (
+              <Badge variant="secondary" className="ml-1 hidden sm:inline-flex">
+                {prompt.variables.length} var{prompt.variables.length !== 1 ? 's' : ''}
+              </Badge>
+            )}
+          </TabsTrigger>
+          <TabsTrigger value="basic">Basic</TabsTrigger>
+        </TabsList>
 
-      {/* Assembled Prompt */}
-      <Card>
-        <CardHeader className="pb-2 md:pb-4">
-          <CardTitle className="text-base md:text-lg">Assembled Prompt</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <pre className="whitespace-pre-wrap rounded-md bg-muted p-3 text-sm md:p-4">
-            {assembledPrompt}
-          </pre>
-        </CardContent>
-      </Card>
+        {/* Default Tab - Variables + Assembled Prompt */}
+        <TabsContent value="default" className="mt-4 space-y-4">
+          {/* Variables */}
+          {prompt.variables.length > 0 && (
+            <Card>
+              <CardHeader className="pb-2 md:pb-4">
+                <CardTitle className="text-base md:text-lg">Variables</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {prompt.variables.map((variable) => (
+                  <div key={variable.id} className="space-y-2">
+                    <Label htmlFor={variable.key} className="text-sm">
+                      {variable.label}
+                      {variable.is_required && <span className="ml-1 text-destructive">*</span>}
+                    </Label>
+                    {variable.type === 'textarea' ? (
+                      <Textarea
+                        id={variable.key}
+                        placeholder={variable.placeholder || ''}
+                        value={variables[variable.key] || ''}
+                        onChange={(e) =>
+                          setVariables((prev) => ({ ...prev, [variable.key]: e.target.value }))
+                        }
+                        className="min-h-[100px]"
+                      />
+                    ) : variable.type === 'select' ? (
+                      <Select
+                        value={variables[variable.key] || ''}
+                        onValueChange={(value) =>
+                          setVariables((prev) => ({ ...prev, [variable.key]: value }))
+                        }
+                      >
+                        <SelectTrigger className="min-h-11">
+                          <SelectValue placeholder={variable.placeholder || 'Select...'} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {getSelectOptions(variable.options).map((option) => (
+                            <SelectItem key={option} value={option}>
+                              {option}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    ) : (
+                      <Input
+                        id={variable.key}
+                        placeholder={variable.placeholder || ''}
+                        value={variables[variable.key] || ''}
+                        onChange={(e) =>
+                          setVariables((prev) => ({ ...prev, [variable.key]: e.target.value }))
+                        }
+                        className="min-h-11"
+                      />
+                    )}
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Assembled Prompt */}
+          <Card>
+            <CardHeader className="pb-2 md:pb-4">
+              <CardTitle className="text-base md:text-lg">Assembled Prompt</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <pre className="whitespace-pre-wrap rounded-md bg-muted p-3 text-sm md:p-4">
+                {assembledPrompt}
+              </pre>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Basic Tab - Simple copy-paste version */}
+        <TabsContent value="basic" className="mt-4 space-y-4">
+          <Card>
+            <CardHeader className="pb-2 md:pb-4">
+              <CardTitle className="text-base md:text-lg">Basic Prompt</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                Copy this prompt and replace [PLACEHOLDERS] with your data before pasting into your
+                AI tool.
+              </p>
+            </CardHeader>
+            <CardContent>
+              <pre className="whitespace-pre-wrap rounded-md bg-muted p-3 text-sm md:p-4">
+                {basicVariantContent}
+              </pre>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
 
       {/* Desktop voting section */}
       <div className="hidden flex-col items-center justify-center gap-4 md:flex">
         {!showVoting ? (
           <Button
             size="lg"
-            disabled={!allRequiredFilled}
+            disabled={!canCopy}
             onClick={handleCopy}
             className="min-w-[200px]"
           >
@@ -540,7 +600,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
         {!showVoting ? (
           <Button
             size="lg"
-            disabled={!allRequiredFilled}
+            disabled={!canCopy}
             onClick={handleCopy}
             className="min-h-12 w-full text-base"
           >

@@ -42,6 +42,7 @@ export const trackEvent = {
     category: string
     had_variables: boolean
     variables_filled: number
+    variant?: string
   }) => {
     posthog.capture('prompt_copied', data)
   },

@@ -123,6 +123,14 @@ const variableSchema = z.object({
   order_index: z.number().int().min(0).max(100).default(0),
 })
 
+const variantSchema = z.object({
+  variant_type: z.enum(['basic', 'advanced', 'custom']),
+  name: z.string().min(1).max(100),
+  content: z.string().min(1).max(50000),
+  description: z.string().max(500).optional().nullable(),
+  order_index: z.number().int().min(0).max(10).default(0),
+})
+
 const createPromptSchema = z.object({
   title: z.string().min(1).max(200),
   content: z.string().min(1).max(50000),
@@ -132,6 +140,7 @@ const createPromptSchema = z.object({
   data_requirements: z.string().max(10000).optional().nullable(),
   review_checklist: z.string().max(10000).optional().nullable(),
   variables: z.array(variableSchema).max(50).default([]),
+  variants: z.array(variantSchema).max(5).default([]),
 })
 
 export async function POST(request: NextRequest) {
@@ -156,7 +165,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { variables, ...promptData } = result.data
+    const { variables, variants, ...promptData } = result.data
 
     // Create prompt
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -194,6 +203,28 @@ export async function POST(request: NextRequest) {
       if (variablesError) {
         console.error('Variables creation error:', variablesError)
         // Prompt was created, but variables failed - still return success
+      }
+    }
+
+    // Create variants if any
+    if (variants.length > 0) {
+      const variantsToInsert = variants.map((v, idx) => ({
+        prompt_id: prompt.id,
+        variant_type: v.variant_type,
+        name: v.name,
+        content: v.content,
+        description: v.description || null,
+        order_index: v.order_index ?? idx,
+      }))
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { error: variantsError } = await (supabase.from('prompt_variants') as any).insert(
+        variantsToInsert
+      )
+
+      if (variantsError) {
+        console.error('Variants creation error:', variantsError)
+        // Prompt was created, but variants failed - still return success
       }
     }
 

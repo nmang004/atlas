@@ -16,6 +16,15 @@ const variableSchema = z.object({
   order_index: z.number().int().min(0).max(100).default(0),
 })
 
+const variantSchema = z.object({
+  id: z.string().uuid().optional(),
+  variant_type: z.enum(['basic', 'advanced', 'custom']),
+  name: z.string().min(1).max(100),
+  content: z.string().min(1).max(50000),
+  description: z.string().max(500).optional().nullable(),
+  order_index: z.number().int().min(0).max(10).default(0),
+})
+
 const updatePromptSchema = z.object({
   title: z.string().min(1).max(200),
   content: z.string().min(1).max(50000),
@@ -25,6 +34,7 @@ const updatePromptSchema = z.object({
   data_requirements: z.string().max(10000).optional().nullable(),
   review_checklist: z.string().max(10000).optional().nullable(),
   variables: z.array(variableSchema).max(50).default([]),
+  variants: z.array(variantSchema).max(5).default([]),
 })
 
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
@@ -60,7 +70,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       )
     }
 
-    const { variables, ...promptData } = result.data
+    const { variables, variants, ...promptData } = result.data
 
     // Update prompt
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -101,6 +111,29 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 
       if (variablesError) {
         console.error('Variables update error:', variablesError)
+      }
+    }
+
+    // Handle variants: delete existing and insert new ones
+    await supabase.from('prompt_variants').delete().eq('prompt_id', promptId)
+
+    if (variants.length > 0) {
+      const variantsToInsert = variants.map((v, idx) => ({
+        prompt_id: promptId,
+        variant_type: v.variant_type,
+        name: v.name,
+        content: v.content,
+        description: v.description || null,
+        order_index: v.order_index ?? idx,
+      }))
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { error: variantsError } = await (supabase.from('prompt_variants') as any).insert(
+        variantsToInsert
+      )
+
+      if (variantsError) {
+        console.error('Variants update error:', variantsError)
       }
     }
 
