@@ -48,10 +48,14 @@ export function DataRequirements({ content, className }: DataRequirementsProps) 
       const trimmed = line.trim()
 
       // Skip empty lines
-      if (!trimmed) continue
+      if (!trimmed) {
+        continue
+      }
 
       // Skip main title (H2 with ##)
-      if (trimmed.startsWith('## ')) continue
+      if (trimmed.startsWith('## ')) {
+        continue
+      }
 
       // Check for section header (H3 with ###)
       if (trimmed.startsWith('### ')) {

@@ -16,6 +16,7 @@ import {
   ChevronDown,
 } from 'lucide-react'
 
+import { DataRequirements } from '@/components/prompts/DataRequirements'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -23,7 +24,6 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SafeMarkdown } from '@/components/ui/safe-markdown'
-import { DataRequirements } from '@/components/prompts/DataRequirements'
 import {
   Select,
   SelectContent,
