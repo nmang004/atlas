@@ -8,6 +8,7 @@ export type PromptVariable = Database['public']['Tables']['prompt_variables']['R
 export type PromptExample = Database['public']['Tables']['prompt_examples']['Row']
 export type PromptVote = Database['public']['Tables']['prompt_votes']['Row']
 export type PromptVariant = Database['public']['Tables']['prompt_variants']['Row']
+export type UserPreferences = Database['public']['Tables']['user_preferences']['Row']
 
 // Insert types
 export type UserInsert = Database['public']['Tables']['users']['Insert']
@@ -17,6 +18,7 @@ export type PromptVariableInsert = Database['public']['Tables']['prompt_variable
 export type PromptExampleInsert = Database['public']['Tables']['prompt_examples']['Insert']
 export type PromptVoteInsert = Database['public']['Tables']['prompt_votes']['Insert']
 export type PromptVariantInsert = Database['public']['Tables']['prompt_variants']['Insert']
+export type UserPreferencesInsert = Database['public']['Tables']['user_preferences']['Insert']
 
 // Update types
 export type UserUpdate = Database['public']['Tables']['users']['Update']
@@ -26,6 +28,7 @@ export type PromptVariableUpdate = Database['public']['Tables']['prompt_variable
 export type PromptExampleUpdate = Database['public']['Tables']['prompt_examples']['Update']
 export type PromptVoteUpdate = Database['public']['Tables']['prompt_votes']['Update']
 export type PromptVariantUpdate = Database['public']['Tables']['prompt_variants']['Update']
+export type UserPreferencesUpdate = Database['public']['Tables']['user_preferences']['Update']
 
 // Extended types with relations
 export type PromptWithCategory = Prompt & {

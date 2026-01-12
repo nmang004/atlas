@@ -227,6 +227,44 @@ export interface Database {
           updated_at?: string
         }
       }
+      user_preferences: {
+        Row: {
+          id: string
+          user_id: string
+          notify_prompt_flagged: boolean
+          notify_voted_prompt_updated: boolean
+          notify_weekly_digest: boolean
+          preferred_model: string | null
+          default_copy_with_placeholders: boolean
+          theme: 'light' | 'dark' | 'system'
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          notify_prompt_flagged?: boolean
+          notify_voted_prompt_updated?: boolean
+          notify_weekly_digest?: boolean
+          preferred_model?: string | null
+          default_copy_with_placeholders?: boolean
+          theme?: 'light' | 'dark' | 'system'
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          notify_prompt_flagged?: boolean
+          notify_voted_prompt_updated?: boolean
+          notify_weekly_digest?: boolean
+          preferred_model?: string | null
+          default_copy_with_placeholders?: boolean
+          theme?: 'light' | 'dark' | 'system'
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
     Views: {
       prompts_needing_review: {

@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 
-import { FileText, FolderOpen, LayoutDashboard, Flag, Plus } from 'lucide-react'
+import { FileText, FolderOpen, LayoutDashboard, Flag, Plus, Settings } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
@@ -88,6 +88,23 @@ export function Sidebar({ categories, isAdmin = false }: SidebarProps) {
               </Button>
             </Link>
           ))}
+        </div>
+
+        <Separator className="my-4 bg-white/10" />
+
+        <div className="space-y-1">
+          <Link href="/settings">
+            <Button
+              variant="ghost"
+              className={cn(
+                'min-h-10 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
+                pathname === '/settings' && 'bg-gradient-to-r from-primary/20 to-transparent text-white border-l-2 border-primary rounded-l-none'
+              )}
+            >
+              <Settings className="mr-2 h-4 w-4" />
+              Settings
+            </Button>
+          </Link>
         </div>
 
         {isAdmin && (

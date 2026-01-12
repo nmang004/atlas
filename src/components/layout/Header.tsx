@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import { LogOut, Settings, Menu, Search, X } from 'lucide-react'
@@ -99,9 +100,11 @@ export function Header({ user, onSearch, showSearch = true, onMenuClick }: Heade
               </p>
               <p className="text-xs capitalize text-muted-foreground">{user.role}</p>
             </div>
-            <Button variant="ghost" size="icon" className="hidden min-h-11 min-w-11 sm:flex">
-              <Settings className="h-4 w-4" />
-            </Button>
+            <Link href="/settings">
+              <Button variant="ghost" size="icon" className="hidden min-h-11 min-w-11 sm:flex">
+                <Settings className="h-4 w-4" />
+              </Button>
+            </Link>
             <Button
               variant="ghost"
               size="icon"

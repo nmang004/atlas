@@ -5,7 +5,7 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import type { Database } from '@/types/database'
 
 // Routes that require authentication
-const protectedRoutes = ['/prompts', '/categories', '/admin', '/profile']
+const protectedRoutes = ['/prompts', '/categories', '/admin', '/settings']
 // Routes that should redirect to dashboard if already authenticated
 const authRoutes = ['/login', '/signup']
 // Public marketing routes that don't need auth checks at all
