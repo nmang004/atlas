@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/nextjs'
 import { Outfit } from 'next/font/google'
 
 import './globals.css'
@@ -15,9 +16,14 @@ const outfit = Outfit({
   display: 'swap',
 })
 
-export const metadata: Metadata = {
-  title: 'Atlas - Prompt Library & Governance System',
-  description: 'Standardize AI/LLM usage across your agency team',
+export function generateMetadata(): Metadata {
+  return {
+    title: 'Atlas - Prompt Library & Governance System',
+    description: 'Standardize AI/LLM usage across your agency team',
+    other: {
+      ...Sentry.getTraceData(),
+    },
+  }
 }
 
 export const viewport: Viewport = {
