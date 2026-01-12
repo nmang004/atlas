@@ -40,9 +40,6 @@ export function MobileSidebar({
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="left" className="w-[280px] bg-navy p-0 text-white border-none">
-        {/* Gradient accent line at top */}
-        <div className="h-1 bg-gradient-to-r from-primary to-secondary" />
-
         <SheetHeader className="border-b border-white/10 px-4 py-4">
           <SheetTitle className="flex items-center gap-2 font-heading text-white">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary shadow-lg">

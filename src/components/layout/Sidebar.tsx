@@ -27,9 +27,6 @@ export function Sidebar({ categories, isAdmin = false }: SidebarProps) {
 
   return (
     <aside className="flex h-full w-64 flex-col bg-navy text-white">
-      {/* Gradient accent line at top */}
-      <div className="h-1 bg-gradient-to-r from-primary to-secondary" />
-
       <div className="flex h-14 items-center border-b border-white/10 px-4">
         <Link href="/prompts" className="group flex items-center gap-2 font-heading font-semibold text-white">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary shadow-lg transition-all group-hover:shadow-glow-primary">
