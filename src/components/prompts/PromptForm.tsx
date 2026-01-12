@@ -146,8 +146,8 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
     )
     setValue('basic_variant_content', basicContent)
     toast({
-      title: 'Basic variant generated',
-      description: 'The basic variant has been auto-generated from the default content.',
+      title: 'Quick Start variant generated',
+      description: 'The Quick Start variant has been auto-generated from the default content.',
     })
   }
 
@@ -167,7 +167,7 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
         ? [
             {
               variant_type: 'basic' as const,
-              name: 'Basic Version',
+              name: 'Quick Start',
               content: data.basic_variant_content,
               description:
                 'Simpler copy-paste version. Replace [PLACEHOLDERS] with your data before pasting into your AI tool.',
@@ -555,7 +555,7 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="basic_variant_content">Basic Version Content</Label>
+              <Label htmlFor="basic_variant_content">Quick Start Version Content</Label>
               <Textarea
                 id="basic_variant_content"
                 {...register('basic_variant_content')}
@@ -576,7 +576,7 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
             <CollapsibleTrigger asChild>
               <CardHeader className="cursor-pointer">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-base">Basic Variant</CardTitle>
+                  <CardTitle className="text-base">Quick Start Variant</CardTitle>
                   <ChevronDown
                     className={cn('h-5 w-5 transition-transform', variantsOpen && 'rotate-180')}
                   />
@@ -595,7 +595,7 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
                   Auto-generate from Default
                 </Button>
                 <div className="space-y-2">
-                  <Label htmlFor="basic_variant_content_mobile">Basic Version Content</Label>
+                  <Label htmlFor="basic_variant_content_mobile">Quick Start Version Content</Label>
                   <Textarea
                     id="basic_variant_content_mobile"
                     {...register('basic_variant_content')}

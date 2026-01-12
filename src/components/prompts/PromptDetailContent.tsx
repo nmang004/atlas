@@ -17,13 +17,13 @@ import {
 } from 'lucide-react'
 
 import { DataRequirements } from '@/components/prompts/DataRequirements'
+import { ReviewChecklist } from '@/components/prompts/ReviewChecklist'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { SafeMarkdown } from '@/components/ui/safe-markdown'
 import {
   Select,
   SelectContent,
@@ -301,7 +301,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
               </Badge>
             )}
           </TabsTrigger>
-          <TabsTrigger value="basic">Basic</TabsTrigger>
+          <TabsTrigger value="basic">Quick Start</TabsTrigger>
         </TabsList>
 
         {/* Default Tab - Variables + Assembled Prompt */}
@@ -492,13 +492,14 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
         <>
           {/* Desktop view */}
           <Card className="hidden md:block">
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardTitle className="text-lg">Review Checklist</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                Verify these items before sending
+              </p>
             </CardHeader>
             <CardContent>
-              <div className="prose prose-sm max-w-none dark:prose-invert">
-                <SafeMarkdown>{prompt.review_checklist}</SafeMarkdown>
-              </div>
+              <ReviewChecklist content={prompt.review_checklist} />
             </CardContent>
           </Card>
           {/* Mobile collapsible */}
@@ -516,9 +517,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <CardContent className="pt-0">
-                  <div className="prose prose-sm max-w-none dark:prose-invert">
-                    <SafeMarkdown>{prompt.review_checklist}</SafeMarkdown>
-                  </div>
+                  <ReviewChecklist content={prompt.review_checklist} />
                 </CardContent>
               </CollapsibleContent>
             </Card>
