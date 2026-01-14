@@ -76,7 +76,7 @@ export default function AboutPage() {
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="#how-it-works">See How It Works</Link>
+                <Link href="/how-it-works">See How It Works</Link>
               </Button>
             </div>
 
@@ -289,6 +289,15 @@ export default function AboutPage() {
               description="Admins create and edit prompts. Review flagged content. Maintain quality standards."
             />
           </div>
+
+          <div className="mt-12 text-center">
+            <Button variant="outline" size="lg" className="gap-2" asChild>
+              <Link href="/features">
+                Explore All Features
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -329,6 +338,15 @@ export default function AboutPage() {
                   description="After using the prompt, give quick feedback. Your vote helps the whole team know which prompts work best."
                 />
               </div>
+            </div>
+
+            <div className="mt-12 text-center">
+              <Button variant="outline" size="lg" className="gap-2" asChild>
+                <Link href="/how-it-works">
+                  See Detailed Walkthrough
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -503,6 +521,15 @@ export default function AboutPage() {
               description="Competitor analysis, market research, and data interpretation frameworks."
               examples={['Competitor summaries', 'Trend analysis', 'Report generation']}
             />
+          </div>
+
+          <div className="mt-12 text-center">
+            <Button variant="outline" size="lg" className="gap-2" asChild>
+              <Link href="/use-cases">
+                View All Use Cases
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>

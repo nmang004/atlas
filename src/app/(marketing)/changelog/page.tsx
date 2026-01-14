@@ -82,6 +82,9 @@ const changelog: ChangelogEntry[] = [
           'Roadmap page showing upcoming features',
           'Anonymous feedback form',
           'Announcement banners for new releases',
+          'Dedicated Features page with detailed breakdowns',
+          'How it Works page with visual walkthrough',
+          'Use Cases page with industry examples',
         ],
       },
       {
@@ -92,6 +95,9 @@ const changelog: ChangelogEntry[] = [
           'Renamed "Data Requirements" to "Data Recommendations"',
           'Feedback link added to dashboard sidebar',
           'Roadmap and Feedback links in footer',
+          'Product navigation links in marketing header',
+          'CTAs on About page linking to dedicated pages',
+          'Updated footer with direct page links',
         ],
       },
       {
