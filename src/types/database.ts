@@ -265,6 +265,26 @@ export interface Database {
           updated_at?: string
         }
       }
+      feedback: {
+        Row: {
+          id: string
+          type: 'feature' | 'improvement' | 'bug' | 'general'
+          message: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          type: 'feature' | 'improvement' | 'bug' | 'general'
+          message: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          type?: 'feature' | 'improvement' | 'bug' | 'general'
+          message?: string
+          created_at?: string
+        }
+      }
     }
     Views: {
       prompts_needing_review: {
