@@ -19,6 +19,7 @@ import {
   Zap,
 } from 'lucide-react'
 
+import { AnnouncementBanner } from '@/components/ui/announcement-banner'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -39,6 +40,12 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="flex flex-col">
+      <AnnouncementBanner
+        version="v1.1 Released"
+        message="Check out the new changelog and see what's new!"
+        linkText="View changelog"
+        linkHref="/changelog"
+      />
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-b from-primary-light/30 via-background to-background pb-20 pt-16 dark:from-navy dark:via-background">
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-5" />
@@ -69,7 +76,7 @@ export default function AboutPage() {
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="#how-it-works">See How It Works</Link>
+                <Link href="/how-it-works">See How It Works</Link>
               </Button>
             </div>
 
@@ -282,6 +289,15 @@ export default function AboutPage() {
               description="Admins create and edit prompts. Review flagged content. Maintain quality standards."
             />
           </div>
+
+          <div className="mt-12 text-center">
+            <Button variant="outline" size="lg" className="gap-2" asChild>
+              <Link href="/features">
+                Explore All Features
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -322,6 +338,15 @@ export default function AboutPage() {
                   description="After using the prompt, give quick feedback. Your vote helps the whole team know which prompts work best."
                 />
               </div>
+            </div>
+
+            <div className="mt-12 text-center">
+              <Button variant="outline" size="lg" className="gap-2" asChild>
+                <Link href="/how-it-works">
+                  See Detailed Walkthrough
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -496,6 +521,15 @@ export default function AboutPage() {
               description="Competitor analysis, market research, and data interpretation frameworks."
               examples={['Competitor summaries', 'Trend analysis', 'Report generation']}
             />
+          </div>
+
+          <div className="mt-12 text-center">
+            <Button variant="outline" size="lg" className="gap-2" asChild>
+              <Link href="/use-cases">
+                View All Use Cases
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>

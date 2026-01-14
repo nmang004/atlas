@@ -28,6 +28,18 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
           </Link>
 
           <div className="flex items-center gap-4">
+            <nav className="hidden items-center gap-1 md:flex">
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/features">Features</Link>
+              </Button>
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/how-it-works">How it Works</Link>
+              </Button>
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/use-cases">Use Cases</Link>
+              </Button>
+            </nav>
+            <div className="hidden h-6 w-px bg-border md:block" />
             <Button variant="ghost" asChild>
               <Link href="/login">Log in</Link>
             </Button>
@@ -73,17 +85,17 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
               <h4 className="mb-4 font-semibold">Product</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>
-                  <Link href="/about#features" className="hover:text-foreground">
+                  <Link href="/features" className="hover:text-foreground">
                     Features
                   </Link>
                 </li>
                 <li>
-                  <Link href="/about#how-it-works" className="hover:text-foreground">
+                  <Link href="/how-it-works" className="hover:text-foreground">
                     How it Works
                   </Link>
                 </li>
                 <li>
-                  <Link href="/about#use-cases" className="hover:text-foreground">
+                  <Link href="/use-cases" className="hover:text-foreground">
                     Use Cases
                   </Link>
                 </li>
@@ -101,6 +113,21 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
                 <li>
                   <Link href="/security" className="hover:text-foreground">
                     Security
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/changelog" className="hover:text-foreground">
+                    Changelog
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/roadmap" className="hover:text-foreground">
+                    Roadmap
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/feedback" className="hover:text-foreground">
+                    Feedback
                   </Link>
                 </li>
               </ul>

@@ -55,7 +55,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
   )
   const [feedbackText, setFeedbackText] = useState('')
   const [showFeedbackInput, setShowFeedbackInput] = useState(false)
-  const [activeVariant, setActiveVariant] = useState<'default' | 'basic'>('default')
+  const [activeVariant, setActiveVariant] = useState<'default' | 'basic'>('basic')
 
   // Collapsible states for mobile
   const [dataReqOpen, setDataReqOpen] = useState(false)
@@ -258,9 +258,9 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
           {/* Desktop view */}
           <Card className="hidden md:block">
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg">Data Requirements</CardTitle>
+              <CardTitle className="text-lg">Data Recommendations</CardTitle>
               <p className="text-sm text-muted-foreground">
-                Gather this information before using the prompt
+                Recommended information to gather before using the prompt
               </p>
             </CardHeader>
             <CardContent>
@@ -273,7 +273,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
               <CollapsibleTrigger asChild>
                 <CardHeader className="cursor-pointer">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-base">Data Requirements</CardTitle>
+                    <CardTitle className="text-base">Data Recommendations</CardTitle>
                     <ChevronDown
                       className={cn('h-5 w-5 transition-transform', dataReqOpen && 'rotate-180')}
                     />
