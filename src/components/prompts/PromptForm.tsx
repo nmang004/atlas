@@ -471,7 +471,7 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="data_requirements">Data Requirements (Markdown)</Label>
+              <Label htmlFor="data_requirements">Data Recommendations (Markdown)</Label>
               <Textarea
                 id="data_requirements"
                 {...register('data_requirements')}
@@ -507,7 +507,7 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
             <CollapsibleContent>
               <CardContent className="space-y-4 pt-0">
                 <div className="space-y-2">
-                  <Label htmlFor="data_requirements_mobile">Data Requirements (Markdown)</Label>
+                  <Label htmlFor="data_requirements_mobile">Data Recommendations (Markdown)</Label>
                   <Textarea
                     id="data_requirements_mobile"
                     {...register('data_requirements')}

@@ -119,7 +119,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
       .select('*')
       .eq('prompt_id', promptId)
       .eq('user_id', user.id)
-      .single()
+      .maybeSingle()
 
     return NextResponse.json({ vote: vote || null })
   } catch (error) {

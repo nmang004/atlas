@@ -82,7 +82,7 @@ async function getUserVote(promptId: string): Promise<PromptVote | null> {
     .select('*')
     .eq('prompt_id', promptId)
     .eq('user_id', user.id)
-    .single()
+    .maybeSingle()
 
   return vote as unknown as PromptVote | null
 }

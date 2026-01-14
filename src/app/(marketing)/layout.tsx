@@ -103,6 +103,21 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
                     Security
                   </Link>
                 </li>
+                <li>
+                  <Link href="/changelog" className="hover:text-foreground">
+                    Changelog
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/roadmap" className="hover:text-foreground">
+                    Roadmap
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/feedback" className="hover:text-foreground">
+                    Feedback
+                  </Link>
+                </li>
               </ul>
             </div>
 

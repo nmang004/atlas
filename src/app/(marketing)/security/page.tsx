@@ -17,6 +17,7 @@ import {
   Users,
 } from 'lucide-react'
 
+import { AnnouncementBanner } from '@/components/ui/announcement-banner'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -37,6 +38,12 @@ export const metadata: Metadata = {
 export default function SecurityPage() {
   return (
     <div className="flex flex-col">
+      <AnnouncementBanner
+        version="v1.1 Released"
+        message="Check out the new changelog and see what's new!"
+        linkText="View changelog"
+        linkHref="/changelog"
+      />
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-b from-primary-light/30 via-background to-background pb-20 pt-16 dark:from-navy dark:via-background">
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-5" />

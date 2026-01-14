@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 
-import { FileText, FolderOpen, LayoutDashboard, Flag, Plus, Settings } from 'lucide-react'
+import { FileText, FolderOpen, LayoutDashboard, Flag, MessageSquare, Plus, Settings } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
@@ -105,6 +105,15 @@ export function Sidebar({ categories, isAdmin = false }: SidebarProps) {
               Settings
             </Button>
           </Link>
+          <a href="/feedback" target="_blank" rel="noopener noreferrer">
+            <Button
+              variant="ghost"
+              className="min-h-10 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white"
+            >
+              <MessageSquare className="mr-2 h-4 w-4" />
+              Feedback
+            </Button>
+          </a>
         </div>
 
         {isAdmin && (
