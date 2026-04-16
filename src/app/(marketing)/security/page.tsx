@@ -45,9 +45,9 @@ export default function SecurityPage() {
         linkHref="/changelog"
       />
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-primary-light/30 via-background to-background pb-20 pt-16 dark:from-navy dark:via-background">
+      <section className="from-primary-light/30 via-background to-background dark:from-navy dark:via-background relative overflow-hidden bg-linear-to-b pt-16 pb-20">
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-5" />
-        <div className="container relative">
+        <div className="relative container">
           <div className="mx-auto max-w-4xl text-center">
             <Badge variant="secondary" className="mb-6">
               <Shield className="mr-1 h-3 w-3" />
@@ -60,7 +60,7 @@ export default function SecurityPage() {
               <span className="text-gradient">at every layer</span>
             </h1>
 
-            <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground sm:text-xl">
+            <p className="text-muted-foreground mx-auto mb-10 max-w-2xl text-lg sm:text-xl">
               Atlas is built with security as a foundation, not an afterthought. From encrypted
               connections to row-level database security, we protect your prompts and data with
               enterprise-grade measures.
@@ -70,7 +70,7 @@ export default function SecurityPage() {
       </section>
 
       {/* Architecture Overview */}
-      <section className="border-y bg-muted/30 py-20">
+      <section className="bg-muted/30 border-y py-20">
         <div className="container">
           <div className="mx-auto max-w-4xl">
             <div className="mb-12 text-center">
@@ -78,7 +78,7 @@ export default function SecurityPage() {
                 Architecture
               </Badge>
               <h2 className="text-3xl font-bold sm:text-4xl">How Atlas is built</h2>
-              <p className="mt-4 text-lg text-muted-foreground">
+              <p className="text-muted-foreground mt-4 text-lg">
                 A modern, secure stack designed for reliability and performance
               </p>
             </div>
@@ -86,8 +86,8 @@ export default function SecurityPage() {
             <div className="grid gap-6 md:grid-cols-3">
               <Card>
                 <CardHeader>
-                  <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                    <Globe className="h-5 w-5 text-primary" />
+                  <div className="bg-primary/10 mb-2 flex h-10 w-10 items-center justify-center rounded-lg">
+                    <Globe className="text-primary h-5 w-5" />
                   </div>
                   <CardTitle className="text-lg">Frontend</CardTitle>
                 </CardHeader>
@@ -101,8 +101,8 @@ export default function SecurityPage() {
 
               <Card>
                 <CardHeader>
-                  <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                    <Database className="h-5 w-5 text-primary" />
+                  <div className="bg-primary/10 mb-2 flex h-10 w-10 items-center justify-center rounded-lg">
+                    <Database className="text-primary h-5 w-5" />
                   </div>
                   <CardTitle className="text-lg">Database</CardTitle>
                 </CardHeader>
@@ -116,8 +116,8 @@ export default function SecurityPage() {
 
               <Card>
                 <CardHeader>
-                  <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                    <Key className="h-5 w-5 text-primary" />
+                  <div className="bg-primary/10 mb-2 flex h-10 w-10 items-center justify-center rounded-lg">
+                    <Key className="text-primary h-5 w-5" />
                   </div>
                   <CardTitle className="text-lg">Authentication</CardTitle>
                 </CardHeader>
@@ -214,7 +214,7 @@ export default function SecurityPage() {
       </section>
 
       {/* Data Access Table */}
-      <section className="border-y bg-muted/30 py-20">
+      <section className="bg-muted/30 border-y py-20">
         <div className="container">
           <div className="mx-auto max-w-4xl">
             <div className="mb-12 text-center">
@@ -222,7 +222,7 @@ export default function SecurityPage() {
                 Access Control
               </Badge>
               <h2 className="text-3xl font-bold sm:text-4xl">Who can access what</h2>
-              <p className="mt-4 text-lg text-muted-foreground">
+              <p className="text-muted-foreground mt-4 text-lg">
                 Clear permission boundaries enforced at the database level
               </p>
             </div>
@@ -232,7 +232,7 @@ export default function SecurityPage() {
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
-                      <tr className="border-b bg-muted/50">
+                      <tr className="bg-muted/50 border-b">
                         <th className="px-6 py-4 text-left font-semibold">Action</th>
                         <th className="px-6 py-4 text-center font-semibold">
                           <div className="flex items-center justify-center gap-2">
@@ -273,12 +273,7 @@ export default function SecurityPage() {
                         user={true}
                         admin={true}
                       />
-                      <AccessRow
-                        action="View all users"
-                        public={false}
-                        user={false}
-                        admin={true}
-                      />
+                      <AccessRow action="View all users" public={false} user={false} admin={true} />
                       <AccessRow
                         action="Manage categories"
                         public={false}
@@ -357,7 +352,7 @@ export default function SecurityPage() {
       </section>
 
       {/* Security Practices */}
-      <section className="border-y bg-muted/30 py-20">
+      <section className="bg-muted/30 border-y py-20">
         <div className="container">
           <div className="mx-auto max-w-4xl">
             <div className="mb-12 text-center">
@@ -369,12 +364,12 @@ export default function SecurityPage() {
 
             <div className="grid gap-6 md:grid-cols-2">
               <div className="flex gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-success/10">
-                  <CheckCircle2 className="h-5 w-5 text-success" />
+                <div className="bg-success/10 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
+                  <CheckCircle2 className="text-success h-5 w-5" />
                 </div>
                 <div>
                   <h3 className="font-semibold">No Secrets in Code</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
+                  <p className="text-muted-foreground mt-1 text-sm">
                     All API keys and credentials are stored as environment variables, never
                     committed to version control.
                   </p>
@@ -382,12 +377,12 @@ export default function SecurityPage() {
               </div>
 
               <div className="flex gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-success/10">
-                  <CheckCircle2 className="h-5 w-5 text-success" />
+                <div className="bg-success/10 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
+                  <CheckCircle2 className="text-success h-5 w-5" />
                 </div>
                 <div>
                   <h3 className="font-semibold">Minimal Permissions</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
+                  <p className="text-muted-foreground mt-1 text-sm">
                     The application uses the least-privileged API keys required. No service role
                     keys are exposed to the client.
                   </p>
@@ -395,12 +390,12 @@ export default function SecurityPage() {
               </div>
 
               <div className="flex gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-success/10">
-                  <CheckCircle2 className="h-5 w-5 text-success" />
+                <div className="bg-success/10 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
+                  <CheckCircle2 className="text-success h-5 w-5" />
                 </div>
                 <div>
                   <h3 className="font-semibold">Input Validation</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
+                  <p className="text-muted-foreground mt-1 text-sm">
                     All user input is validated on both client and server using Zod schemas to
                     prevent injection attacks.
                   </p>
@@ -408,12 +403,12 @@ export default function SecurityPage() {
               </div>
 
               <div className="flex gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-success/10">
-                  <CheckCircle2 className="h-5 w-5 text-success" />
+                <div className="bg-success/10 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
+                  <CheckCircle2 className="text-success h-5 w-5" />
                 </div>
                 <div>
                   <h3 className="font-semibold">Regular Updates</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
+                  <p className="text-muted-foreground mt-1 text-sm">
                     Dependencies are kept up to date to patch known vulnerabilities. Security
                     updates are prioritized.
                   </p>
@@ -421,12 +416,12 @@ export default function SecurityPage() {
               </div>
 
               <div className="flex gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-success/10">
-                  <CheckCircle2 className="h-5 w-5 text-success" />
+                <div className="bg-success/10 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
+                  <CheckCircle2 className="text-success h-5 w-5" />
                 </div>
                 <div>
                   <h3 className="font-semibold">Error Monitoring</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
+                  <p className="text-muted-foreground mt-1 text-sm">
                     Application errors are tracked via Sentry, allowing us to quickly identify and
                     resolve issues.
                   </p>
@@ -434,12 +429,12 @@ export default function SecurityPage() {
               </div>
 
               <div className="flex gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-success/10">
-                  <CheckCircle2 className="h-5 w-5 text-success" />
+                <div className="bg-success/10 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
+                  <CheckCircle2 className="text-success h-5 w-5" />
                 </div>
                 <div>
                   <h3 className="font-semibold">Audit Logging</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
+                  <p className="text-muted-foreground mt-1 text-sm">
                     User actions like voting and prompt usage are logged for accountability and
                     debugging purposes.
                   </p>
@@ -454,9 +449,9 @@ export default function SecurityPage() {
       <section className="py-20">
         <div className="container">
           <div className="mx-auto max-w-3xl text-center">
-            <Network className="mx-auto mb-6 h-12 w-12 text-primary" />
+            <Network className="text-primary mx-auto mb-6 h-12 w-12" />
             <h2 className="text-3xl font-bold sm:text-4xl">Questions about security?</h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <p className="text-muted-foreground mt-4 text-lg">
               Security is an ongoing commitment. If you have questions or concerns about how we
               protect your data, please reach out to your administrator.
             </p>
@@ -492,7 +487,7 @@ function SecurityFeatureCard({
   return (
     <Card className="transition-shadow hover:shadow-md">
       <CardHeader>
-        <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+        <div className="from-primary/10 to-secondary/10 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
           {icon}
         </div>
         <CardTitle className="text-lg">{title}</CardTitle>
@@ -501,8 +496,8 @@ function SecurityFeatureCard({
       <CardContent>
         <ul className="space-y-2">
           {details.map((detail) => (
-            <li key={detail} className="flex items-center gap-2 text-sm text-muted-foreground">
-              <CheckCircle2 className="h-4 w-4 shrink-0 text-success" />
+            <li key={detail} className="text-muted-foreground flex items-center gap-2 text-sm">
+              <CheckCircle2 className="text-success h-4 w-4 shrink-0" />
               {detail}
             </li>
           ))}
@@ -528,21 +523,21 @@ function AccessRow({
       <td className="px-6 py-3 text-sm">{action}</td>
       <td className="px-6 py-3 text-center">
         {isPublic ? (
-          <CheckCircle2 className="mx-auto h-5 w-5 text-success" />
+          <CheckCircle2 className="text-success mx-auto h-5 w-5" />
         ) : (
           <span className="text-muted-foreground">-</span>
         )}
       </td>
       <td className="px-6 py-3 text-center">
         {user ? (
-          <CheckCircle2 className="mx-auto h-5 w-5 text-success" />
+          <CheckCircle2 className="text-success mx-auto h-5 w-5" />
         ) : (
           <span className="text-muted-foreground">-</span>
         )}
       </td>
       <td className="px-6 py-3 text-center">
         {admin ? (
-          <CheckCircle2 className="mx-auto h-5 w-5 text-success" />
+          <CheckCircle2 className="text-success mx-auto h-5 w-5" />
         ) : (
           <span className="text-muted-foreground">-</span>
         )}
@@ -553,8 +548,8 @@ function AccessRow({
 
 function ListItem({ children }: { children: React.ReactNode }) {
   return (
-    <li className="flex items-center gap-2 text-sm text-muted-foreground">
-      <CheckCircle2 className="h-4 w-4 shrink-0 text-success" />
+    <li className="text-muted-foreground flex items-center gap-2 text-sm">
+      <CheckCircle2 className="text-success h-4 w-4 shrink-0" />
       {children}
     </li>
   )

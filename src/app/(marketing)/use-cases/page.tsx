@@ -48,9 +48,9 @@ export default function UseCasesPage() {
       />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-primary-light/30 via-background to-background pb-16 pt-16 dark:from-navy dark:via-background">
+      <section className="from-primary-light/30 via-background to-background dark:from-navy dark:via-background relative overflow-hidden bg-linear-to-b pt-16 pb-16">
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-5" />
-        <div className="container relative">
+        <div className="relative container">
           <div className="mx-auto max-w-4xl text-center">
             <Badge variant="secondary" className="mb-6">
               <Sparkles className="mr-1 h-3 w-3" />
@@ -63,7 +63,7 @@ export default function UseCasesPage() {
               <span className="text-gradient">in their own way</span>
             </h1>
 
-            <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground sm:text-xl">
+            <p className="text-muted-foreground mx-auto mb-10 max-w-2xl text-lg sm:text-xl">
               From SEO specialists to developers, from content writers to client success teams—see
               how Atlas transforms AI workflows across every department.
             </p>
@@ -84,14 +84,14 @@ export default function UseCasesPage() {
       </section>
 
       {/* Featured Example Section */}
-      <section className="border-y bg-muted/30 py-20">
+      <section className="bg-muted/30 border-y py-20">
         <div className="container">
           <div className="mb-12 text-center">
             <Badge variant="default" className="mb-4">
               Featured Example
             </Badge>
             <h2 className="text-3xl font-bold sm:text-4xl">SEO Meta Description Generator</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+            <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-lg">
               One of our most-used prompts. See how Atlas turns a simple task into a consistent,
               high-quality process.
             </p>
@@ -99,7 +99,7 @@ export default function UseCasesPage() {
 
           <div className="mx-auto max-w-5xl">
             <Card className="overflow-hidden">
-              <div className="border-b bg-card p-6">
+              <div className="bg-card border-b p-6">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
                     <div className="mb-2 flex items-center gap-2">
@@ -107,16 +107,16 @@ export default function UseCasesPage() {
                       <Badge variant="outline">Content</Badge>
                     </div>
                     <h3 className="text-xl font-semibold">Meta Description Generator</h3>
-                    <p className="mt-1 text-muted-foreground">
+                    <p className="text-muted-foreground mt-1">
                       Generate compelling meta descriptions that drive clicks
                     </p>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1 text-sm">
-                      <ThumbsUp className="h-4 w-4 text-success" />
+                      <ThumbsUp className="text-success h-4 w-4" />
                       <span className="font-medium">94%</span>
                     </div>
-                    <div className="text-sm text-muted-foreground">127 uses</div>
+                    <div className="text-muted-foreground text-sm">127 uses</div>
                   </div>
                 </div>
               </div>
@@ -124,16 +124,16 @@ export default function UseCasesPage() {
               <CardContent className="grid gap-6 p-6 lg:grid-cols-2">
                 <div>
                   <h4 className="mb-3 font-semibold">Prompt Template</h4>
-                  <div className="rounded-lg bg-muted/50 p-4 font-mono text-sm">
+                  <div className="bg-muted/50 rounded-lg p-4 font-mono text-sm">
                     <p>Write a meta description for a webpage about:</p>
                     <p className="mt-2">
-                      <span className="rounded bg-primary/20 px-1 text-primary">
+                      <span className="bg-primary/20 text-primary rounded px-1">
                         {'{{page_topic}}'}
                       </span>
                     </p>
                     <p className="mt-2">Target keyword:</p>
                     <p>
-                      <span className="rounded bg-primary/20 px-1 text-primary">
+                      <span className="bg-primary/20 text-primary rounded px-1">
                         {'{{target_keyword}}'}
                       </span>
                     </p>
@@ -143,7 +143,7 @@ export default function UseCasesPage() {
                     </p>
                     <p className="mt-2">Tone:</p>
                     <p>
-                      <span className="rounded bg-secondary/20 px-1 text-secondary">
+                      <span className="bg-secondary/20 text-secondary rounded px-1">
                         {'{{tone}}'}
                       </span>
                     </p>
@@ -155,19 +155,19 @@ export default function UseCasesPage() {
                   <div className="space-y-4">
                     <div>
                       <label className="mb-1 block text-sm font-medium">Page Topic</label>
-                      <div className="rounded-lg border bg-background px-3 py-2 text-sm">
+                      <div className="bg-background rounded-lg border px-3 py-2 text-sm">
                         Best practices for local SEO in 2025
                       </div>
                     </div>
                     <div>
                       <label className="mb-1 block text-sm font-medium">Target Keyword</label>
-                      <div className="rounded-lg border bg-background px-3 py-2 text-sm">
+                      <div className="bg-background rounded-lg border px-3 py-2 text-sm">
                         local SEO tips
                       </div>
                     </div>
                     <div>
                       <label className="mb-1 block text-sm font-medium">Tone</label>
-                      <div className="rounded-lg border bg-background px-3 py-2 text-sm">
+                      <div className="bg-background rounded-lg border px-3 py-2 text-sm">
                         Professional but approachable
                       </div>
                     </div>
@@ -175,32 +175,32 @@ export default function UseCasesPage() {
                 </div>
               </CardContent>
 
-              <div className="border-t bg-muted/30 p-6">
+              <div className="bg-muted/30 border-t p-6">
                 <h4 className="mb-4 font-semibold">Before / After Comparison</h4>
                 <div className="grid gap-4 md:grid-cols-2">
-                  <div className="rounded-lg border border-destructive/20 bg-destructive/5 p-4">
-                    <div className="mb-2 flex items-center gap-2 text-sm font-medium text-destructive">
+                  <div className="border-destructive/20 bg-destructive/5 rounded-lg border p-4">
+                    <div className="text-destructive mb-2 flex items-center gap-2 text-sm font-medium">
                       <ThumbsDown className="h-4 w-4" />
                       Without Atlas
                     </div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-muted-foreground text-sm">
                       &quot;Learn about local SEO. Click here to read more about optimizing your
                       business.&quot;
                     </p>
-                    <p className="mt-2 text-xs text-destructive">
+                    <p className="text-destructive mt-2 text-xs">
                       Generic, no keyword, weak call to action
                     </p>
                   </div>
-                  <div className="rounded-lg border border-success/20 bg-success/5 p-4">
-                    <div className="mb-2 flex items-center gap-2 text-sm font-medium text-success">
+                  <div className="border-success/20 bg-success/5 rounded-lg border p-4">
+                    <div className="text-success mb-2 flex items-center gap-2 text-sm font-medium">
                       <ThumbsUp className="h-4 w-4" />
                       With Atlas
                     </div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-muted-foreground text-sm">
                       &quot;Master local SEO tips that actually work. Discover proven strategies to
                       boost your business visibility and attract more local customers today.&quot;
                     </p>
-                    <p className="mt-2 text-xs text-success">
+                    <p className="text-success mt-2 text-xs">
                       Keyword included, compelling CTA, under 160 chars
                     </p>
                   </div>
@@ -219,7 +219,7 @@ export default function UseCasesPage() {
               By Department
             </Badge>
             <h2 className="text-3xl font-bold sm:text-4xl">Use cases for every team</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+            <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-lg">
               Atlas adapts to your workflow. Here&apos;s how different teams leverage the platform.
             </p>
           </div>
@@ -269,11 +269,7 @@ export default function UseCasesPage() {
                 { name: 'Status update template', rating: 88 },
                 { name: 'Meeting summary', rating: 85 },
               ]}
-              benefits={[
-                'Professional tone always',
-                'Faster response times',
-                'Consistent quality',
-              ]}
+              benefits={['Professional tone always', 'Faster response times', 'Consistent quality']}
             />
 
             <UseCaseCard
@@ -320,25 +316,21 @@ export default function UseCasesPage() {
                 { name: 'Report generator', rating: 85 },
                 { name: 'Data interpreter', rating: 82 },
               ]}
-              benefits={[
-                'Structured analysis',
-                'Consistent reporting',
-                'Faster insights',
-              ]}
+              benefits={['Structured analysis', 'Consistent reporting', 'Faster insights']}
             />
           </div>
         </div>
       </section>
 
       {/* Industry Examples */}
-      <section className="border-y bg-muted/30 py-20">
+      <section className="bg-muted/30 border-y py-20">
         <div className="container">
           <div className="mb-16 text-center">
             <Badge variant="secondary" className="mb-4">
               By Industry
             </Badge>
             <h2 className="text-3xl font-bold sm:text-4xl">Industry-specific applications</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+            <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-lg">
               Whether you&apos;re an agency, SaaS company, or enterprise team, Atlas adapts to your
               needs.
             </p>
@@ -346,8 +338,8 @@ export default function UseCasesPage() {
 
           <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2">
             <Card className="overflow-hidden">
-              <CardHeader className="bg-gradient-to-br from-primary/5 to-secondary/5">
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+              <CardHeader className="from-primary/5 to-secondary/5 bg-linear-to-br">
+                <div className="from-primary/10 to-secondary/10 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                   <Briefcase className="h-6 w-6" />
                 </div>
                 <CardTitle>Digital Marketing Agencies</CardTitle>
@@ -358,26 +350,26 @@ export default function UseCasesPage() {
               <CardContent className="pt-6">
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Client-specific variables for personalized outputs
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Consistent deliverable quality across all accounts
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Faster onboarding for new team members
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Quality control through voting feedback
                     </span>
                   </li>
@@ -386,8 +378,8 @@ export default function UseCasesPage() {
             </Card>
 
             <Card className="overflow-hidden">
-              <CardHeader className="bg-gradient-to-br from-primary/5 to-secondary/5">
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+              <CardHeader className="from-primary/5 to-secondary/5 bg-linear-to-br">
+                <div className="from-primary/10 to-secondary/10 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                   <Globe className="h-6 w-6" />
                 </div>
                 <CardTitle>SaaS Companies</CardTitle>
@@ -398,26 +390,26 @@ export default function UseCasesPage() {
               <CardContent className="pt-6">
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Product documentation prompts with version control
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Support response templates that match tone
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Marketing content aligned with brand voice
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Engineering docs that non-technical users understand
                     </span>
                   </li>
@@ -426,8 +418,8 @@ export default function UseCasesPage() {
             </Card>
 
             <Card className="overflow-hidden">
-              <CardHeader className="bg-gradient-to-br from-primary/5 to-secondary/5">
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+              <CardHeader className="from-primary/5 to-secondary/5 bg-linear-to-br">
+                <div className="from-primary/10 to-secondary/10 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                   <Users className="h-6 w-6" />
                 </div>
                 <CardTitle>Enterprise Teams</CardTitle>
@@ -438,26 +430,26 @@ export default function UseCasesPage() {
               <CardContent className="pt-6">
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Approved prompts that meet compliance requirements
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Role-based access for different departments
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Audit trail through voting and usage tracking
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Centralized management of AI best practices
                     </span>
                   </li>
@@ -466,8 +458,8 @@ export default function UseCasesPage() {
             </Card>
 
             <Card className="overflow-hidden">
-              <CardHeader className="bg-gradient-to-br from-primary/5 to-secondary/5">
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+              <CardHeader className="from-primary/5 to-secondary/5 bg-linear-to-br">
+                <div className="from-primary/10 to-secondary/10 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                   <BookOpen className="h-6 w-6" />
                 </div>
                 <CardTitle>Educational Institutions</CardTitle>
@@ -478,26 +470,26 @@ export default function UseCasesPage() {
               <CardContent className="pt-6">
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Curated prompts that demonstrate best practices
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Before/after examples for learning
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Student feedback on prompt effectiveness
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Consistent learning experience across classes
                     </span>
                   </li>
@@ -516,7 +508,7 @@ export default function UseCasesPage() {
               Quick Examples
             </Badge>
             <h2 className="text-3xl font-bold sm:text-4xl">Prompts that teams love</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+            <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-lg">
               Here are some of the highest-rated prompts across all Atlas users.
             </p>
           </div>
@@ -563,13 +555,11 @@ export default function UseCasesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="border-t bg-gradient-to-b from-primary/5 to-secondary/5 py-20">
+      <section className="from-primary/5 to-secondary/5 border-t bg-linear-to-b py-20">
         <div className="container">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-bold sm:text-4xl">
-              Ready to build your prompt library?
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <h2 className="text-3xl font-bold sm:text-4xl">Ready to build your prompt library?</h2>
+            <p className="text-muted-foreground mt-4 text-lg">
               Start with templates like these or create your own. Every team&apos;s library is
               unique.
             </p>
@@ -607,7 +597,7 @@ function UseCaseCard({
   return (
     <Card className="flex flex-col transition-shadow hover:shadow-md">
       <CardHeader>
-        <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+        <div className="from-primary/10 to-secondary/10 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
           {icon}
         </div>
         <CardTitle className="text-lg">{title}</CardTitle>
@@ -620,10 +610,10 @@ function UseCaseCard({
             {examples.map((example) => (
               <div
                 key={example.name}
-                className="flex items-center justify-between text-sm text-muted-foreground"
+                className="text-muted-foreground flex items-center justify-between text-sm"
               >
                 <span>{example.name}</span>
-                <span className="flex items-center gap-1 text-success">
+                <span className="text-success flex items-center gap-1">
                   <ThumbsUp className="h-3 w-3" />
                   {example.rating}%
                 </span>
@@ -636,8 +626,8 @@ function UseCaseCard({
           <h4 className="mb-2 text-sm font-medium">Key Benefits</h4>
           <ul className="space-y-1">
             {benefits.map((benefit) => (
-              <li key={benefit} className="flex items-center gap-2 text-sm text-muted-foreground">
-                <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-success" />
+              <li key={benefit} className="text-muted-foreground flex items-center gap-2 text-sm">
+                <CheckCircle2 className="text-success h-3.5 w-3.5 shrink-0" />
                 {benefit}
               </li>
             ))}
@@ -666,13 +656,13 @@ function QuickExampleCard({
           <Badge variant="secondary" className="text-xs">
             {category}
           </Badge>
-          <div className="flex items-center gap-1 text-sm text-success">
+          <div className="text-success flex items-center gap-1 text-sm">
             <ThumbsUp className="h-3.5 w-3.5" />
             {rating}%
           </div>
         </div>
         <h3 className="font-semibold">{title}</h3>
-        <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+        <p className="text-muted-foreground mt-1 text-sm">{description}</p>
       </CardContent>
     </Card>
   )

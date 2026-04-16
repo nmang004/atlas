@@ -48,9 +48,9 @@ export default function HowItWorksPage() {
       />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-primary-light/30 via-background to-background pb-16 pt-16 dark:from-navy dark:via-background">
+      <section className="from-primary-light/30 via-background to-background dark:from-navy dark:via-background relative overflow-hidden bg-linear-to-b pt-16 pb-16">
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-5" />
-        <div className="container relative">
+        <div className="relative container">
           <div className="mx-auto max-w-4xl text-center">
             <Badge variant="secondary" className="mb-6">
               <Sparkles className="mr-1 h-3 w-3" />
@@ -63,7 +63,7 @@ export default function HowItWorksPage() {
               <span className="text-gradient">in under 60 seconds</span>
             </h1>
 
-            <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground sm:text-xl">
+            <p className="text-muted-foreground mx-auto mb-10 max-w-2xl text-lg sm:text-xl">
               Atlas makes it effortless to find the right prompt, customize it for your needs, and
               contribute to your team&apos;s collective knowledge. Here&apos;s exactly how it works.
             </p>
@@ -90,7 +90,7 @@ export default function HowItWorksPage() {
             {/* Step 1 */}
             <div className="mb-20">
               <div className="mb-8 flex items-center gap-4">
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-2xl font-bold text-white shadow-lg">
+                <div className="from-primary to-secondary flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-linear-to-br text-2xl font-bold text-white shadow-lg">
                   1
                 </div>
                 <div>
@@ -104,7 +104,7 @@ export default function HowItWorksPage() {
               <div className="grid gap-6 md:grid-cols-3">
                 <Card>
                   <CardHeader>
-                    <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                    <div className="bg-primary/10 text-primary mb-2 flex h-10 w-10 items-center justify-center rounded-lg">
                       <FileSearch className="h-5 w-5" />
                     </div>
                     <CardTitle className="text-lg">Browse Categories</CardTitle>
@@ -119,7 +119,7 @@ export default function HowItWorksPage() {
 
                 <Card>
                   <CardHeader>
-                    <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                    <div className="bg-primary/10 text-primary mb-2 flex h-10 w-10 items-center justify-center rounded-lg">
                       <Search className="h-5 w-5" />
                     </div>
                     <CardTitle className="text-lg">Search Keywords</CardTitle>
@@ -134,7 +134,7 @@ export default function HowItWorksPage() {
 
                 <Card>
                   <CardHeader>
-                    <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                    <div className="bg-primary/10 text-primary mb-2 flex h-10 w-10 items-center justify-center rounded-lg">
                       <TrendingUp className="h-5 w-5" />
                     </div>
                     <CardTitle className="text-lg">Sort by Quality</CardTitle>
@@ -149,39 +149,41 @@ export default function HowItWorksPage() {
               </div>
 
               {/* Visual Example */}
-              <div className="mt-8 overflow-hidden rounded-xl border bg-card shadow-sm">
-                <div className="border-b bg-muted/50 px-4 py-3">
+              <div className="bg-card mt-8 overflow-hidden rounded-xl border shadow-sm">
+                <div className="bg-muted/50 border-b px-4 py-3">
                   <div className="flex items-center gap-2">
-                    <div className="h-3 w-3 rounded-full bg-destructive/60" />
-                    <div className="h-3 w-3 rounded-full bg-warning/60" />
-                    <div className="h-3 w-3 rounded-full bg-success/60" />
-                    <span className="ml-2 text-sm text-muted-foreground">Atlas - Prompt Library</span>
+                    <div className="bg-destructive/60 h-3 w-3 rounded-full" />
+                    <div className="bg-warning/60 h-3 w-3 rounded-full" />
+                    <div className="bg-success/60 h-3 w-3 rounded-full" />
+                    <span className="text-muted-foreground ml-2 text-sm">
+                      Atlas - Prompt Library
+                    </span>
                   </div>
                 </div>
                 <div className="p-6">
-                  <div className="flex items-center gap-4 rounded-lg border bg-background p-3">
-                    <Search className="h-5 w-5 text-muted-foreground" />
+                  <div className="bg-background flex items-center gap-4 rounded-lg border p-3">
+                    <Search className="text-muted-foreground h-5 w-5" />
                     <span className="text-muted-foreground">meta description generator...</span>
                   </div>
                   <div className="mt-4 space-y-3">
-                    <div className="flex items-center justify-between rounded-lg border bg-background p-4">
+                    <div className="bg-background flex items-center justify-between rounded-lg border p-4">
                       <div>
                         <div className="font-medium">Meta Description Generator</div>
-                        <div className="text-sm text-muted-foreground">SEO • Content</div>
+                        <div className="text-muted-foreground text-sm">SEO • Content</div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <ThumbsUp className="h-4 w-4 text-success" />
-                        <span className="font-medium text-success">94%</span>
+                        <ThumbsUp className="text-success h-4 w-4" />
+                        <span className="text-success font-medium">94%</span>
                       </div>
                     </div>
-                    <div className="flex items-center justify-between rounded-lg border bg-muted/30 p-4">
+                    <div className="bg-muted/30 flex items-center justify-between rounded-lg border p-4">
                       <div>
                         <div className="font-medium">Product Description Writer</div>
-                        <div className="text-sm text-muted-foreground">Content • E-commerce</div>
+                        <div className="text-muted-foreground text-sm">Content • E-commerce</div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <ThumbsUp className="h-4 w-4 text-success" />
-                        <span className="font-medium text-success">89%</span>
+                        <ThumbsUp className="text-success h-4 w-4" />
+                        <span className="text-success font-medium">89%</span>
                       </div>
                     </div>
                   </div>
@@ -192,7 +194,7 @@ export default function HowItWorksPage() {
             {/* Step 2 */}
             <div className="mb-20">
               <div className="mb-8 flex items-center gap-4">
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-2xl font-bold text-white shadow-lg">
+                <div className="from-primary to-secondary flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-linear-to-br text-2xl font-bold text-white shadow-lg">
                   2
                 </div>
                 <div>
@@ -207,7 +209,7 @@ export default function HowItWorksPage() {
                 <div className="space-y-6">
                   <Card>
                     <CardHeader>
-                      <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      <div className="bg-primary/10 text-primary mb-2 flex h-10 w-10 items-center justify-center rounded-lg">
                         <TextCursor className="h-5 w-5" />
                       </div>
                       <CardTitle className="text-lg">Text Fields</CardTitle>
@@ -222,7 +224,7 @@ export default function HowItWorksPage() {
 
                   <Card>
                     <CardHeader>
-                      <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      <div className="bg-primary/10 text-primary mb-2 flex h-10 w-10 items-center justify-center rounded-lg">
                         <MessageSquare className="h-5 w-5" />
                       </div>
                       <CardTitle className="text-lg">Text Areas</CardTitle>
@@ -237,7 +239,7 @@ export default function HowItWorksPage() {
 
                   <Card>
                     <CardHeader>
-                      <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      <div className="bg-primary/10 text-primary mb-2 flex h-10 w-10 items-center justify-center rounded-lg">
                         <MousePointer className="h-5 w-5" />
                       </div>
                       <CardTitle className="text-lg">Dropdowns</CardTitle>
@@ -252,8 +254,8 @@ export default function HowItWorksPage() {
                 </div>
 
                 {/* Visual Example */}
-                <div className="overflow-hidden rounded-xl border bg-card shadow-sm">
-                  <div className="border-b bg-muted/50 px-4 py-3">
+                <div className="bg-card overflow-hidden rounded-xl border shadow-sm">
+                  <div className="bg-muted/50 border-b px-4 py-3">
                     <span className="text-sm font-medium">Fill Variables</span>
                   </div>
                   <div className="space-y-4 p-6">
@@ -261,7 +263,7 @@ export default function HowItWorksPage() {
                       <label className="mb-1.5 block text-sm font-medium">
                         Page Topic <span className="text-destructive">*</span>
                       </label>
-                      <div className="rounded-lg border bg-background px-3 py-2.5 text-sm">
+                      <div className="bg-background rounded-lg border px-3 py-2.5 text-sm">
                         Best practices for local SEO in 2025
                       </div>
                     </div>
@@ -269,16 +271,16 @@ export default function HowItWorksPage() {
                       <label className="mb-1.5 block text-sm font-medium">
                         Target Keyword <span className="text-destructive">*</span>
                       </label>
-                      <div className="rounded-lg border bg-background px-3 py-2.5 text-sm">
+                      <div className="bg-background rounded-lg border px-3 py-2.5 text-sm">
                         local SEO tips
                       </div>
                     </div>
                     <div>
                       <label className="mb-1.5 block text-sm font-medium">Tone</label>
-                      <div className="flex items-center justify-between rounded-lg border bg-background px-3 py-2.5 text-sm">
+                      <div className="bg-background flex items-center justify-between rounded-lg border px-3 py-2.5 text-sm">
                         <span>Professional but approachable</span>
                         <svg
-                          className="h-4 w-4 text-muted-foreground"
+                          className="text-muted-foreground h-4 w-4"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -292,8 +294,8 @@ export default function HowItWorksPage() {
                         </svg>
                       </div>
                     </div>
-                    <div className="rounded-lg bg-success/10 p-3">
-                      <div className="flex items-center gap-2 text-sm text-success">
+                    <div className="bg-success/10 rounded-lg p-3">
+                      <div className="text-success flex items-center gap-2 text-sm">
                         <CheckCircle2 className="h-4 w-4" />
                         All required fields filled
                       </div>
@@ -306,7 +308,7 @@ export default function HowItWorksPage() {
             {/* Step 3 */}
             <div className="mb-20">
               <div className="mb-8 flex items-center gap-4">
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-2xl font-bold text-white shadow-lg">
+                <div className="from-primary to-secondary flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-linear-to-br text-2xl font-bold text-white shadow-lg">
                   3
                 </div>
                 <div>
@@ -318,7 +320,7 @@ export default function HowItWorksPage() {
               </div>
 
               <Card className="overflow-hidden">
-                <div className="border-b bg-muted/50 px-6 py-4">
+                <div className="bg-muted/50 border-b px-6 py-4">
                   <div className="flex items-center justify-between">
                     <span className="font-medium">Generated Prompt</span>
                     <Button size="sm" className="gap-2">
@@ -328,16 +330,16 @@ export default function HowItWorksPage() {
                   </div>
                 </div>
                 <CardContent className="p-6">
-                  <div className="rounded-lg bg-muted/50 p-4 font-mono text-sm">
+                  <div className="bg-muted/50 rounded-lg p-4 font-mono text-sm">
                     <p>Write a meta description for a webpage about:</p>
                     <p className="mt-2">
-                      <span className="rounded bg-primary/20 px-1 font-semibold text-primary">
+                      <span className="bg-primary/20 text-primary rounded px-1 font-semibold">
                         Best practices for local SEO in 2025
                       </span>
                     </p>
                     <p className="mt-2">Target keyword:</p>
                     <p>
-                      <span className="rounded bg-primary/20 px-1 font-semibold text-primary">
+                      <span className="bg-primary/20 text-primary rounded px-1 font-semibold">
                         local SEO tips
                       </span>
                     </p>
@@ -347,34 +349,34 @@ export default function HowItWorksPage() {
                     </p>
                     <p className="mt-2">Tone:</p>
                     <p>
-                      <span className="rounded bg-secondary/20 px-1 font-semibold text-secondary">
+                      <span className="bg-secondary/20 text-secondary rounded px-1 font-semibold">
                         Professional but approachable
                       </span>
                     </p>
                   </div>
 
                   <div className="mt-6 grid gap-4 md:grid-cols-3">
-                    <div className="flex items-center gap-3 rounded-lg border bg-background p-4">
-                      <ClipboardCopy className="h-5 w-5 text-primary" />
+                    <div className="bg-background flex items-center gap-3 rounded-lg border p-4">
+                      <ClipboardCopy className="text-primary h-5 w-5" />
                       <div>
                         <div className="text-sm font-medium">Variables Filled</div>
-                        <div className="text-xs text-muted-foreground">
+                        <div className="text-muted-foreground text-xs">
                           All placeholders replaced
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 rounded-lg border bg-background p-4">
-                      <CheckCircle2 className="h-5 w-5 text-success" />
+                    <div className="bg-background flex items-center gap-3 rounded-lg border p-4">
+                      <CheckCircle2 className="text-success h-5 w-5" />
                       <div>
                         <div className="text-sm font-medium">Ready to Paste</div>
-                        <div className="text-xs text-muted-foreground">Works with any AI tool</div>
+                        <div className="text-muted-foreground text-xs">Works with any AI tool</div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 rounded-lg border bg-background p-4">
-                      <Zap className="h-5 w-5 text-warning" />
+                    <div className="bg-background flex items-center gap-3 rounded-lg border p-4">
+                      <Zap className="text-warning h-5 w-5" />
                       <div>
                         <div className="text-sm font-medium">Instant Copy</div>
-                        <div className="text-xs text-muted-foreground">One-click convenience</div>
+                        <div className="text-muted-foreground text-xs">One-click convenience</div>
                       </div>
                     </div>
                   </div>
@@ -385,7 +387,7 @@ export default function HowItWorksPage() {
             {/* Step 4 */}
             <div>
               <div className="mb-8 flex items-center gap-4">
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-2xl font-bold text-white shadow-lg">
+                <div className="from-primary to-secondary flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-linear-to-br text-2xl font-bold text-white shadow-lg">
                   4
                 </div>
                 <div>
@@ -398,7 +400,7 @@ export default function HowItWorksPage() {
 
               <div className="grid gap-8 lg:grid-cols-2">
                 <div className="space-y-4">
-                  <p className="text-lg text-muted-foreground">
+                  <p className="text-muted-foreground text-lg">
                     After using the prompt with your AI tool, come back and cast your vote. Did the
                     prompt produce good results? Your honest feedback helps everyone.
                   </p>
@@ -406,12 +408,12 @@ export default function HowItWorksPage() {
                   <div className="space-y-4">
                     <Card className="border-success/20 bg-success/5">
                       <CardContent className="flex items-start gap-4 pt-6">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-success/20">
-                          <ThumbsUp className="h-5 w-5 text-success" />
+                        <div className="bg-success/20 flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
+                          <ThumbsUp className="text-success h-5 w-5" />
                         </div>
                         <div>
-                          <div className="font-medium text-success">Positive Vote</div>
-                          <p className="mt-1 text-sm text-muted-foreground">
+                          <div className="text-success font-medium">Positive Vote</div>
+                          <p className="text-muted-foreground mt-1 text-sm">
                             The prompt worked well and produced quality output. This vote helps the
                             prompt rank higher.
                           </p>
@@ -421,12 +423,12 @@ export default function HowItWorksPage() {
 
                     <Card className="border-destructive/20 bg-destructive/5">
                       <CardContent className="flex items-start gap-4 pt-6">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-destructive/20">
-                          <ThumbsDown className="h-5 w-5 text-destructive" />
+                        <div className="bg-destructive/20 flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
+                          <ThumbsDown className="text-destructive h-5 w-5" />
                         </div>
                         <div>
-                          <div className="font-medium text-destructive">Negative Vote</div>
-                          <p className="mt-1 text-sm text-muted-foreground">
+                          <div className="text-destructive font-medium">Negative Vote</div>
+                          <p className="text-muted-foreground mt-1 text-sm">
                             The prompt didn&apos;t work as expected. Add optional feedback to help
                             admins understand and fix the issue.
                           </p>
@@ -439,26 +441,26 @@ export default function HowItWorksPage() {
                 <Card className="overflow-hidden">
                   <CardHeader className="bg-muted/50">
                     <div className="flex items-center gap-2">
-                      <Vote className="h-5 w-5 text-primary" />
+                      <Vote className="text-primary h-5 w-5" />
                       <CardTitle className="text-lg">Rate This Prompt</CardTitle>
                     </div>
                     <CardDescription>Did this prompt work well for you?</CardDescription>
                   </CardHeader>
                   <CardContent className="p-6">
                     <div className="flex gap-4">
-                      <button className="flex flex-1 flex-col items-center gap-2 rounded-lg border-2 border-success bg-success/5 p-4 transition-colors hover:bg-success/10">
-                        <ThumbsUp className="h-8 w-8 text-success" />
-                        <span className="font-medium text-success">It worked!</span>
+                      <button className="border-success bg-success/5 hover:bg-success/10 flex flex-1 flex-col items-center gap-2 rounded-lg border-2 p-4 transition-colors">
+                        <ThumbsUp className="text-success h-8 w-8" />
+                        <span className="text-success font-medium">It worked!</span>
                       </button>
-                      <button className="flex flex-1 flex-col items-center gap-2 rounded-lg border-2 border-muted bg-background p-4 transition-colors hover:border-destructive hover:bg-destructive/5">
-                        <ThumbsDown className="h-8 w-8 text-muted-foreground" />
-                        <span className="font-medium text-muted-foreground">Needs work</span>
+                      <button className="border-muted bg-background hover:border-destructive hover:bg-destructive/5 flex flex-1 flex-col items-center gap-2 rounded-lg border-2 p-4 transition-colors">
+                        <ThumbsDown className="text-muted-foreground h-8 w-8" />
+                        <span className="text-muted-foreground font-medium">Needs work</span>
                       </button>
                     </div>
-                    <div className="mt-6 rounded-lg bg-muted/30 p-4">
+                    <div className="bg-muted/30 mt-6 rounded-lg p-4">
                       <div className="flex items-start gap-2">
-                        <Lightbulb className="mt-0.5 h-4 w-4 text-primary" />
-                        <p className="text-sm text-muted-foreground">
+                        <Lightbulb className="text-primary mt-0.5 h-4 w-4" />
+                        <p className="text-muted-foreground text-sm">
                           <strong>Why vote?</strong> Your votes help surface the best prompts and
                           flag ones that need updating. It takes just one click!
                         </p>
@@ -473,48 +475,46 @@ export default function HowItWorksPage() {
       </section>
 
       {/* The Cycle Section */}
-      <section className="border-y bg-muted/30 py-20">
+      <section className="bg-muted/30 border-y py-20">
         <div className="container">
           <div className="mx-auto max-w-4xl text-center">
             <Badge variant="secondary" className="mb-4">
               The Virtuous Cycle
             </Badge>
-            <h2 className="text-3xl font-bold sm:text-4xl">
-              Every use makes the library better
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-              Atlas isn&apos;t just a storage system—it&apos;s a living knowledge base that
-              improves with every team member&apos;s contribution.
+            <h2 className="text-3xl font-bold sm:text-4xl">Every use makes the library better</h2>
+            <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-lg">
+              Atlas isn&apos;t just a storage system—it&apos;s a living knowledge base that improves
+              with every team member&apos;s contribution.
             </p>
 
             <div className="mt-12 grid gap-6 md:grid-cols-4">
               <div className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary/10 to-secondary/10">
-                  <Search className="h-8 w-8 text-primary" />
+                <div className="from-primary/10 to-secondary/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-linear-to-br">
+                  <Search className="text-primary h-8 w-8" />
                 </div>
                 <h3 className="font-semibold">Search</h3>
-                <p className="mt-1 text-sm text-muted-foreground">Find what you need</p>
+                <p className="text-muted-foreground mt-1 text-sm">Find what you need</p>
               </div>
               <div className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary/10 to-secondary/10">
-                  <Copy className="h-8 w-8 text-primary" />
+                <div className="from-primary/10 to-secondary/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-linear-to-br">
+                  <Copy className="text-primary h-8 w-8" />
                 </div>
                 <h3 className="font-semibold">Use</h3>
-                <p className="mt-1 text-sm text-muted-foreground">Copy and paste</p>
+                <p className="text-muted-foreground mt-1 text-sm">Copy and paste</p>
               </div>
               <div className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary/10 to-secondary/10">
-                  <Vote className="h-8 w-8 text-primary" />
+                <div className="from-primary/10 to-secondary/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-linear-to-br">
+                  <Vote className="text-primary h-8 w-8" />
                 </div>
                 <h3 className="font-semibold">Vote</h3>
-                <p className="mt-1 text-sm text-muted-foreground">Share your experience</p>
+                <p className="text-muted-foreground mt-1 text-sm">Share your experience</p>
               </div>
               <div className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary/10 to-secondary/10">
-                  <TrendingUp className="h-8 w-8 text-primary" />
+                <div className="from-primary/10 to-secondary/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-linear-to-br">
+                  <TrendingUp className="text-primary h-8 w-8" />
                 </div>
                 <h3 className="font-semibold">Improve</h3>
-                <p className="mt-1 text-sm text-muted-foreground">Quality rises</p>
+                <p className="text-muted-foreground mt-1 text-sm">Quality rises</p>
               </div>
             </div>
           </div>
@@ -522,11 +522,11 @@ export default function HowItWorksPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-b from-primary/5 to-secondary/5 py-20">
+      <section className="from-primary/5 to-secondary/5 bg-linear-to-b py-20">
         <div className="container">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl font-bold sm:text-4xl">Ready to try it yourself?</h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <p className="text-muted-foreground mt-4 text-lg">
               Experience the Atlas workflow firsthand. From search to AI output in under a minute.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">

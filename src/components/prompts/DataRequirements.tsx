@@ -89,8 +89,8 @@ export function DataRequirements({ content, className }: DataRequirementsProps) 
   // If we couldn't parse sections, fall back to simple display
   if (sections.length === 0) {
     return (
-      <div className={cn('prose prose-sm max-w-none dark:prose-invert', className)}>
-        <pre className="whitespace-pre-wrap text-sm">{content}</pre>
+      <div className={cn('prose prose-sm dark:prose-invert max-w-none', className)}>
+        <pre className="text-sm whitespace-pre-wrap">{content}</pre>
       </div>
     )
   }
@@ -100,22 +100,22 @@ export function DataRequirements({ content, className }: DataRequirementsProps) 
       {sections.map((section, sectionIndex) => (
         <div
           key={sectionIndex}
-          className="rounded-lg border bg-gradient-to-br from-muted/30 to-muted/10 p-4"
+          className="from-muted/30 to-muted/10 rounded-lg border bg-linear-to-br p-4"
         >
           {/* Section Header */}
           <div className="mb-3 flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+            <div className="from-primary/10 to-secondary/10 text-primary flex h-7 w-7 items-center justify-center rounded-md bg-linear-to-br">
               {getIconForSection(section.title)}
             </div>
-            <h4 className="font-semibold text-foreground">{section.title}</h4>
+            <h4 className="text-foreground font-semibold">{section.title}</h4>
           </div>
 
           {/* Checklist Items */}
           <ul className="space-y-2 pl-1">
             {section.items.map((item, itemIndex) => (
               <li key={itemIndex} className="flex items-start gap-2.5">
-                <Circle className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground/50" />
-                <span className="text-sm text-muted-foreground">{item}</span>
+                <Circle className="text-muted-foreground/50 mt-0.5 h-4 w-4 shrink-0" />
+                <span className="text-muted-foreground text-sm">{item}</span>
               </li>
             ))}
           </ul>

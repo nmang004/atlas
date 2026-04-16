@@ -39,10 +39,10 @@ export function MobileSidebar({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="left" className="w-[280px] bg-navy p-0 text-white border-none">
+      <SheetContent side="left" className="bg-navy w-[280px] border-none p-0 text-white">
         <SheetHeader className="border-b border-white/10 px-4 py-4">
-          <SheetTitle className="flex items-center gap-2 font-heading text-white">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary shadow-lg">
+          <SheetTitle className="font-heading flex items-center gap-2 text-white">
+            <div className="from-primary to-secondary flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br shadow-lg">
               <FileText className="h-5 w-5 text-white" />
             </div>
             <span className="text-xl font-bold">Atlas</span>
@@ -57,7 +57,9 @@ export function MobileSidebar({
                   variant="ghost"
                   className={cn(
                     'min-h-11 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
-                    pathname === '/prompts' && !currentCategory && 'bg-gradient-to-r from-primary/20 to-transparent text-white border-l-2 border-primary rounded-l-none'
+                    pathname === '/prompts' &&
+                      !currentCategory &&
+                      'from-primary/20 border-primary rounded-l-none border-l-2 bg-linear-to-r to-transparent text-white'
                   )}
                 >
                   <FileText className="mr-2 h-4 w-4" />
@@ -71,7 +73,8 @@ export function MobileSidebar({
                   variant="ghost"
                   className={cn(
                     'min-h-11 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
-                    pathname === '/categories' && 'bg-gradient-to-r from-primary/20 to-transparent text-white border-l-2 border-primary rounded-l-none'
+                    pathname === '/categories' &&
+                      'from-primary/20 border-primary rounded-l-none border-l-2 bg-linear-to-r to-transparent text-white'
                   )}
                 >
                   <FolderOpen className="mr-2 h-4 w-4" />
@@ -84,7 +87,7 @@ export function MobileSidebar({
           <Separator className="my-4 bg-white/10" />
 
           <div className="space-y-1">
-            <p className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-white/50">
+            <p className="mb-2 px-2 text-xs font-semibold tracking-wider text-white/50 uppercase">
               Categories
             </p>
             {categories.map((category) => (
@@ -94,14 +97,14 @@ export function MobileSidebar({
                     variant="ghost"
                     className={cn(
                       'min-h-11 w-full justify-between text-white/80 hover:bg-white/10 hover:text-white',
-                      pathname === '/prompts' && currentCategory === category.id && 'bg-gradient-to-r from-secondary/20 to-transparent text-white border-l-2 border-secondary rounded-l-none'
+                      pathname === '/prompts' &&
+                        currentCategory === category.id &&
+                        'from-secondary/20 border-secondary rounded-l-none border-l-2 bg-linear-to-r to-transparent text-white'
                     )}
                   >
                     <span className="truncate">{category.name}</span>
                     {category.prompt_count !== undefined && (
-                      <span className="ml-2 text-xs text-white/50">
-                        {category.prompt_count}
-                      </span>
+                      <span className="ml-2 text-xs text-white/50">{category.prompt_count}</span>
                     )}
                   </Button>
                 </Link>
@@ -118,7 +121,8 @@ export function MobileSidebar({
                   variant="ghost"
                   className={cn(
                     'min-h-11 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
-                    pathname === '/settings' && 'bg-gradient-to-r from-primary/20 to-transparent text-white border-l-2 border-primary rounded-l-none'
+                    pathname === '/settings' &&
+                      'from-primary/20 border-primary rounded-l-none border-l-2 bg-linear-to-r to-transparent text-white'
                   )}
                 >
                   <Settings className="mr-2 h-4 w-4" />
@@ -133,7 +137,7 @@ export function MobileSidebar({
               <Separator className="my-4 bg-white/10" />
 
               <div className="space-y-1">
-                <p className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-white/50">
+                <p className="mb-2 px-2 text-xs font-semibold tracking-wider text-white/50 uppercase">
                   Admin
                 </p>
                 <SheetClose asChild>
@@ -142,7 +146,8 @@ export function MobileSidebar({
                       variant="ghost"
                       className={cn(
                         'min-h-11 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
-                        pathname === '/admin' && 'bg-gradient-to-r from-primary/20 to-transparent text-white border-l-2 border-primary rounded-l-none'
+                        pathname === '/admin' &&
+                          'from-primary/20 border-primary rounded-l-none border-l-2 bg-linear-to-r to-transparent text-white'
                       )}
                     >
                       <LayoutDashboard className="mr-2 h-4 w-4" />
@@ -156,7 +161,8 @@ export function MobileSidebar({
                       variant="ghost"
                       className={cn(
                         'min-h-11 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
-                        pathname === '/admin/flagged' && 'bg-gradient-to-r from-primary/20 to-transparent text-white border-l-2 border-primary rounded-l-none'
+                        pathname === '/admin/flagged' &&
+                          'from-primary/20 border-primary rounded-l-none border-l-2 bg-linear-to-r to-transparent text-white'
                       )}
                     >
                       <Flag className="mr-2 h-4 w-4" />
@@ -170,7 +176,8 @@ export function MobileSidebar({
                       variant="ghost"
                       className={cn(
                         'min-h-11 w-full justify-start text-white/80 hover:bg-white/10 hover:text-white',
-                        pathname === '/prompts/new' && 'bg-gradient-to-r from-primary/20 to-transparent text-white border-l-2 border-primary rounded-l-none'
+                        pathname === '/prompts/new' &&
+                          'from-primary/20 border-primary rounded-l-none border-l-2 bg-linear-to-r to-transparent text-white'
                       )}
                     >
                       <Plus className="mr-2 h-4 w-4" />

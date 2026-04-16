@@ -83,15 +83,15 @@ export default function FeedbackPage() {
   if (isSubmitted) {
     return (
       <div className="flex flex-col">
-        <section className="relative overflow-hidden bg-gradient-to-b from-primary-light/30 via-background to-background py-20 dark:from-navy dark:via-background">
+        <section className="from-primary-light/30 via-background to-background dark:from-navy dark:via-background relative overflow-hidden bg-linear-to-b py-20">
           <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-5" />
-          <div className="container relative">
+          <div className="relative container">
             <div className="mx-auto max-w-2xl text-center">
-              <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-success/10">
-                <CheckCircle2 className="h-8 w-8 text-success" />
+              <div className="bg-success/10 mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full">
+                <CheckCircle2 className="text-success h-8 w-8" />
               </div>
               <h1 className="mb-4 text-3xl font-bold">Thank You!</h1>
-              <p className="mb-8 text-lg text-muted-foreground">
+              <p className="text-muted-foreground mb-8 text-lg">
                 Your feedback has been submitted anonymously. We appreciate you taking the time to
                 help us improve Atlas.
               </p>
@@ -123,9 +123,9 @@ export default function FeedbackPage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-primary-light/30 via-background to-background pb-12 pt-16 dark:from-navy dark:via-background">
+      <section className="from-primary-light/30 via-background to-background dark:from-navy dark:via-background relative overflow-hidden bg-linear-to-b pt-16 pb-12">
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-5" />
-        <div className="container relative">
+        <div className="relative container">
           <div className="mx-auto max-w-2xl text-center">
             <Badge variant="secondary" className="mb-6">
               <MessageSquare className="mr-1 h-3 w-3" />
@@ -136,7 +136,7 @@ export default function FeedbackPage() {
               Help Us Improve Atlas
             </h1>
 
-            <p className="text-lg text-muted-foreground">
+            <p className="text-muted-foreground text-lg">
               Your feedback shapes the future of Atlas. Tell us what&apos;s working, what
               isn&apos;t, and what you&apos;d like to see next.
             </p>
@@ -151,7 +151,7 @@ export default function FeedbackPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Lightbulb className="h-5 w-5 text-primary" />
+                  <Lightbulb className="text-primary h-5 w-5" />
                   Submit Feedback
                 </CardTitle>
                 <CardDescription className="flex items-center gap-2">
@@ -180,7 +180,7 @@ export default function FeedbackPage() {
                         ))}
                       </SelectContent>
                     </Select>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-muted-foreground text-sm">
                       {feedbackTypes.find((t) => t.value === feedbackType)?.description}
                     </p>
                   </div>
@@ -195,7 +195,7 @@ export default function FeedbackPage() {
                       className="min-h-[200px]"
                       required
                     />
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-muted-foreground text-sm">
                       Be as specific as possible. Include examples if relevant.
                     </p>
                   </div>
@@ -219,7 +219,7 @@ export default function FeedbackPage() {
               <Card className="border-primary/20 bg-primary/5">
                 <CardContent className="pt-6">
                   <h3 className="mb-2 font-semibold">What happens next?</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-muted-foreground text-sm">
                     Your feedback is sent directly to the development team. We review all
                     submissions and prioritize based on community impact.
                   </p>
@@ -229,7 +229,7 @@ export default function FeedbackPage() {
               <Card className="border-secondary/20 bg-secondary/5">
                 <CardContent className="pt-6">
                   <h3 className="mb-2 font-semibold">Check the Roadmap</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-muted-foreground text-sm">
                     See what features are coming next on our{' '}
                     <Link href="/roadmap" className="text-primary hover:underline">
                       public roadmap

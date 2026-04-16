@@ -54,9 +54,9 @@ export default function FeaturesPage() {
       />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-primary-light/30 via-background to-background pb-16 pt-16 dark:from-navy dark:via-background">
+      <section className="from-primary-light/30 via-background to-background dark:from-navy dark:via-background relative overflow-hidden bg-linear-to-b pt-16 pb-16">
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-5" />
-        <div className="container relative">
+        <div className="relative container">
           <div className="mx-auto max-w-4xl text-center">
             <Badge variant="secondary" className="mb-6">
               <Sparkles className="mr-1 h-3 w-3" />
@@ -69,7 +69,7 @@ export default function FeaturesPage() {
               <span className="text-gradient">prompt governance</span>
             </h1>
 
-            <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground sm:text-xl">
+            <p className="text-muted-foreground mx-auto mb-10 max-w-2xl text-lg sm:text-xl">
               Atlas combines powerful features to help your team create, maintain, and improve
               prompts together. From variable injection to crowdsourced quality control.
             </p>
@@ -90,14 +90,14 @@ export default function FeaturesPage() {
       </section>
 
       {/* Core Features Section */}
-      <section className="border-y bg-muted/30 py-20">
+      <section className="bg-muted/30 border-y py-20">
         <div className="container">
           <div className="mb-16 text-center">
             <Badge variant="default" className="mb-4">
               Core Features
             </Badge>
             <h2 className="text-3xl font-bold sm:text-4xl">The foundation of prompt governance</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+            <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-lg">
               These core features work together to transform scattered prompts into a centralized,
               self-improving knowledge base.
             </p>
@@ -182,7 +182,7 @@ export default function FeaturesPage() {
               Organization
             </Badge>
             <h2 className="text-3xl font-bold sm:text-4xl">Find the right prompt instantly</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+            <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-lg">
               Powerful organization tools ensure your team can find exactly what they need in
               seconds, not minutes.
             </p>
@@ -190,8 +190,8 @@ export default function FeaturesPage() {
 
           <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
             <Card className="overflow-hidden">
-              <CardHeader className="bg-gradient-to-br from-primary/5 to-secondary/5">
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+              <CardHeader className="from-primary/5 to-secondary/5 bg-linear-to-br">
+                <div className="from-primary/10 to-secondary/10 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                   <FolderOpen className="h-6 w-6" />
                 </div>
                 <CardTitle>Categories</CardTitle>
@@ -202,20 +202,20 @@ export default function FeaturesPage() {
               <CardContent className="pt-6">
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Custom categories for your workflow (SEO, Content, Client Comms, etc.)
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Category-level descriptions and guidelines
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Quick filter sidebar for fast navigation
                     </span>
                   </li>
@@ -224,8 +224,8 @@ export default function FeaturesPage() {
             </Card>
 
             <Card className="overflow-hidden">
-              <CardHeader className="bg-gradient-to-br from-primary/5 to-secondary/5">
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+              <CardHeader className="from-primary/5 to-secondary/5 bg-linear-to-br">
+                <div className="from-primary/10 to-secondary/10 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                   <Tag className="h-6 w-6" />
                 </div>
                 <CardTitle>Tags</CardTitle>
@@ -236,20 +236,20 @@ export default function FeaturesPage() {
               <CardContent className="pt-6">
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Flexible tagging for topics, clients, or use cases
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Multi-tag filtering to narrow results
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Tag suggestions based on content
                     </span>
                   </li>
@@ -258,8 +258,8 @@ export default function FeaturesPage() {
             </Card>
 
             <Card className="overflow-hidden">
-              <CardHeader className="bg-gradient-to-br from-primary/5 to-secondary/5">
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+              <CardHeader className="from-primary/5 to-secondary/5 bg-linear-to-br">
+                <div className="from-primary/10 to-secondary/10 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                   <Search className="h-6 w-6" />
                 </div>
                 <CardTitle>Full-Text Search</CardTitle>
@@ -271,20 +271,20 @@ export default function FeaturesPage() {
               <CardContent className="pt-6">
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Instant search results as you type
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Search within categories or across all
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Recent searches for quick access
                     </span>
                   </li>
@@ -293,8 +293,8 @@ export default function FeaturesPage() {
             </Card>
 
             <Card className="overflow-hidden">
-              <CardHeader className="bg-gradient-to-br from-primary/5 to-secondary/5">
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+              <CardHeader className="from-primary/5 to-secondary/5 bg-linear-to-br">
+                <div className="from-primary/10 to-secondary/10 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                   <Filter className="h-6 w-6" />
                 </div>
                 <CardTitle>Smart Filtering</CardTitle>
@@ -305,20 +305,20 @@ export default function FeaturesPage() {
               <CardContent className="pt-6">
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Filter by rating, recency, or vote count
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Show only high-performing prompts
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                    <span className="text-sm text-muted-foreground">
+                    <CheckCircle2 className="text-success mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="text-muted-foreground text-sm">
                       Hide stale or flagged content
                     </span>
                   </li>
@@ -330,14 +330,14 @@ export default function FeaturesPage() {
       </section>
 
       {/* Admin & Control Features */}
-      <section className="border-y bg-muted/30 py-20">
+      <section className="bg-muted/30 border-y py-20">
         <div className="container">
           <div className="mb-16 text-center">
             <Badge variant="secondary" className="mb-4">
               Admin Controls
             </Badge>
             <h2 className="text-3xl font-bold sm:text-4xl">Maintain quality at scale</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+            <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-lg">
               Powerful admin tools give you control over content while empowering the team to
               contribute feedback.
             </p>
@@ -346,7 +346,7 @@ export default function FeaturesPage() {
           <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-4">
             <Card className="text-center">
               <CardHeader>
-                <div className="mx-auto mb-2 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-white">
+                <div className="from-primary to-secondary mx-auto mb-2 flex h-14 w-14 items-center justify-center rounded-full bg-linear-to-br text-white">
                   <Users className="h-7 w-7" />
                 </div>
                 <CardTitle className="text-lg">Role-Based Access</CardTitle>
@@ -361,7 +361,7 @@ export default function FeaturesPage() {
 
             <Card className="text-center">
               <CardHeader>
-                <div className="mx-auto mb-2 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-white">
+                <div className="from-primary to-secondary mx-auto mb-2 flex h-14 w-14 items-center justify-center rounded-full bg-linear-to-br text-white">
                   <BarChart3 className="h-7 w-7" />
                 </div>
                 <CardTitle className="text-lg">Review Dashboard</CardTitle>
@@ -376,7 +376,7 @@ export default function FeaturesPage() {
 
             <Card className="text-center">
               <CardHeader>
-                <div className="mx-auto mb-2 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-white">
+                <div className="from-primary to-secondary mx-auto mb-2 flex h-14 w-14 items-center justify-center rounded-full bg-linear-to-br text-white">
                   <Settings className="h-7 w-7" />
                 </div>
                 <CardTitle className="text-lg">Category Management</CardTitle>
@@ -391,7 +391,7 @@ export default function FeaturesPage() {
 
             <Card className="text-center">
               <CardHeader>
-                <div className="mx-auto mb-2 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-white">
+                <div className="from-primary to-secondary mx-auto mb-2 flex h-14 w-14 items-center justify-center rounded-full bg-linear-to-br text-white">
                   <BookOpen className="h-7 w-7" />
                 </div>
                 <CardTitle className="text-lg">Teaching Examples</CardTitle>
@@ -415,7 +415,7 @@ export default function FeaturesPage() {
               Security & Technical
             </Badge>
             <h2 className="text-3xl font-bold sm:text-4xl">Built for enterprise teams</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+            <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-lg">
               Enterprise-grade security and modern architecture ensure your prompts are safe and
               your team stays productive.
             </p>
@@ -424,7 +424,7 @@ export default function FeaturesPage() {
           <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
             <Card>
               <CardHeader>
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+                <div className="from-primary/10 to-secondary/10 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                   <Shield className="h-6 w-6" />
                 </div>
                 <CardTitle className="text-lg">Row-Level Security</CardTitle>
@@ -439,7 +439,7 @@ export default function FeaturesPage() {
 
             <Card>
               <CardHeader>
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+                <div className="from-primary/10 to-secondary/10 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                   <Lock className="h-6 w-6" />
                 </div>
                 <CardTitle className="text-lg">Secure Authentication</CardTitle>
@@ -454,7 +454,7 @@ export default function FeaturesPage() {
 
             <Card>
               <CardHeader>
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+                <div className="from-primary/10 to-secondary/10 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                   <Zap className="h-6 w-6" />
                 </div>
                 <CardTitle className="text-lg">Fast Performance</CardTitle>
@@ -469,7 +469,7 @@ export default function FeaturesPage() {
 
             <Card>
               <CardHeader>
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+                <div className="from-primary/10 to-secondary/10 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                   <Clock className="h-6 w-6" />
                 </div>
                 <CardTitle className="text-lg">Real-Time Updates</CardTitle>
@@ -484,7 +484,7 @@ export default function FeaturesPage() {
 
             <Card>
               <CardHeader>
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+                <div className="from-primary/10 to-secondary/10 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                   <Layers className="h-6 w-6" />
                 </div>
                 <CardTitle className="text-lg">Modern Stack</CardTitle>
@@ -499,7 +499,7 @@ export default function FeaturesPage() {
 
             <Card>
               <CardHeader>
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+                <div className="from-primary/10 to-secondary/10 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
                   <BarChart3 className="h-6 w-6" />
                 </div>
                 <CardTitle className="text-lg">Analytics Ready</CardTitle>
@@ -516,11 +516,11 @@ export default function FeaturesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="border-t bg-gradient-to-b from-primary/5 to-secondary/5 py-20">
+      <section className="from-primary/5 to-secondary/5 border-t bg-linear-to-b py-20">
         <div className="container">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl font-bold sm:text-4xl">Ready to explore all features?</h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <p className="text-muted-foreground mt-4 text-lg">
               Start using Atlas today and experience every feature firsthand. No credit card
               required.
             </p>
@@ -556,7 +556,7 @@ function FeatureCard({
   return (
     <Card className="transition-shadow hover:shadow-md">
       <CardHeader>
-        <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+        <div className="from-primary/10 to-secondary/10 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
           {icon}
         </div>
         <CardTitle className="text-lg">{title}</CardTitle>
@@ -565,8 +565,8 @@ function FeatureCard({
       <CardContent>
         <ul className="space-y-2">
           {highlights.map((highlight) => (
-            <li key={highlight} className="flex items-center gap-2 text-sm text-muted-foreground">
-              <CheckCircle2 className="h-4 w-4 shrink-0 text-success" />
+            <li key={highlight} className="text-muted-foreground flex items-center gap-2 text-sm">
+              <CheckCircle2 className="text-success h-4 w-4 shrink-0" />
               {highlight}
             </li>
           ))}

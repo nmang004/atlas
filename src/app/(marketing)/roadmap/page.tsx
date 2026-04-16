@@ -180,8 +180,7 @@ const roadmapItems: RoadmapItem[] = [
   },
   {
     title: 'Mobile App',
-    description:
-      'Native mobile experience for iOS and Android. Access your prompts on the go.',
+    description: 'Native mobile experience for iOS and Android. Access your prompts on the go.',
     icon: <Smartphone className="h-5 w-5" />,
     status: 'considering',
   },
@@ -234,9 +233,9 @@ export default function RoadmapPage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-primary-light/30 via-background to-background pb-12 pt-16 dark:from-navy dark:via-background">
+      <section className="from-primary-light/30 via-background to-background dark:from-navy dark:via-background relative overflow-hidden bg-linear-to-b pt-16 pb-12">
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-5" />
-        <div className="container relative">
+        <div className="relative container">
           <div className="mx-auto max-w-3xl text-center">
             <Badge variant="secondary" className="mb-6">
               <Rocket className="mr-1 h-3 w-3" />
@@ -249,7 +248,7 @@ export default function RoadmapPage() {
               <span className="text-gradient">Atlas</span>
             </h1>
 
-            <p className="mb-8 text-lg text-muted-foreground">
+            <p className="text-muted-foreground mb-8 text-lg">
               See what we&apos;re building next. These features are shaped by user feedback and our
               mission to make prompt governance seamless.
             </p>
@@ -265,12 +264,14 @@ export default function RoadmapPage() {
       </section>
 
       {/* Legend */}
-      <section className="border-b bg-muted/30 py-4">
+      <section className="bg-muted/30 border-b py-4">
         <div className="container">
           <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8">
             {Object.entries(statusConfig).map(([status, config]) => (
               <div key={status} className="flex items-center gap-2">
-                <div className={`flex h-6 w-6 items-center justify-center rounded-full ${config.bgColor} ${config.color}`}>
+                <div
+                  className={`flex h-6 w-6 items-center justify-center rounded-full ${config.bgColor} ${config.color}`}
+                >
                   {config.icon}
                 </div>
                 <span className="text-sm font-medium">{config.label}</span>
@@ -287,7 +288,7 @@ export default function RoadmapPage() {
             {/* In Progress */}
             <div>
               <div className="mb-6 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <div className="bg-primary/10 text-primary flex h-10 w-10 items-center justify-center rounded-full">
                   <Rocket className="h-5 w-5" />
                 </div>
                 <div>
@@ -305,7 +306,7 @@ export default function RoadmapPage() {
             {/* Planned */}
             <div>
               <div className="mb-6 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary/10 text-secondary">
+                <div className="bg-secondary/10 text-secondary flex h-10 w-10 items-center justify-center rounded-full">
                   <Clock className="h-5 w-5" />
                 </div>
                 <div>
@@ -323,7 +324,7 @@ export default function RoadmapPage() {
             {/* Considering */}
             <div>
               <div className="mb-6 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-muted-foreground">
+                <div className="bg-muted text-muted-foreground flex h-10 w-10 items-center justify-center rounded-full">
                   <Sparkles className="h-5 w-5" />
                 </div>
                 <div>
@@ -342,11 +343,11 @@ export default function RoadmapPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="border-t bg-gradient-to-b from-primary/5 to-secondary/5 py-16">
+      <section className="from-primary/5 to-secondary/5 border-t bg-linear-to-b py-16">
         <div className="container">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="mb-4 text-2xl font-bold">Have an idea?</h2>
-            <p className="mb-6 text-muted-foreground">
+            <p className="text-muted-foreground mb-6">
               Your feedback directly influences our roadmap. Tell us what features would make Atlas
               more valuable for you.
             </p>
@@ -378,7 +379,9 @@ function RoadmapCard({ item, compact = false }: { item: RoadmapItem; compact?: b
     <Card className="transition-all hover:shadow-md">
       <CardHeader className={compact ? 'pb-2' : ''}>
         <div className="flex items-start justify-between gap-2">
-          <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${config.bgColor} ${config.color}`}>
+          <div
+            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${config.bgColor} ${config.color}`}
+          >
             {item.icon}
           </div>
           {item.quarter && (
@@ -390,9 +393,7 @@ function RoadmapCard({ item, compact = false }: { item: RoadmapItem; compact?: b
         <CardTitle className={compact ? 'text-base' : 'text-lg'}>{item.title}</CardTitle>
       </CardHeader>
       <CardContent className={compact ? 'pt-0' : ''}>
-        <CardDescription className={compact ? 'text-sm' : ''}>
-          {item.description}
-        </CardDescription>
+        <CardDescription className={compact ? 'text-sm' : ''}>{item.description}</CardDescription>
       </CardContent>
     </Card>
   )

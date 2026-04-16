@@ -65,12 +65,12 @@ const changelog: ChangelogEntry[] = [
     date: 'January 14, 2026',
     title: 'Community & Communication Update',
     description:
-      'Major improvements to user experience based on team feedback, plus new ways to share your thoughts and see what\'s coming next.',
+      "Major improvements to user experience based on team feedback, plus new ways to share your thoughts and see what's coming next.",
     isCurrent: true,
     thankYouMessage: {
       title: 'Thank You, Scorpion SEO Team',
       message:
-        'A heartfelt thank you to the entire Scorpion SEO team for your incredible support, feedback, and enthusiasm for Atlas. Your insights and real-world usage drive every improvement we make. Together, we\'re building something that makes everyone\'s work better, faster, and more consistent. I\'m grateful to be building this with all of you.',
+        "A heartfelt thank you to the entire Scorpion SEO team for your incredible support, feedback, and enthusiasm for Atlas. Your insights and real-world usage drive every improvement we make. Together, we're building something that makes everyone's work better, faster, and more consistent. I'm grateful to be building this with all of you.",
       signature: 'Nick',
     },
     categories: [
@@ -268,9 +268,9 @@ export default function ChangelogPage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-primary-light/30 via-background to-background pb-16 pt-16 dark:from-navy dark:via-background">
+      <section className="from-primary-light/30 via-background to-background dark:from-navy dark:via-background relative overflow-hidden bg-linear-to-b pt-16 pb-16">
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-5" />
-        <div className="container relative">
+        <div className="relative container">
           <div className="mx-auto max-w-4xl text-center">
             <Badge variant="secondary" className="mb-6">
               <History className="mr-1 h-3 w-3" />
@@ -283,7 +283,7 @@ export default function ChangelogPage() {
               <span className="text-gradient">Atlas</span>
             </h1>
 
-            <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground sm:text-xl">
+            <p className="text-muted-foreground mx-auto mb-10 max-w-2xl text-lg sm:text-xl">
               Track every feature, improvement, and fix. Stay informed about the latest updates to
               your prompt governance platform.
             </p>
@@ -297,7 +297,7 @@ export default function ChangelogPage() {
           <div className="mx-auto max-w-5xl">
             <div className="relative">
               {/* Timeline line */}
-              <div className="absolute left-0 top-0 hidden h-full w-px bg-gradient-to-b from-primary via-secondary to-border md:left-[11.5rem] md:block" />
+              <div className="from-primary via-secondary to-border absolute top-0 left-0 hidden h-full w-px bg-linear-to-b md:left-[11.5rem] md:block" />
 
               <div className="space-y-16">
                 {changelog.map((entry) => (
@@ -306,8 +306,8 @@ export default function ChangelogPage() {
                     <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-start">
                       {/* Date column */}
                       <div className="flex shrink-0 items-center gap-3 md:w-44 md:flex-col md:items-end md:text-right">
-                        <div className="relative z-10 hidden h-4 w-4 rounded-full border-4 border-primary bg-background md:block" />
-                        <span className="text-sm font-medium text-muted-foreground">
+                        <div className="border-primary bg-background relative z-10 hidden h-4 w-4 rounded-full border-4 md:block" />
+                        <span className="text-muted-foreground text-sm font-medium">
                           {entry.date}
                         </span>
                       </div>
@@ -317,13 +317,13 @@ export default function ChangelogPage() {
                         <div className="mb-2 flex flex-wrap items-center gap-3">
                           <h2 className="text-3xl font-bold">v{entry.version}</h2>
                           {entry.isCurrent && (
-                            <Badge className="bg-gradient-to-r from-primary to-secondary">
+                            <Badge className="from-primary to-secondary bg-linear-to-r">
                               <Sparkles className="mr-1 h-3 w-3" />
                               Latest
                             </Badge>
                           )}
                         </div>
-                        <h3 className="mb-2 text-xl font-semibold text-foreground">
+                        <h3 className="text-foreground mb-2 text-xl font-semibold">
                           {entry.title}
                         </h3>
                         <p className="text-muted-foreground">{entry.description}</p>
@@ -336,11 +336,11 @@ export default function ChangelogPage() {
                         {entry.categories.map((category) => (
                           <Card
                             key={category.name}
-                            className="transition-all hover:shadow-md hover:shadow-primary/5"
+                            className="hover:shadow-primary/5 transition-all hover:shadow-md"
                           >
                             <CardHeader className="pb-3">
                               <div className="flex items-center gap-2">
-                                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+                                <div className="from-primary/10 to-secondary/10 text-primary flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br">
                                   {category.icon}
                                 </div>
                                 <CardTitle className="text-base">{category.name}</CardTitle>
@@ -351,9 +351,9 @@ export default function ChangelogPage() {
                                 {category.items.map((item) => (
                                   <li
                                     key={item}
-                                    className="flex items-start gap-2 text-sm text-muted-foreground"
+                                    className="text-muted-foreground flex items-start gap-2 text-sm"
                                   >
-                                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+                                    <CheckCircle2 className="text-success mt-0.5 h-4 w-4 shrink-0" />
                                     <span>{item}</span>
                                   </li>
                                 ))}
@@ -365,18 +365,22 @@ export default function ChangelogPage() {
 
                       {/* Thank you message - shown directly under version */}
                       {entry.thankYouMessage && (
-                        <Card className="mt-6 border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
+                        <Card className="border-primary/20 from-primary/5 to-secondary/5 mt-6 bg-linear-to-br">
                           <CardContent className="pt-6">
                             <div className="flex items-start gap-4">
-                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                                <Heart className="h-5 w-5 text-primary" />
+                              <div className="bg-primary/10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
+                                <Heart className="text-primary h-5 w-5" />
                               </div>
                               <div>
-                                <h3 className="mb-2 font-semibold">{entry.thankYouMessage.title}</h3>
-                                <p className="text-sm text-muted-foreground">
+                                <h3 className="mb-2 font-semibold">
+                                  {entry.thankYouMessage.title}
+                                </h3>
+                                <p className="text-muted-foreground text-sm">
                                   {entry.thankYouMessage.message}
                                 </p>
-                                <p className="mt-3 font-medium">— {entry.thankYouMessage.signature}</p>
+                                <p className="mt-3 font-medium">
+                                  — {entry.thankYouMessage.signature}
+                                </p>
                               </div>
                             </div>
                           </CardContent>
@@ -392,11 +396,11 @@ export default function ChangelogPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="border-t bg-gradient-to-b from-primary/5 to-secondary/5 py-20">
+      <section className="from-primary/5 to-secondary/5 border-t bg-linear-to-b py-20">
         <div className="container">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl font-bold sm:text-4xl">Ready to get started?</h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <p className="text-muted-foreground mt-4 text-lg">
               Experience all these features and more. Start standardizing your AI workflow today.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">

@@ -47,9 +47,9 @@ export default function AboutPage() {
         linkHref="/changelog"
       />
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-primary-light/30 via-background to-background pb-20 pt-16 dark:from-navy dark:via-background">
+      <section className="from-primary-light/30 via-background to-background dark:from-navy dark:via-background relative overflow-hidden bg-linear-to-b pt-16 pb-20">
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-5" />
-        <div className="container relative">
+        <div className="relative container">
           <div className="mx-auto max-w-4xl text-center">
             <Badge variant="secondary" className="mb-6">
               <Sparkles className="mr-1 h-3 w-3" />
@@ -62,7 +62,7 @@ export default function AboutPage() {
               <span className="text-gradient">across your AI outputs</span>
             </h1>
 
-            <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground sm:text-xl">
+            <p className="text-muted-foreground mx-auto mb-10 max-w-2xl text-lg sm:text-xl">
               Atlas is a living prompt library that self-maintains through collective verification.
               Store proven prompts, inject variables on-the-fly, and ensure every team member
               produces consistent, high-quality AI work.
@@ -83,20 +83,20 @@ export default function AboutPage() {
             {/* Stats */}
             <div className="mt-16 grid grid-cols-2 gap-8 sm:grid-cols-4">
               <div>
-                <div className="text-3xl font-bold text-primary">50%</div>
-                <div className="text-sm text-muted-foreground">Less output variance</div>
+                <div className="text-primary text-3xl font-bold">50%</div>
+                <div className="text-muted-foreground text-sm">Less output variance</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-primary">3x</div>
-                <div className="text-sm text-muted-foreground">Faster prompt discovery</div>
+                <div className="text-primary text-3xl font-bold">3x</div>
+                <div className="text-muted-foreground text-sm">Faster prompt discovery</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-primary">0</div>
-                <div className="text-sm text-muted-foreground">Stale prompts tolerated</div>
+                <div className="text-primary text-3xl font-bold">0</div>
+                <div className="text-muted-foreground text-sm">Stale prompts tolerated</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-primary">100%</div>
-                <div className="text-sm text-muted-foreground">Team alignment</div>
+                <div className="text-primary text-3xl font-bold">100%</div>
+                <div className="text-muted-foreground text-sm">Team alignment</div>
               </div>
             </div>
           </div>
@@ -104,7 +104,7 @@ export default function AboutPage() {
       </section>
 
       {/* Problem Section */}
-      <section className="border-y bg-muted/30 py-20">
+      <section className="bg-muted/30 border-y py-20">
         <div className="container">
           <div className="mx-auto max-w-4xl">
             <div className="mb-12 text-center">
@@ -119,8 +119,8 @@ export default function AboutPage() {
             <div className="grid gap-6 md:grid-cols-3">
               <Card className="border-destructive/20 bg-destructive/5">
                 <CardHeader>
-                  <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-destructive/10">
-                    <RefreshCw className="h-5 w-5 text-destructive" />
+                  <div className="bg-destructive/10 mb-2 flex h-10 w-10 items-center justify-center rounded-lg">
+                    <RefreshCw className="text-destructive h-5 w-5" />
                   </div>
                   <CardTitle className="text-lg">Reinventing the Wheel</CardTitle>
                 </CardHeader>
@@ -134,8 +134,8 @@ export default function AboutPage() {
 
               <Card className="border-destructive/20 bg-destructive/5">
                 <CardHeader>
-                  <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-destructive/10">
-                    <Target className="h-5 w-5 text-destructive" />
+                  <div className="bg-destructive/10 mb-2 flex h-10 w-10 items-center justify-center rounded-lg">
+                    <Target className="text-destructive h-5 w-5" />
                   </div>
                   <CardTitle className="text-lg">Inconsistent Quality</CardTitle>
                 </CardHeader>
@@ -149,8 +149,8 @@ export default function AboutPage() {
 
               <Card className="border-destructive/20 bg-destructive/5">
                 <CardHeader>
-                  <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-destructive/10">
-                    <BookOpen className="h-5 w-5 text-destructive" />
+                  <div className="bg-destructive/10 mb-2 flex h-10 w-10 items-center justify-center rounded-lg">
+                    <BookOpen className="text-destructive h-5 w-5" />
                   </div>
                   <CardTitle className="text-lg">Knowledge Silos</CardTitle>
                 </CardHeader>
@@ -177,16 +177,17 @@ export default function AboutPage() {
               <h2 className="text-3xl font-bold sm:text-4xl">
                 A living library that maintains itself
               </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
-                Atlas turns your scattered prompts into a centralized, self-improving knowledge base.
+              <p className="text-muted-foreground mt-4 text-lg">
+                Atlas turns your scattered prompts into a centralized, self-improving knowledge
+                base.
               </p>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2">
               <Card className="border-success/20 bg-success/5">
                 <CardHeader>
-                  <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-success/10">
-                    <CheckCircle2 className="h-5 w-5 text-success" />
+                  <div className="bg-success/10 mb-2 flex h-10 w-10 items-center justify-center rounded-lg">
+                    <CheckCircle2 className="text-success h-5 w-5" />
                   </div>
                   <CardTitle className="text-lg">Centralized & Searchable</CardTitle>
                 </CardHeader>
@@ -200,8 +201,8 @@ export default function AboutPage() {
 
               <Card className="border-success/20 bg-success/5">
                 <CardHeader>
-                  <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-success/10">
-                    <Vote className="h-5 w-5 text-success" />
+                  <div className="bg-success/10 mb-2 flex h-10 w-10 items-center justify-center rounded-lg">
+                    <Vote className="text-success h-5 w-5" />
                   </div>
                   <CardTitle className="text-lg">Crowdsourced Quality</CardTitle>
                 </CardHeader>
@@ -215,8 +216,8 @@ export default function AboutPage() {
 
               <Card className="border-success/20 bg-success/5">
                 <CardHeader>
-                  <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-success/10">
-                    <Variable className="h-5 w-5 text-success" />
+                  <div className="bg-success/10 mb-2 flex h-10 w-10 items-center justify-center rounded-lg">
+                    <Variable className="text-success h-5 w-5" />
                   </div>
                   <CardTitle className="text-lg">Dynamic Variables</CardTitle>
                 </CardHeader>
@@ -230,8 +231,8 @@ export default function AboutPage() {
 
               <Card className="border-success/20 bg-success/5">
                 <CardHeader>
-                  <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-success/10">
-                    <Lightbulb className="h-5 w-5 text-success" />
+                  <div className="bg-success/10 mb-2 flex h-10 w-10 items-center justify-center rounded-lg">
+                    <Lightbulb className="text-success h-5 w-5" />
                   </div>
                   <CardTitle className="text-lg">Teaching Examples</CardTitle>
                 </CardHeader>
@@ -248,13 +249,15 @@ export default function AboutPage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="scroll-mt-20 border-y bg-muted/30 py-20">
+      <section id="features" className="bg-muted/30 scroll-mt-20 border-y py-20">
         <div className="container">
           <div className="mb-16 text-center">
             <Badge variant="secondary" className="mb-4">
               Features
             </Badge>
-            <h2 className="text-3xl font-bold sm:text-4xl">Everything you need for prompt governance</h2>
+            <h2 className="text-3xl font-bold sm:text-4xl">
+              Everything you need for prompt governance
+            </h2>
           </div>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -314,7 +317,7 @@ export default function AboutPage() {
           <div className="mx-auto max-w-4xl">
             <div className="relative">
               {/* Connection line */}
-              <div className="absolute left-8 top-0 hidden h-full w-0.5 bg-gradient-to-b from-primary via-secondary to-primary md:block" />
+              <div className="from-primary via-secondary to-primary absolute top-0 left-8 hidden h-full w-0.5 bg-linear-to-b md:block" />
 
               <div className="space-y-12">
                 <WorkflowStep
@@ -353,14 +356,14 @@ export default function AboutPage() {
       </section>
 
       {/* Example Section */}
-      <section id="use-cases" className="scroll-mt-20 border-y bg-muted/30 py-20">
+      <section id="use-cases" className="bg-muted/30 scroll-mt-20 border-y py-20">
         <div className="container">
           <div className="mb-16 text-center">
             <Badge variant="secondary" className="mb-4">
               Real Examples
             </Badge>
             <h2 className="text-3xl font-bold sm:text-4xl">See Atlas in action</h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <p className="text-muted-foreground mt-4 text-lg">
               Here&apos;s how teams use Atlas to standardize their AI workflows
             </p>
           </div>
@@ -368,7 +371,7 @@ export default function AboutPage() {
           <div className="mx-auto max-w-5xl">
             {/* Example Prompt Card */}
             <Card className="overflow-hidden">
-              <div className="border-b bg-card p-6">
+              <div className="bg-card border-b p-6">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
                     <div className="mb-2 flex items-center gap-2">
@@ -376,16 +379,16 @@ export default function AboutPage() {
                       <Badge variant="outline">Content</Badge>
                     </div>
                     <h3 className="text-xl font-semibold">Meta Description Generator</h3>
-                    <p className="mt-1 text-muted-foreground">
+                    <p className="text-muted-foreground mt-1">
                       Generate compelling meta descriptions that drive clicks
                     </p>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1 text-sm">
-                      <ThumbsUp className="h-4 w-4 text-success" />
+                      <ThumbsUp className="text-success h-4 w-4" />
                       <span className="font-medium">94%</span>
                     </div>
-                    <div className="text-sm text-muted-foreground">127 uses</div>
+                    <div className="text-muted-foreground text-sm">127 uses</div>
                   </div>
                 </div>
               </div>
@@ -394,16 +397,16 @@ export default function AboutPage() {
                 {/* Prompt Template */}
                 <div>
                   <h4 className="mb-3 font-semibold">Prompt Template</h4>
-                  <div className="rounded-lg bg-muted/50 p-4 font-mono text-sm">
+                  <div className="bg-muted/50 rounded-lg p-4 font-mono text-sm">
                     <p>Write a meta description for a webpage about:</p>
                     <p className="mt-2">
-                      <span className="rounded bg-primary/20 px-1 text-primary">
+                      <span className="bg-primary/20 text-primary rounded px-1">
                         {'{{page_topic}}'}
                       </span>
                     </p>
                     <p className="mt-2">Target keyword:</p>
                     <p>
-                      <span className="rounded bg-primary/20 px-1 text-primary">
+                      <span className="bg-primary/20 text-primary rounded px-1">
                         {'{{target_keyword}}'}
                       </span>
                     </p>
@@ -413,7 +416,7 @@ export default function AboutPage() {
                     </p>
                     <p className="mt-2">Tone:</p>
                     <p>
-                      <span className="rounded bg-secondary/20 px-1 text-secondary">
+                      <span className="bg-secondary/20 text-secondary rounded px-1">
                         {'{{tone}}'}
                       </span>
                     </p>
@@ -426,19 +429,19 @@ export default function AboutPage() {
                   <div className="space-y-4">
                     <div>
                       <label className="mb-1 block text-sm font-medium">Page Topic</label>
-                      <div className="rounded-lg border bg-background px-3 py-2 text-sm">
+                      <div className="bg-background rounded-lg border px-3 py-2 text-sm">
                         Best practices for local SEO in 2024
                       </div>
                     </div>
                     <div>
                       <label className="mb-1 block text-sm font-medium">Target Keyword</label>
-                      <div className="rounded-lg border bg-background px-3 py-2 text-sm">
+                      <div className="bg-background rounded-lg border px-3 py-2 text-sm">
                         local SEO tips
                       </div>
                     </div>
                     <div>
                       <label className="mb-1 block text-sm font-medium">Tone</label>
-                      <div className="rounded-lg border bg-background px-3 py-2 text-sm">
+                      <div className="bg-background rounded-lg border px-3 py-2 text-sm">
                         Professional but approachable
                       </div>
                     </div>
@@ -447,32 +450,32 @@ export default function AboutPage() {
               </CardContent>
 
               {/* Before/After Examples */}
-              <div className="border-t bg-muted/30 p-6">
+              <div className="bg-muted/30 border-t p-6">
                 <h4 className="mb-4 font-semibold">Before / After Example</h4>
                 <div className="grid gap-4 md:grid-cols-2">
-                  <div className="rounded-lg border border-destructive/20 bg-destructive/5 p-4">
-                    <div className="mb-2 flex items-center gap-2 text-sm font-medium text-destructive">
+                  <div className="border-destructive/20 bg-destructive/5 rounded-lg border p-4">
+                    <div className="text-destructive mb-2 flex items-center gap-2 text-sm font-medium">
                       <ThumbsDown className="h-4 w-4" />
                       Without Atlas
                     </div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-muted-foreground text-sm">
                       &quot;Learn about local SEO. Click here to read more about optimizing your
                       business.&quot;
                     </p>
-                    <p className="mt-2 text-xs text-destructive">
+                    <p className="text-destructive mt-2 text-xs">
                       Generic, no keyword, weak call to action
                     </p>
                   </div>
-                  <div className="rounded-lg border border-success/20 bg-success/5 p-4">
-                    <div className="mb-2 flex items-center gap-2 text-sm font-medium text-success">
+                  <div className="border-success/20 bg-success/5 rounded-lg border p-4">
+                    <div className="text-success mb-2 flex items-center gap-2 text-sm font-medium">
                       <ThumbsUp className="h-4 w-4" />
                       With Atlas
                     </div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-muted-foreground text-sm">
                       &quot;Master local SEO tips that actually work. Discover proven strategies to
                       boost your business visibility and attract more local customers today.&quot;
                     </p>
-                    <p className="mt-2 text-xs text-success">
+                    <p className="text-success mt-2 text-xs">
                       Keyword included, compelling CTA, under 160 chars
                     </p>
                   </div>
@@ -535,13 +538,15 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="border-t bg-gradient-to-b from-primary/5 to-secondary/5 py-20">
+      <section className="from-primary/5 to-secondary/5 border-t bg-linear-to-b py-20">
         <div className="container">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-bold sm:text-4xl">Ready to standardize your AI workflow?</h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Join teams who&apos;ve eliminated prompt chaos and achieved consistent, high-quality AI
-              outputs across their entire organization.
+            <h2 className="text-3xl font-bold sm:text-4xl">
+              Ready to standardize your AI workflow?
+            </h2>
+            <p className="text-muted-foreground mt-4 text-lg">
+              Join teams who&apos;ve eliminated prompt chaos and achieved consistent, high-quality
+              AI outputs across their entire organization.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button size="lg" className="gap-2" asChild>
@@ -573,7 +578,7 @@ function FeatureCard({
   return (
     <Card className="transition-shadow hover:shadow-md">
       <CardHeader>
-        <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
+        <div className="from-primary/10 to-secondary/10 text-primary mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-linear-to-br">
           {icon}
         </div>
         <CardTitle className="text-lg">{title}</CardTitle>
@@ -596,12 +601,12 @@ function WorkflowStep({
 }) {
   return (
     <div className="relative flex gap-6">
-      <div className="relative z-10 flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-2xl font-bold text-white shadow-lg">
+      <div className="from-primary to-secondary relative z-10 flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-linear-to-br text-2xl font-bold text-white shadow-lg">
         {number}
       </div>
       <div className="pt-3">
         <h3 className="text-xl font-semibold">{title}</h3>
-        <p className="mt-2 text-muted-foreground">{description}</p>
+        <p className="text-muted-foreground mt-2">{description}</p>
       </div>
     </div>
   )
@@ -625,8 +630,8 @@ function UseCaseCard({
       <CardContent>
         <ul className="space-y-1.5">
           {examples.map((example) => (
-            <li key={example} className="flex items-center gap-2 text-sm text-muted-foreground">
-              <CheckCircle2 className="h-4 w-4 shrink-0 text-success" />
+            <li key={example} className="text-muted-foreground flex items-center gap-2 text-sm">
+              <CheckCircle2 className="text-success h-4 w-4 shrink-0" />
               {example}
             </li>
           ))}

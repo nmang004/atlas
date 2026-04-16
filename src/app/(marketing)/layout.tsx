@@ -4,12 +4,12 @@ import { Button } from '@/components/ui/button'
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="bg-background flex min-h-screen flex-col">
       {/* Navigation */}
-      <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 border-b backdrop-blur">
         <nav className="container flex h-16 items-center justify-between">
           <Link href="/about" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary">
+            <div className="from-primary to-secondary flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br">
               <svg
                 className="h-5 w-5 text-white"
                 fill="none"
@@ -39,7 +39,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
                 <Link href="/use-cases">Use Cases</Link>
               </Button>
             </nav>
-            <div className="hidden h-6 w-px bg-border md:block" />
+            <div className="bg-border hidden h-6 w-px md:block" />
             <Button variant="ghost" asChild>
               <Link href="/login">Log in</Link>
             </Button>
@@ -54,12 +54,12 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
       <main className="flex-1">{children}</main>
 
       {/* Footer */}
-      <footer className="border-t bg-muted/30">
+      <footer className="bg-muted/30 border-t">
         <div className="container py-12">
           <div className="grid gap-8 md:grid-cols-4">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary">
+                <div className="from-primary to-secondary flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br">
                   <svg
                     className="h-5 w-5 text-white"
                     fill="none"
@@ -76,14 +76,14 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
                 </div>
                 <span className="text-xl font-bold">Atlas</span>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 The prompt governance platform for teams that ship consistent AI-powered work.
               </p>
             </div>
 
             <div>
               <h4 className="mb-4 font-semibold">Product</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
+              <ul className="text-muted-foreground space-y-2 text-sm">
                 <li>
                   <Link href="/features" className="hover:text-foreground">
                     Features
@@ -104,7 +104,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
 
             <div>
               <h4 className="mb-4 font-semibold">Company</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
+              <ul className="text-muted-foreground space-y-2 text-sm">
                 <li>
                   <Link href="/about" className="hover:text-foreground">
                     About
@@ -135,7 +135,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
 
             <div>
               <h4 className="mb-4 font-semibold">Get Started</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
+              <ul className="text-muted-foreground space-y-2 text-sm">
                 <li>
                   <Link href="/login" className="hover:text-foreground">
                     Log in
@@ -150,7 +150,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
             </div>
           </div>
 
-          <div className="mt-12 border-t pt-8 text-center text-sm text-muted-foreground">
+          <div className="text-muted-foreground mt-12 border-t pt-8 text-center text-sm">
             <p>&copy; {new Date().getFullYear()} Atlas. All rights reserved.</p>
           </div>
         </div>
