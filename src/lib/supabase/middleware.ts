@@ -14,17 +14,10 @@ const protectedRoutes = [
   '/contribute',
 ]
 const authRoutes = ['/login', '/signup']
-const publicRoutes: string[] = []
+const publicRoutes = ['/', '/features', '/how-it-works']
 
 export async function updateSession(request: NextRequest) {
   const pathname = request.nextUrl.pathname
-  const isPublicRoute = publicRoutes.some(
-    (route) => pathname === route || pathname.startsWith(`${route}/`)
-  )
-  if (isPublicRoute) {
-    return NextResponse.next()
-  }
-
   let supabaseResponse = NextResponse.next({ request })
 
   const supabase = createServerClient<Database>(
@@ -53,6 +46,23 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
+  // Authenticated users on root get redirected to dashboard
+  if (pathname === '/') {
+    if (user) {
+      return NextResponse.redirect(new URL('/skills', request.url))
+    }
+    // Fall through — show the marketing page
+    return supabaseResponse
+  }
+
+  // Public marketing routes — allow through for everyone
+  const isPublicRoute = publicRoutes.some(
+    (route) => pathname === route || pathname.startsWith(`${route}/`)
+  )
+  if (isPublicRoute) {
+    return supabaseResponse
+  }
+
   const isProtectedRoute = protectedRoutes.some(
     (route) => pathname === route || pathname.startsWith(`${route}/`)
   )
@@ -65,13 +75,6 @@ export async function updateSession(request: NextRequest) {
   }
   if (isAuthRoute && user) {
     return NextResponse.redirect(new URL('/skills', request.url))
-  }
-  if (pathname === '/') {
-    if (user) {
-      return NextResponse.redirect(new URL('/skills', request.url))
-    } else {
-      return NextResponse.redirect(new URL('/login', request.url))
-    }
   }
   return supabaseResponse
 }
