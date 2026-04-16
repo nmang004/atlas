@@ -1,5 +1,0 @@
-export { SMESidebar } from './SMESidebar'
-export { SMEBreadcrumbs } from './SMEBreadcrumbs'
-export { SMETableOfContents } from './SMETableOfContents'
-export { SMECommandPalette } from './SMECommandPalette'
-export * from './mdx'
