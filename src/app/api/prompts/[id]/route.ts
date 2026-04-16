@@ -37,7 +37,7 @@ const updatePromptSchema = z.object({
   variants: z.array(variantSchema).max(5).default([]),
 })
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     // Check admin access (returns 401 for unauthenticated, 403 for non-admin)
     const authResult = await requireAdmin()
@@ -45,8 +45,9 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       return authResult.response
     }
 
-    const supabase = createClient()
-    const promptId = params.id
+    const { id } = await params
+    const supabase = await createClient()
+    const promptId = id
 
     // Check if prompt exists
     const { data: existingPrompt, error: fetchError } = await supabase
@@ -147,7 +148,10 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
     // Check admin access (returns 401 for unauthenticated, 403 for non-admin)
     const authResult = await requireAdmin()
@@ -155,8 +159,9 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
       return authResult.response
     }
 
-    const supabase = createClient()
-    const promptId = params.id
+    const { id } = await params
+    const supabase = await createClient()
+    const promptId = id
 
     // Delete prompt (cascade will delete variables, examples, votes)
     const { error: deleteError } = await supabase.from('prompts').delete().eq('id', promptId)

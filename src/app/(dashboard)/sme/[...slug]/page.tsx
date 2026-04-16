@@ -32,16 +32,16 @@ const components = {
   CharacterCounter,
   // Style overrides for MDX elements
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h1 className="scroll-m-20 text-3xl font-bold tracking-tight mb-6" {...props} />
+    <h1 className="mb-6 scroll-m-20 text-3xl font-bold tracking-tight" {...props} />
   ),
   h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
-      className="scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight mt-10 mb-4 first:mt-0"
+      className="mb-4 mt-10 scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight first:mt-0"
       {...props}
     />
   ),
   h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h3 className="scroll-m-20 text-xl font-semibold tracking-tight mt-8 mb-4" {...props} />
+    <h3 className="mb-4 mt-8 scroll-m-20 text-xl font-semibold tracking-tight" {...props} />
   ),
   p: (props: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p className="leading-7 [&:not(:first-child)]:mt-4" {...props} />
@@ -96,9 +96,11 @@ const components = {
 
 export async function generateStaticParams() {
   const paths = getAllContentPaths()
-  return paths.map((slug) => ({
-    slug: slug.split('/').filter(Boolean),
-  }))
+  return paths
+    .filter((slug) => slug !== '') // Exclude root index — catch-all requires at least one segment
+    .map((slug) => ({
+      slug: slug.split('/').filter(Boolean),
+    }))
 }
 
 export async function generateMetadata({ params }: PageProps) {
@@ -145,13 +147,13 @@ export default async function SMEContentPage({ params }: PageProps) {
 
       {/* Header */}
       <header className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight mb-3">{frontmatter.title}</h1>
+        <h1 className="mb-3 text-3xl font-bold tracking-tight">{frontmatter.title}</h1>
         {frontmatter.description && (
           <p className="text-lg text-muted-foreground">{frontmatter.description}</p>
         )}
 
         {/* Meta info */}
-        <div className="flex flex-wrap gap-4 mt-4 text-sm text-muted-foreground">
+        <div className="mt-4 flex flex-wrap gap-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-1">
             <Clock className="h-4 w-4" />
             <span>{readingTime.text}</span>
@@ -174,24 +176,21 @@ export default async function SMEContentPage({ params }: PageProps) {
       {/* Content grid with TOC */}
       <div className="flex gap-8">
         {/* Main content */}
-        <article className="prose prose-slate dark:prose-invert max-w-none flex-1">
+        <article className="prose prose-slate max-w-none flex-1 dark:prose-invert">
           <MDXRemote
             source={mdxContent}
             components={components}
             options={{
               mdxOptions: {
                 remarkPlugins: [remarkGfm],
-                rehypePlugins: [
-                  rehypeSlug,
-                  [rehypeAutolinkHeadings, { behavior: 'wrap' }],
-                ],
+                rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]],
               },
             }}
           />
         </article>
 
         {/* Table of contents (sticky sidebar) */}
-        <aside className="hidden xl:block w-56 shrink-0">
+        <aside className="hidden w-56 shrink-0 xl:block">
           <div className="sticky top-24">
             <SMETableOfContents content={mdxContent} />
           </div>

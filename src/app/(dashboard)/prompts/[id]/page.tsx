@@ -9,14 +9,11 @@ import type { Metadata } from 'next'
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }): Promise<Metadata> {
-  const supabase = createClient()
-  const { data } = await supabase
-    .from('prompts')
-    .select('title, content')
-    .eq('id', params.id)
-    .single()
+  const { id } = await params
+  const supabase = await createClient()
+  const { data } = await supabase.from('prompts').select('title, content').eq('id', id).single()
 
   const prompt = data as { title: string; content: string } | null
 
@@ -35,7 +32,7 @@ export async function generateMetadata({
 }
 
 async function getPrompt(id: string): Promise<PromptWithDetails | null> {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const { data: promptData, error } = await supabase
     .from('prompts')
@@ -67,7 +64,7 @@ async function getPrompt(id: string): Promise<PromptWithDetails | null> {
 }
 
 async function getUserVote(promptId: string): Promise<PromptVote | null> {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const {
     data: { user },
@@ -87,8 +84,9 @@ async function getUserVote(promptId: string): Promise<PromptVote | null> {
   return vote as unknown as PromptVote | null
 }
 
-export default async function PromptDetailPage({ params }: { params: { id: string } }) {
-  const [prompt, existingVote] = await Promise.all([getPrompt(params.id), getUserVote(params.id)])
+export default async function PromptDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const [prompt, existingVote] = await Promise.all([getPrompt(id), getUserVote(id)])
 
   if (!prompt) {
     notFound()

@@ -15,7 +15,7 @@ export type AdminAuthResult =
  * Returns either the user object or an appropriate error response.
  */
 export async function requireAuth(): Promise<AuthResult> {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const {
     data: { user },
@@ -87,7 +87,7 @@ export async function requireAdmin(): Promise<AdminAuthResult> {
  * Returns true if within limits, false if rate limited.
  */
 export async function checkVoteRateLimit(userId: string): Promise<boolean> {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   // Call the database function to check/update rate limit
   // Using type assertion since the function is defined in migrations but not in generated types

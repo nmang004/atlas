@@ -12,7 +12,7 @@ const MAX_PAGE_SIZE = 50
 // GET /api/prompts - Fetch paginated prompts
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { searchParams } = new URL(request.url)
 
     // Parse pagination params
@@ -152,7 +152,7 @@ export async function POST(request: NextRequest) {
     }
 
     const user = authResult.user
-    const supabase = createClient()
+    const supabase = await createClient()
 
     // Parse and validate request body
     const body = await request.json()

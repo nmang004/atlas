@@ -10,10 +10,11 @@ const paramsSchema = z.object({
   id: z.string().uuid(),
 })
 
-export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params
     // Validate prompt ID
-    const paramsResult = paramsSchema.safeParse(params)
+    const paramsResult = paramsSchema.safeParse({ id })
     if (!paramsResult.success) {
       return NextResponse.json({ error: 'Invalid prompt ID' }, { status: 400 })
     }
@@ -24,7 +25,7 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
       return authResult.response
     }
 
-    const supabase = createClient()
+    const supabase = await createClient()
     const promptId = paramsResult.data.id
 
     // Mark as reviewed by updating last_verified_at and unflagging

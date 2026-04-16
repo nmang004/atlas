@@ -14,7 +14,7 @@ interface PromptCategoryId {
 }
 
 async function getCategories() {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   // Fetch categories
   const { data: categoriesData, error: categoriesError } = await supabase
@@ -51,7 +51,7 @@ async function getCategories() {
 }
 
 async function getCurrentUser(): Promise<{ user: User | null; isAdmin: boolean }> {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const {
     data: { user: authUser },

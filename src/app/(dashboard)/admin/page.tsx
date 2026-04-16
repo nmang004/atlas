@@ -12,7 +12,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Admin Dashboard - Manage Your Prompt Library',
   description:
-    'Monitor prompt health, review flagged content, and track voting activity. Keep your team\'s AI prompts current and effective.',
+    "Monitor prompt health, review flagged content, and track voting activity. Keep your team's AI prompts current and effective.",
 }
 
 interface AdminStats {
@@ -30,7 +30,7 @@ interface PromptStats {
 }
 
 async function getAdminStats(): Promise<AdminStats> {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   // Get all prompts
   const { data: promptsData } = await supabase

@@ -32,7 +32,7 @@ interface PromptCategoryId {
 }
 
 async function getCategoriesWithCounts(): Promise<CategoryWithCount[]> {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   // Fetch categories
   const { data: categoriesData, error } = await supabase

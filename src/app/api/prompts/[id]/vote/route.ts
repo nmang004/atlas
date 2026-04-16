@@ -15,10 +15,11 @@ const voteSchema = z.object({
   feedback: z.string().max(2000).optional(),
 })
 
-export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params
     // Validate prompt ID
-    const paramsResult = paramsSchema.safeParse(params)
+    const paramsResult = paramsSchema.safeParse({ id })
     if (!paramsResult.success) {
       return NextResponse.json({ error: 'Invalid prompt ID' }, { status: 400 })
     }
@@ -53,7 +54,7 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
 
     const { outcome, feedback } = result.data
     const promptId = paramsResult.data.id
-    const supabase = createClient()
+    const supabase = await createClient()
 
     // Check if prompt exists
     const { data: prompt, error: promptError } = await supabase
@@ -96,10 +97,11 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
   }
 }
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id: paramId } = await params
     // Validate prompt ID
-    const paramsResult = paramsSchema.safeParse(params)
+    const paramsResult = paramsSchema.safeParse({ id: paramId })
     if (!paramsResult.success) {
       return NextResponse.json({ error: 'Invalid prompt ID' }, { status: 400 })
     }
@@ -112,7 +114,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
     const user = authResult.user
     const promptId = paramsResult.data.id
-    const supabase = createClient()
+    const supabase = await createClient()
 
     const { data: vote } = await supabase
       .from('prompt_votes')

@@ -41,7 +41,7 @@ interface VoteFeedback {
 }
 
 async function getFlaggedAndStalePrompts(): Promise<FlaggedPrompt[]> {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const staleThreshold = new Date()
   staleThreshold.setDate(staleThreshold.getDate() - STALE_THRESHOLD_DAYS)

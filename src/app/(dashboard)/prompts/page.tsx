@@ -32,7 +32,7 @@ export interface PromptListItem extends PromptCardData {
 }
 
 async function getPrompts(): Promise<PromptListItem[]> {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const { data: promptsData, error } = await supabase
     .from('prompts')
