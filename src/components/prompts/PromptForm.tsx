@@ -81,9 +81,9 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
         id: v.id,
         key: v.key,
         label: v.label,
-        type: v.type,
+        type: v.type as 'text' | 'textarea' | 'select',
         placeholder: v.placeholder ?? '',
-        is_required: v.is_required,
+        is_required: v.is_required ?? false,
         options: Array.isArray(v.options)
           ? v.options.filter((o): o is string => typeof o === 'string')
           : [],
@@ -240,7 +240,7 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
               placeholder="Enter prompt title"
               className="min-h-11"
             />
-            {errors.title && <p className="text-sm text-destructive">{errors.title.message}</p>}
+            {errors.title && <p className="text-destructive text-sm">{errors.title.message}</p>}
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -311,8 +311,8 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
               placeholder="Enter your prompt content. Use {{variable_name}} for dynamic variables."
               className="min-h-[200px] font-mono text-sm"
             />
-            {errors.content && <p className="text-sm text-destructive">{errors.content.message}</p>}
-            <p className="text-xs text-muted-foreground md:text-sm">
+            {errors.content && <p className="text-destructive text-sm">{errors.content.message}</p>}
+            <p className="text-muted-foreground text-xs md:text-sm">
               Use {`{{variable_name}}`} syntax for dynamic variables that users can fill in.
             </p>
           </div>
@@ -347,7 +347,7 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
         </CardHeader>
         <CardContent>
           {fields.length === 0 ? (
-            <p className="py-4 text-center text-sm text-muted-foreground">
+            <p className="text-muted-foreground py-4 text-center text-sm">
               No variables defined. Add variables or use &quot;Detect Variables&quot; to scan
               content.
             </p>
@@ -358,7 +358,7 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
                   {/* Mobile: stacked layout */}
                   <div className="flex items-start gap-2 md:gap-4">
                     <div className="hidden items-center pt-6 md:flex">
-                      <GripVertical className="h-5 w-5 cursor-move text-muted-foreground" />
+                      <GripVertical className="text-muted-foreground h-5 w-5 cursor-move" />
                     </div>
                     <div className="flex-1 space-y-3 md:space-y-4">
                       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
@@ -450,7 +450,7 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
                       variant="ghost"
                       size="icon"
                       onClick={() => remove(index)}
-                      className="min-h-11 min-w-11 shrink-0 text-destructive hover:text-destructive"
+                      className="text-destructive hover:text-destructive min-h-11 min-w-11 shrink-0"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -538,7 +538,7 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle className="text-lg">Basic Variant</CardTitle>
-                <p className="mt-1 text-sm text-muted-foreground">
+                <p className="text-muted-foreground mt-1 text-sm">
                   A simpler copy-paste version for users who prefer not to fill in form fields
                 </p>
               </div>
@@ -562,7 +562,7 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
                 placeholder="Paste the basic version here. Use [PLACEHOLDER_NAME] format for manual data replacement..."
                 className="min-h-[200px] font-mono text-sm"
               />
-              <p className="text-xs text-muted-foreground">
+              <p className="text-muted-foreground text-xs">
                 Use [PLACEHOLDER_NAME] format (e.g., [CLIENT_NAME]) for values users should replace
                 manually.
               </p>
@@ -602,7 +602,7 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
                     placeholder="Basic version with [PLACEHOLDERS]..."
                     className="min-h-[150px] font-mono text-sm"
                   />
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-muted-foreground text-xs">
                     Use [PLACEHOLDER_NAME] for manual replacement.
                   </p>
                 </div>
@@ -629,7 +629,7 @@ export function PromptForm({ prompt, categories, mode }: PromptFormProps) {
       </div>
 
       {/* Mobile sticky buttons */}
-      <div className="fixed inset-x-0 bottom-0 z-50 flex gap-2 border-t bg-background p-4 md:hidden">
+      <div className="bg-background fixed inset-x-0 bottom-0 z-50 flex gap-2 border-t p-4 md:hidden">
         <Button
           type="button"
           variant="outline"

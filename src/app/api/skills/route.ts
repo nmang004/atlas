@@ -29,8 +29,8 @@ export async function GET(request: NextRequest) {
     const tag = searchParams.get('tag')
 
     // Build query
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let query = (supabase.from('skills') as any)
+    let query = supabase
+      .from('skills')
       .select(
         `
         id,
@@ -176,8 +176,8 @@ export async function POST(request: NextRequest) {
 
     // Generate unique slug from title
     const baseSlug = generateSlug(data.title)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: existingSlugs } = await (supabase.from('skills') as any)
+    const { data: existingSlugs } = await supabase
+      .from('skills')
       .select('slug')
       .like('slug', `${baseSlug}%`)
     const takenSlugs = (existingSlugs || []).map((r: { slug: string }) => r.slug)
@@ -194,15 +194,15 @@ export async function POST(request: NextRequest) {
     const isPublished = user.role === 'admin'
 
     // Create skill
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: skill, error: skillError } = await (supabase.from('skills') as any)
+    const { data: skill, error: skillError } = await supabase
+      .from('skills')
       .insert({
         title: data.title,
         slug,
         description,
         content,
         raw_file: data.raw_file || null,
-        format: data.format || null,
+        format: data.format || undefined,
         category_id: data.category_id || null,
         tags: data.tags,
         source_url: data.source_url || null,

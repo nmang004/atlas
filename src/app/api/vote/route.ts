@@ -17,13 +17,6 @@ const voteQuerySchema = z.object({
   entity_id: z.string().uuid(),
 })
 
-// Map entity types to their database tables
-const entityTableMap: Record<string, string> = {
-  skill: 'skills',
-  mcp: 'mcps',
-  prompt: 'prompts',
-}
-
 export async function POST(request: NextRequest) {
   try {
     // Check authentication
@@ -58,14 +51,28 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient()
 
     // Verify entity exists
-    const tableName = entityTableMap[entity_type]
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: entity, error: entityError } = await (supabase.from(tableName) as any)
-      .select('id')
-      .eq('id', entity_id)
-      .single()
+    let entityError
+    if (entity_type === 'skill') {
+      ;({ error: entityError } = await supabase
+        .from('skills')
+        .select('id')
+        .eq('id', entity_id)
+        .single())
+    } else if (entity_type === 'mcp') {
+      ;({ error: entityError } = await supabase
+        .from('mcps')
+        .select('id')
+        .eq('id', entity_id)
+        .single())
+    } else {
+      ;({ error: entityError } = await supabase
+        .from('prompts')
+        .select('id')
+        .eq('id', entity_id)
+        .single())
+    }
 
-    if (entityError || !entity) {
+    if (entityError) {
       return NextResponse.json(
         { error: `${entity_type.charAt(0).toUpperCase() + entity_type.slice(1)} not found` },
         { status: 404 }
@@ -73,15 +80,15 @@ export async function POST(request: NextRequest) {
     }
 
     // Upsert: delete existing vote first, then insert new one
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    await (supabase.from('votes') as any)
+    await supabase
+      .from('votes')
       .delete()
       .eq('entity_type', entity_type)
       .eq('entity_id', entity_id)
       .eq('user_id', user.id)
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: vote, error: voteError } = await (supabase.from('votes') as any)
+    const { data: vote, error: voteError } = await supabase
+      .from('votes')
       .insert({
         entity_type,
         entity_id,
@@ -134,8 +141,8 @@ export async function GET(request: NextRequest) {
     const { entity_type, entity_id } = queryResult.data
     const supabase = await createClient()
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: vote } = await (supabase.from('votes') as any)
+    const { data: vote } = await supabase
+      .from('votes')
       .select('*')
       .eq('entity_type', entity_type)
       .eq('entity_id', entity_id)

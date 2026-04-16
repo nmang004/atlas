@@ -3,12 +3,6 @@ import { NextResponse } from 'next/server'
 import { requireAdmin } from '@/lib/auth'
 import { createClient } from '@/lib/supabase/server'
 
-const ENTITY_TABLE_MAP: Record<string, string> = {
-  skill: 'skills',
-  mcp: 'mcps',
-  prompt: 'prompts',
-}
-
 export async function POST(
   _request: Request,
   { params }: { params: Promise<{ entityType: string; id: string }> }
@@ -16,8 +10,7 @@ export async function POST(
   try {
     const { entityType, id } = await params
 
-    const tableName = ENTITY_TABLE_MAP[entityType]
-    if (!tableName) {
+    if (entityType !== 'skill' && entityType !== 'mcp' && entityType !== 'prompt') {
       return NextResponse.json(
         { error: 'Invalid entity type. Must be skill, mcp, or prompt.' },
         { status: 400 }
@@ -31,13 +24,23 @@ export async function POST(
 
     const supabase = await createClient()
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { error: updateError } = await (supabase.from(tableName) as any)
-      .update({
-        is_published: true,
-        is_flagged: false,
-      })
-      .eq('id', id)
+    let updateError
+    if (entityType === 'skill') {
+      ;({ error: updateError } = await supabase
+        .from('skills')
+        .update({ is_published: true, is_flagged: false })
+        .eq('id', id))
+    } else if (entityType === 'mcp') {
+      ;({ error: updateError } = await supabase
+        .from('mcps')
+        .update({ is_published: true, is_flagged: false })
+        .eq('id', id))
+    } else {
+      ;({ error: updateError } = await supabase
+        .from('prompts')
+        .update({ is_flagged: false })
+        .eq('id', id))
+    }
 
     if (updateError) {
       console.error(`Publish ${entityType} error:`, updateError)

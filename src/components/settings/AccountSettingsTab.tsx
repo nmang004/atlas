@@ -180,7 +180,7 @@ export function AccountSettingsTab({ user: _user, votes }: AccountSettingsTabPro
           <CardDescription>Download all your data from Atlas</CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="mb-4 text-sm text-muted-foreground">
+          <p className="text-muted-foreground mb-4 text-sm">
             Export your profile information, voting history, and preferences as a JSON file.
           </p>
           <Button variant="outline" onClick={handleExport} disabled={isExporting}>
@@ -202,13 +202,13 @@ export function AccountSettingsTab({ user: _user, votes }: AccountSettingsTabPro
               <span className="text-sm">{positiveVotes.length} positive</span>
             </div>
             <div className="flex items-center gap-2">
-              <ThumbsDown className="h-4 w-4 text-destructive" />
+              <ThumbsDown className="text-destructive h-4 w-4" />
               <span className="text-sm">{negativeVotes.length} negative</span>
             </div>
           </div>
 
           {votes.length === 0 ? (
-            <p className="py-8 text-center text-muted-foreground">
+            <p className="text-muted-foreground py-8 text-center">
               You haven&apos;t voted on any prompts yet.
             </p>
           ) : (
@@ -222,7 +222,7 @@ export function AccountSettingsTab({ user: _user, votes }: AccountSettingsTabPro
                     {vote.outcome === 'positive' ? (
                       <ThumbsUp className="h-4 w-4 text-green-600" />
                     ) : (
-                      <ThumbsDown className="h-4 w-4 text-destructive" />
+                      <ThumbsDown className="text-destructive h-4 w-4" />
                     )}
                     <div>
                       {vote.prompt ? (
@@ -236,17 +236,19 @@ export function AccountSettingsTab({ user: _user, votes }: AccountSettingsTabPro
                         <span className="text-muted-foreground">Deleted prompt</span>
                       )}
                       {vote.feedback && (
-                        <p className="line-clamp-1 text-sm text-muted-foreground">{vote.feedback}</p>
+                        <p className="text-muted-foreground line-clamp-1 text-sm">
+                          {vote.feedback}
+                        </p>
                       )}
                     </div>
                   </div>
-                  <span className="text-sm text-muted-foreground">
-                    {formatRelativeTime(vote.created_at)}
+                  <span className="text-muted-foreground text-sm">
+                    {vote.created_at ? formatRelativeTime(vote.created_at) : ''}
                   </span>
                 </div>
               ))}
               {votes.length > 10 && (
-                <p className="pt-2 text-center text-sm text-muted-foreground">
+                <p className="text-muted-foreground pt-2 text-center text-sm">
                   Showing 10 of {votes.length} votes
                 </p>
               )}
@@ -259,7 +261,7 @@ export function AccountSettingsTab({ user: _user, votes }: AccountSettingsTabPro
 
       <Card className="border-destructive/50">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-destructive">
+          <CardTitle className="text-destructive flex items-center gap-2">
             <Shield className="h-5 w-5" />
             Danger Zone
           </CardTitle>
@@ -269,7 +271,7 @@ export function AccountSettingsTab({ user: _user, votes }: AccountSettingsTabPro
           <div className="flex items-center justify-between">
             <div>
               <p className="font-medium">Delete Account</p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Permanently delete your account and all associated data.
               </p>
             </div>

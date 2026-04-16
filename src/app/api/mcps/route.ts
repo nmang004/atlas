@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { requireAuth } from '@/lib/auth'
 import { generateSlug } from '@/lib/slug'
 import { createClient } from '@/lib/supabase/server'
+import type { Json } from '@/types/database'
 
 // Pagination constants
 const DEFAULT_PAGE_SIZE = 12
@@ -28,8 +29,8 @@ export async function GET(request: NextRequest) {
     const tag = searchParams.get('tag')
 
     // Build query
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let query = (supabase.from('mcps') as any)
+    let query = supabase
+      .from('mcps')
       .select(
         `
         id,
@@ -162,8 +163,8 @@ export async function POST(request: NextRequest) {
 
     // Generate unique slug from title
     const baseSlug = generateSlug(data.title)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: existingSlugs } = await (supabase.from('mcps') as any)
+    const { data: existingSlugs } = await supabase
+      .from('mcps')
       .select('slug')
       .like('slug', `${baseSlug}%`)
     const takenSlugs = (existingSlugs || []).map((r: { slug: string }) => r.slug)
@@ -180,14 +181,14 @@ export async function POST(request: NextRequest) {
     const isPublished = user.role === 'admin'
 
     // Create MCP
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: mcp, error: mcpError } = await (supabase.from('mcps') as any)
+    const { data: mcp, error: mcpError } = await supabase
+      .from('mcps')
       .insert({
         title: data.title,
         slug,
         description: data.description || null,
         content: data.content || null,
-        config_json: data.config_json || null,
+        config_json: (data.config_json || null) as Json | undefined,
         server_type: data.server_type || null,
         category_id: data.category_id || null,
         tags: data.tags,

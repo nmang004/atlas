@@ -57,7 +57,7 @@ async function getPrompt(id: string): Promise<PromptWithDetails | null> {
 
   // Sort variables by order_index
   if (prompt.variables && Array.isArray(prompt.variables)) {
-    prompt.variables.sort((a, b) => a.order_index - b.order_index)
+    prompt.variables.sort((a, b) => (a.order_index ?? 0) - (b.order_index ?? 0))
   }
 
   return prompt

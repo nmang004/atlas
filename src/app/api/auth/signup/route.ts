@@ -42,15 +42,12 @@ export async function POST(request: NextRequest) {
 
     if (data.user) {
       // Create user record in users table
-      // Using type assertion because Supabase types don't account for service role permissions
-      const { error: insertError } = await (
-        supabase.from('users') as ReturnType<typeof supabase.from>
-      ).insert({
+      const { error: insertError } = await supabase.from('users').insert({
         id: data.user.id,
         email: data.user.email!,
         name,
         role: 'user',
-      } as never)
+      })
 
       if (insertError) {
         console.error('Error creating user record:', insertError)

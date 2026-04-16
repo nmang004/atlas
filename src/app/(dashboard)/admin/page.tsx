@@ -29,10 +29,6 @@ async function getAdminStats(): Promise<AdminStats> {
   const supabase = await createClient()
 
   // Use head: true with count: 'exact' for efficient counting
-  // Helper to get a table reference with proper typing
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const from = (table: string) => supabase.from(table) as any
-
   const [
     publishedSkillsRes,
     publishedMcpsRes,
@@ -43,13 +39,13 @@ async function getAdminStats(): Promise<AdminStats> {
     flaggedMcpsRes,
     flaggedPromptsRes,
   ] = await Promise.all([
-    from('skills').select('id', { count: 'exact', head: true }).eq('is_published', true),
-    from('mcps').select('id', { count: 'exact', head: true }).eq('is_published', true),
+    supabase.from('skills').select('id', { count: 'exact', head: true }).eq('is_published', true),
+    supabase.from('mcps').select('id', { count: 'exact', head: true }).eq('is_published', true),
     supabase.from('prompts').select('id', { count: 'exact', head: true }),
-    from('skills').select('id', { count: 'exact', head: true }).eq('is_published', false),
-    from('mcps').select('id', { count: 'exact', head: true }).eq('is_published', false),
-    from('skills').select('id', { count: 'exact', head: true }).eq('is_flagged', true),
-    from('mcps').select('id', { count: 'exact', head: true }).eq('is_flagged', true),
+    supabase.from('skills').select('id', { count: 'exact', head: true }).eq('is_published', false),
+    supabase.from('mcps').select('id', { count: 'exact', head: true }).eq('is_published', false),
+    supabase.from('skills').select('id', { count: 'exact', head: true }).eq('is_flagged', true),
+    supabase.from('mcps').select('id', { count: 'exact', head: true }).eq('is_flagged', true),
     supabase.from('prompts').select('id', { count: 'exact', head: true }).eq('is_flagged', true),
   ])
 

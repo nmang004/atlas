@@ -84,7 +84,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
     },
   })
 
-  const isStale = needsReview(prompt.last_verified_at)
+  const isStale = prompt.last_verified_at ? needsReview(prompt.last_verified_at) : true
   const categoryName = prompt.category?.name || 'Uncategorized'
 
   // Track prompt view on mount
@@ -216,12 +216,12 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
             <span className="hidden md:inline">|</span>
             <span className="flex items-center gap-1">
               <ThumbsUp className="h-3 w-3" />
-              {formatRating(prompt.rating_score)} ({prompt.vote_count})
+              {formatRating(prompt.rating_score ?? 0)} ({prompt.vote_count ?? 0})
             </span>
             <span className="hidden md:inline">|</span>
             <span className="flex items-center gap-1">
               <Clock className="h-3 w-3" />
-              {formatRelativeTime(prompt.last_verified_at)}
+              {prompt.last_verified_at ? formatRelativeTime(prompt.last_verified_at) : 'Never'}
             </span>
           </div>
         </div>
