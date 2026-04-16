@@ -132,11 +132,11 @@
 
 @utility glow-primary {
   /* Glow effects for focus/hover states */
-  box-shadow: 0 0 0 0.35rem rgba(0, 127, 253, 0.25);
+  box-shadow: var(--shadow-glow-primary);
 }
 
 @utility glow-secondary {
-  box-shadow: 0 0 0 0.35rem rgba(109, 90, 255, 0.25);
+  box-shadow: var(--shadow-glow-secondary);
 }
 
 @layer base {
