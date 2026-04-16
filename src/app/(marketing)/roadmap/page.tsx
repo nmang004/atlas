@@ -5,7 +5,7 @@ import {
   Blocks,
   Brain,
   CheckCircle2,
-  Chrome,
+  Globe,
   Clock,
   Code2,
   Copy,
@@ -98,7 +98,7 @@ const roadmapItems: RoadmapItem[] = [
     title: 'Browser Extension',
     description:
       'Access Atlas prompts directly from any webpage. Quick search, copy, and paste without leaving your current tab.',
-    icon: <Chrome className="h-5 w-5" />,
+    icon: <Globe className="h-5 w-5" />,
     status: 'planned',
     quarter: 'Q2 2026',
   },
