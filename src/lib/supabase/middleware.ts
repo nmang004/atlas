@@ -4,7 +4,15 @@ import { createServerClient } from '@supabase/ssr'
 
 import type { Database } from '@/types/database'
 
-const protectedRoutes = ['/prompts', '/categories', '/admin', '/settings', '/sme']
+const protectedRoutes = [
+  '/skills',
+  '/mcps',
+  '/prompts',
+  '/categories',
+  '/admin',
+  '/settings',
+  '/contribute',
+]
 const authRoutes = ['/login', '/signup']
 const publicRoutes = ['/about']
 
@@ -56,13 +64,13 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(redirectUrl)
   }
   if (isAuthRoute && user) {
-    return NextResponse.redirect(new URL('/prompts', request.url))
+    return NextResponse.redirect(new URL('/skills', request.url))
   }
   if (pathname === '/') {
     if (user) {
-      return NextResponse.redirect(new URL('/prompts', request.url))
+      return NextResponse.redirect(new URL('/skills', request.url))
     } else {
-      return NextResponse.redirect(new URL('/about', request.url))
+      return NextResponse.redirect(new URL('/login', request.url))
     }
   }
   return supabaseResponse
