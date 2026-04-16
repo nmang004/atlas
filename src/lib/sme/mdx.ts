@@ -1,8 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-import matter from 'gray-matter'
-import readingTime from 'reading-time'
+// gray-matter and reading-time deps removed (Task 8). SME hub deleted in Plan 3.
 
 export interface SMEFrontmatter {
   title: string
@@ -43,7 +42,9 @@ export function getAllContentPaths(): string[] {
   const paths: string[] = []
 
   function walkDir(dir: string, basePath: string = '') {
-    if (!fs.existsSync(dir)) {return}
+    if (!fs.existsSync(dir)) {
+      return
+    }
 
     const files = fs.readdirSync(dir)
 
@@ -66,33 +67,10 @@ export function getAllContentPaths(): string[] {
 
 /**
  * Get content for a specific slug
+ * NOTE: gray-matter and reading-time deps removed. SME hub deleted in Plan 3.
  */
-export function getContentBySlug(slug: string): SMEContent | null {
-  // Try exact path first, then index file
-  const possiblePaths = [
-    path.join(CONTENT_DIR, `${slug}.mdx`),
-    path.join(CONTENT_DIR, slug, 'index.mdx'),
-    path.join(CONTENT_DIR, 'index.mdx'), // For root
-  ]
-
-  for (const filePath of possiblePaths) {
-    if (fs.existsSync(filePath)) {
-      const fileContent = fs.readFileSync(filePath, 'utf-8')
-      const { data, content } = matter(fileContent)
-      const stats = readingTime(content)
-
-      return {
-        slug: slug || 'index',
-        frontmatter: data as SMEFrontmatter,
-        content,
-        readingTime: {
-          text: stats.text,
-          minutes: Math.ceil(stats.minutes),
-        },
-      }
-    }
-  }
-
+export function getContentBySlug(_slug: string): SMEContent | null {
+  // Dependencies removed — SME hub will be deleted in Plan 3
   return null
 }
 
