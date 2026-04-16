@@ -61,7 +61,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",
     "@tailwindcss/postcss": "^4.2.2",
-    "@types/node": "^20.11.5",
+    "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.32.1",
@@ -80,7 +80,7 @@
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "tailwindcss": "^4.2.2",
-    "typescript": "^5.3.3"
+    "typescript": "^6.0.2"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

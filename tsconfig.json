@@ -20,7 +20,8 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "target": "ES2017"
+    "target": "ES2022",
+    "erasableSyntaxOnly": true
   },
   "include": [
     "next-env.d.ts",
