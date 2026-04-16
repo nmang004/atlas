@@ -1,120 +1,132 @@
 import Link from 'next/link'
 
-import { AlertTriangle, Clock, ThumbsUp, FileText } from 'lucide-react'
+import { AlertTriangle, CheckCircle, Clock, FileText, Server } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { STALE_THRESHOLD_DAYS } from '@/lib/constants'
 import { createClient } from '@/lib/supabase/server'
 
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Admin Dashboard - Manage Your Prompt Library',
+  title: 'Admin Dashboard - Atlas',
   description:
-    "Monitor prompt health, review flagged content, and track voting activity. Keep your team's AI prompts current and effective.",
+    'Monitor content health, review pending submissions, and manage flagged items across skills, MCPs, and prompts.',
 }
 
 interface AdminStats {
-  totalPrompts: number
+  publishedSkills: number
+  publishedMcps: number
+  prompts: number
+  pendingSkills: number
+  pendingMcps: number
+  flaggedSkills: number
+  flaggedMcps: number
   flaggedPrompts: number
-  stalePrompts: number
-  totalVotes: number
-}
-
-interface PromptStats {
-  id: string
-  is_flagged: boolean
-  last_verified_at: string
-  vote_count: number
 }
 
 async function getAdminStats(): Promise<AdminStats> {
   const supabase = await createClient()
 
-  // Get all prompts
-  const { data: promptsData } = await supabase
-    .from('prompts')
-    .select('id, is_flagged, last_verified_at, vote_count')
+  // Use head: true with count: 'exact' for efficient counting
+  // Helper to get a table reference with proper typing
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const from = (table: string) => supabase.from(table) as any
 
-  if (!promptsData) {
-    return {
-      totalPrompts: 0,
-      flaggedPrompts: 0,
-      stalePrompts: 0,
-      totalVotes: 0,
-    }
-  }
-
-  // Cast to proper type
-  const prompts = promptsData as unknown as PromptStats[]
-
-  const staleThreshold = new Date()
-  staleThreshold.setDate(staleThreshold.getDate() - STALE_THRESHOLD_DAYS)
-
-  const flaggedCount = prompts.filter((p) => p.is_flagged).length
-  const staleCount = prompts.filter((p) => {
-    const verifiedDate = new Date(p.last_verified_at)
-    return verifiedDate < staleThreshold && !p.is_flagged
-  }).length
-  const totalVotes = prompts.reduce((sum, p) => sum + p.vote_count, 0)
+  const [
+    publishedSkillsRes,
+    publishedMcpsRes,
+    promptsRes,
+    pendingSkillsRes,
+    pendingMcpsRes,
+    flaggedSkillsRes,
+    flaggedMcpsRes,
+    flaggedPromptsRes,
+  ] = await Promise.all([
+    from('skills').select('id', { count: 'exact', head: true }).eq('is_published', true),
+    from('mcps').select('id', { count: 'exact', head: true }).eq('is_published', true),
+    supabase.from('prompts').select('id', { count: 'exact', head: true }),
+    from('skills').select('id', { count: 'exact', head: true }).eq('is_published', false),
+    from('mcps').select('id', { count: 'exact', head: true }).eq('is_published', false),
+    from('skills').select('id', { count: 'exact', head: true }).eq('is_flagged', true),
+    from('mcps').select('id', { count: 'exact', head: true }).eq('is_flagged', true),
+    supabase.from('prompts').select('id', { count: 'exact', head: true }).eq('is_flagged', true),
+  ])
 
   return {
-    totalPrompts: prompts.length,
-    flaggedPrompts: flaggedCount,
-    stalePrompts: staleCount,
-    totalVotes,
+    publishedSkills: publishedSkillsRes.count ?? 0,
+    publishedMcps: publishedMcpsRes.count ?? 0,
+    prompts: promptsRes.count ?? 0,
+    pendingSkills: pendingSkillsRes.count ?? 0,
+    pendingMcps: pendingMcpsRes.count ?? 0,
+    flaggedSkills: flaggedSkillsRes.count ?? 0,
+    flaggedMcps: flaggedMcpsRes.count ?? 0,
+    flaggedPrompts: flaggedPromptsRes.count ?? 0,
   }
 }
 
 export default async function AdminDashboardPage() {
   const stats = await getAdminStats()
+  const pendingTotal = stats.pendingSkills + stats.pendingMcps
+  const flaggedTotal = stats.flaggedSkills + stats.flaggedMcps + stats.flaggedPrompts
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-        <p className="text-muted-foreground">Monitor and manage the prompt library</p>
+        <p className="text-muted-foreground">
+          Monitor and manage content across skills, MCPs, and prompts
+        </p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-5">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Prompts</CardTitle>
-            <FileText className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">Published Skills</CardTitle>
+            <CheckCircle className="text-muted-foreground h-4 w-4" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.totalPrompts}</div>
+            <div className="text-2xl font-bold">{stats.publishedSkills}</div>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Flagged</CardTitle>
-            <AlertTriangle className="h-4 w-4 text-destructive" />
+            <CardTitle className="text-sm font-medium">Published MCPs</CardTitle>
+            <Server className="text-muted-foreground h-4 w-4" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-destructive">{stats.flaggedPrompts}</div>
+            <div className="text-2xl font-bold">{stats.publishedMcps}</div>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Needs Review</CardTitle>
+            <CardTitle className="text-sm font-medium">Prompts</CardTitle>
+            <FileText className="text-muted-foreground h-4 w-4" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{stats.prompts}</div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">Pending Approval</CardTitle>
             <Clock className="h-4 w-4 text-yellow-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-yellow-500">{stats.stalePrompts}</div>
+            <div className="text-2xl font-bold text-yellow-500">{pendingTotal}</div>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Votes</CardTitle>
-            <ThumbsUp className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">Flagged Items</CardTitle>
+            <AlertTriangle className="text-destructive h-4 w-4" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.totalVotes}</div>
+            <div className="text-destructive text-2xl font-bold">{flaggedTotal}</div>
           </CardContent>
         </Card>
       </div>
@@ -125,16 +137,16 @@ export default async function AdminDashboardPage() {
             <CardTitle>Quick Actions</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
+            <Link href="/admin/pending">
+              <Button variant="outline" className="w-full justify-start">
+                <Clock className="mr-2 h-4 w-4" />
+                Review Pending Submissions ({pendingTotal})
+              </Button>
+            </Link>
             <Link href="/admin/flagged">
               <Button variant="outline" className="w-full justify-start">
                 <AlertTriangle className="mr-2 h-4 w-4" />
-                Review Flagged Prompts ({stats.flaggedPrompts + stats.stalePrompts})
-              </Button>
-            </Link>
-            <Link href="/prompts/new">
-              <Button variant="outline" className="w-full justify-start">
-                <FileText className="mr-2 h-4 w-4" />
-                Create New Prompt
+                Review Flagged Items ({flaggedTotal})
               </Button>
             </Link>
           </CardContent>
@@ -142,12 +154,31 @@ export default async function AdminDashboardPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
+            <CardTitle>Breakdown</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">
-              Activity tracking will be implemented in a future phase.
-            </p>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Pending Skills</span>
+                <span className="font-medium">{stats.pendingSkills}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Pending MCPs</span>
+                <span className="font-medium">{stats.pendingMcps}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Flagged Skills</span>
+                <span className="font-medium">{stats.flaggedSkills}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Flagged MCPs</span>
+                <span className="font-medium">{stats.flaggedMcps}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Flagged Prompts</span>
+                <span className="font-medium">{stats.flaggedPrompts}</span>
+              </div>
+            </div>
           </CardContent>
         </Card>
       </div>
