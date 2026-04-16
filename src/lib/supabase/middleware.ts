@@ -14,7 +14,7 @@ const protectedRoutes = [
   '/contribute',
 ]
 const authRoutes = ['/login', '/signup']
-const publicRoutes = ['/about']
+const publicRoutes: string[] = []
 
 export async function updateSession(request: NextRequest) {
   const pathname = request.nextUrl.pathname
