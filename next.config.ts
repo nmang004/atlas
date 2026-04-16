@@ -1,7 +1,7 @@
-const { withSentryConfig } = require('@sentry/nextjs')
+import type { NextConfig } from 'next'
+import { withSentryConfig } from '@sentry/nextjs'
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   // Security headers
   async headers() {
     return [
@@ -76,7 +76,7 @@ const nextConfig = {
   },
 }
 
-module.exports = withSentryConfig(nextConfig, {
+export default withSentryConfig(nextConfig, {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
@@ -91,17 +91,20 @@ module.exports = withSentryConfig(nextConfig, {
   widenClientFileUpload: true,
 
   // Hide source maps from generated client bundles
-  hideSourceMaps: true,
+  sourcemaps: {
+    deleteSourcemapsAfterUpload: true,
+  },
 
   // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers
   tunnelRoute: '/monitoring',
 
-  // Webpack configuration for Sentry
+  // Automatically tree-shake Sentry logger statements to reduce bundle size
+  bundleSizeOptimizations: {
+    excludeDebugStatements: true,
+  },
+
+  // Webpack configuration for Sentry (not supported with Turbopack)
   webpack: {
-    // Automatically tree-shake Sentry logger statements to reduce bundle size
-    treeshake: {
-      removeDebugLogging: true,
-    },
     // Automatically instrument React components for tracing
     reactComponentAnnotation: {
       enabled: true,
