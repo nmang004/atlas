@@ -5,25 +5,27 @@ import { z } from 'zod'
 import { checkVoteRateLimit, requireAuth } from '@/lib/auth'
 import { createClient } from '@/lib/supabase/server'
 
-// Validate prompt ID parameter
-const paramsSchema = z.object({
-  id: z.string().uuid(),
-})
-
-const voteSchema = z.object({
+const voteBodySchema = z.object({
+  entity_type: z.enum(['skill', 'mcp', 'prompt']),
+  entity_id: z.string().uuid(),
   outcome: z.enum(['positive', 'negative']),
   feedback: z.string().max(2000).optional(),
 })
 
-export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  try {
-    const { id } = await params
-    // Validate prompt ID
-    const paramsResult = paramsSchema.safeParse({ id })
-    if (!paramsResult.success) {
-      return NextResponse.json({ error: 'Invalid prompt ID' }, { status: 400 })
-    }
+const voteQuerySchema = z.object({
+  entity_type: z.enum(['skill', 'mcp', 'prompt']),
+  entity_id: z.string().uuid(),
+})
 
+// Map entity types to their database tables
+const entityTableMap: Record<string, string> = {
+  skill: 'skills',
+  mcp: 'mcps',
+  prompt: 'prompts',
+}
+
+export async function POST(request: NextRequest) {
+  try {
     // Check authentication
     const authResult = await requireAuth()
     if (!authResult.success) {
@@ -32,7 +34,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
 
     const user = authResult.user
 
-    // Check rate limit (10 votes per minute)
+    // Check rate limit
     const withinLimit = await checkVoteRateLimit(user.id)
     if (!withinLimit) {
       return NextResponse.json(
@@ -43,7 +45,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
 
     // Parse and validate request body
     const body = await request.json()
-    const result = voteSchema.safeParse(body)
+    const result = voteBodySchema.safeParse(body)
 
     if (!result.success) {
       return NextResponse.json(
@@ -52,35 +54,37 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       )
     }
 
-    const { outcome, feedback } = result.data
-    const promptId = paramsResult.data.id
+    const { entity_type, entity_id, outcome, feedback } = result.data
     const supabase = await createClient()
 
-    // Check if prompt exists
-    const { data: prompt, error: promptError } = await supabase
-      .from('prompts')
+    // Verify entity exists
+    const tableName = entityTableMap[entity_type]
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: entity, error: entityError } = await (supabase.from(tableName) as any)
       .select('id')
-      .eq('id', promptId)
+      .eq('id', entity_id)
       .single()
 
-    if (promptError || !prompt) {
-      return NextResponse.json({ error: 'Prompt not found' }, { status: 404 })
+    if (entityError || !entity) {
+      return NextResponse.json(
+        { error: `${entity_type.charAt(0).toUpperCase() + entity_type.slice(1)} not found` },
+        { status: 404 }
+      )
     }
 
-    // Upsert vote (replace existing vote if any)
-    // First, try to delete existing vote, then insert new one
+    // Upsert: delete existing vote first, then insert new one
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     await (supabase.from('votes') as any)
       .delete()
-      .eq('entity_type', 'prompt')
-      .eq('entity_id', promptId)
+      .eq('entity_type', entity_type)
+      .eq('entity_id', entity_id)
       .eq('user_id', user.id)
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data: vote, error: voteError } = await (supabase.from('votes') as any)
       .insert({
-        entity_type: 'prompt',
-        entity_id: promptId,
+        entity_type,
+        entity_id,
         user_id: user.id,
         outcome,
         feedback: outcome === 'negative' ? feedback : null,
@@ -103,13 +107,21 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
   }
 }
 
-export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(request: NextRequest) {
   try {
-    const { id: paramId } = await params
-    // Validate prompt ID
-    const paramsResult = paramsSchema.safeParse({ id: paramId })
-    if (!paramsResult.success) {
-      return NextResponse.json({ error: 'Invalid prompt ID' }, { status: 400 })
+    const { searchParams } = new URL(request.url)
+
+    // Validate query params
+    const queryResult = voteQuerySchema.safeParse({
+      entity_type: searchParams.get('entity_type'),
+      entity_id: searchParams.get('entity_id'),
+    })
+
+    if (!queryResult.success) {
+      return NextResponse.json(
+        { error: 'Invalid query parameters', details: queryResult.error.issues },
+        { status: 400 }
+      )
     }
 
     // Check authentication - return null vote if not authenticated
@@ -119,14 +131,14 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     }
 
     const user = authResult.user
-    const promptId = paramsResult.data.id
+    const { entity_type, entity_id } = queryResult.data
     const supabase = await createClient()
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data: vote } = await (supabase.from('votes') as any)
       .select('*')
-      .eq('entity_type', 'prompt')
-      .eq('entity_id', promptId)
+      .eq('entity_type', entity_type)
+      .eq('entity_id', entity_id)
       .eq('user_id', user.id)
       .maybeSingle()
 
