@@ -62,8 +62,9 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
   const [checklistOpen, setChecklistOpen] = useState(false)
   const [examplesOpen, setExamplesOpen] = useState(false)
 
-  const { submitVote, loading: voteLoading } = useVoting({
-    promptId: prompt.id,
+  const { submitVote, isLoading: voteLoading } = useVoting({
+    entityType: 'prompt',
+    entityId: prompt.id,
     onSuccess: () => {
       toast({
         title: 'Vote recorded',
@@ -210,7 +211,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
             )}
           </div>
           {/* Meta info - stacked on mobile */}
-          <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground md:text-sm">
+          <div className="text-muted-foreground mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs md:text-sm">
             <span>{categoryName}</span>
             <span className="hidden md:inline">|</span>
             <span className="flex items-center gap-1">
@@ -241,8 +242,8 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
       </div>
 
       {currentVote && (
-        <div className="rounded-lg border bg-muted/50 p-3 md:p-4">
-          <p className="text-sm text-muted-foreground">
+        <div className="bg-muted/50 rounded-lg border p-3 md:p-4">
+          <p className="text-muted-foreground text-sm">
             You previously voted{' '}
             <span className="font-medium">
               {currentVote === 'positive' ? 'positively' : 'negatively'}
@@ -259,7 +260,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
           <Card className="hidden md:block">
             <CardHeader className="pb-2">
               <CardTitle className="text-lg">Data Recommendations</CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Recommended information to gather before using the prompt
               </p>
             </CardHeader>
@@ -317,7 +318,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
                   <div key={variable.id} className="space-y-2">
                     <Label htmlFor={variable.key} className="text-sm">
                       {variable.label}
-                      {variable.is_required && <span className="ml-1 text-destructive">*</span>}
+                      {variable.is_required && <span className="text-destructive ml-1">*</span>}
                     </Label>
                     {variable.type === 'textarea' ? (
                       <Textarea
@@ -370,7 +371,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
               <CardTitle className="text-base md:text-lg">Assembled Prompt</CardTitle>
             </CardHeader>
             <CardContent>
-              <pre className="whitespace-pre-wrap rounded-md bg-muted p-3 text-sm md:p-4">
+              <pre className="bg-muted rounded-md p-3 text-sm whitespace-pre-wrap md:p-4">
                 {assembledPrompt}
               </pre>
             </CardContent>
@@ -384,7 +385,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
             <Card className="border-primary/20 bg-primary/5">
               <CardHeader className="pb-2 md:pb-4">
                 <CardTitle className="text-base md:text-lg">Recommended Data to Attach</CardTitle>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   Gather this data before using the prompt. Paste it after the prompt in your AI
                   tool.
                 </p>
@@ -393,7 +394,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
                 <ul className="space-y-2">
                   {recommendedData.map((item, index) => (
                     <li key={index} className="flex items-start gap-2 text-sm">
-                      <span className="mt-0.5 text-muted-foreground">•</span>
+                      <span className="text-muted-foreground mt-0.5">•</span>
                       <span>{item}</span>
                     </li>
                   ))}
@@ -406,12 +407,12 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
           <Card>
             <CardHeader className="pb-2 md:pb-4">
               <CardTitle className="text-base md:text-lg">Prompt</CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Copy this prompt, then paste your data after it in your AI tool.
               </p>
             </CardHeader>
             <CardContent>
-              <pre className="whitespace-pre-wrap rounded-md bg-muted p-3 text-sm md:p-4">
+              <pre className="bg-muted rounded-md p-3 text-sm whitespace-pre-wrap md:p-4">
                 {basicVariantContent}
               </pre>
             </CardContent>
@@ -422,12 +423,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
       {/* Desktop voting section */}
       <div className="hidden flex-col items-center justify-center gap-4 md:flex">
         {!showVoting ? (
-          <Button
-            size="lg"
-            disabled={!canCopy}
-            onClick={handleCopy}
-            className="min-w-[200px]"
-          >
+          <Button size="lg" disabled={!canCopy} onClick={handleCopy} className="min-w-[200px]">
             {copied ? (
               <>
                 <Check className="mr-2 h-4 w-4" />
@@ -442,7 +438,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
           </Button>
         ) : showFeedbackInput ? (
           <div className="w-full max-w-md space-y-4">
-            <p className="text-center text-sm text-muted-foreground">What could be improved?</p>
+            <p className="text-muted-foreground text-center text-sm">What could be improved?</p>
             <Textarea
               placeholder="Describe what didn't work well..."
               value={feedbackText}
@@ -462,7 +458,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
           </div>
         ) : (
           <div className="flex items-center gap-4">
-            <p className="text-sm text-muted-foreground">How did it work?</p>
+            <p className="text-muted-foreground text-sm">How did it work?</p>
             <Button
               variant="outline"
               size="lg"
@@ -494,9 +490,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
           <Card className="hidden md:block">
             <CardHeader className="pb-2">
               <CardTitle className="text-lg">Review Checklist</CardTitle>
-              <p className="text-sm text-muted-foreground">
-                Verify these items before sending
-              </p>
+              <p className="text-muted-foreground text-sm">Verify these items before sending</p>
             </CardHeader>
             <CardContent>
               <ReviewChecklist content={prompt.review_checklist} />
@@ -539,16 +533,16 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
                   {index > 0 && <hr className="border-muted" />}
                   <div className="grid gap-4 md:grid-cols-2">
                     <div>
-                      <p className="mb-2 text-sm font-medium text-destructive">Weak Version</p>
-                      <pre className="whitespace-pre-wrap rounded-md bg-destructive/10 p-3 text-sm">
+                      <p className="text-destructive mb-2 text-sm font-medium">Weak Version</p>
+                      <pre className="bg-destructive/10 rounded-md p-3 text-sm whitespace-pre-wrap">
                         {example.weak_version}
                       </pre>
                       {example.weak_output && (
                         <>
-                          <p className="mb-2 mt-3 text-xs font-medium text-muted-foreground">
+                          <p className="text-muted-foreground mt-3 mb-2 text-xs font-medium">
                             Output:
                           </p>
-                          <pre className="whitespace-pre-wrap rounded-md bg-muted p-3 text-xs">
+                          <pre className="bg-muted rounded-md p-3 text-xs whitespace-pre-wrap">
                             {example.weak_output}
                           </pre>
                         </>
@@ -556,15 +550,15 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
                     </div>
                     <div>
                       <p className="mb-2 text-sm font-medium text-green-600">Strong Version</p>
-                      <pre className="whitespace-pre-wrap rounded-md bg-green-500/10 p-3 text-sm">
+                      <pre className="rounded-md bg-green-500/10 p-3 text-sm whitespace-pre-wrap">
                         {example.strong_version}
                       </pre>
                       {example.strong_output && (
                         <>
-                          <p className="mb-2 mt-3 text-xs font-medium text-muted-foreground">
+                          <p className="text-muted-foreground mt-3 mb-2 text-xs font-medium">
                             Output:
                           </p>
-                          <pre className="whitespace-pre-wrap rounded-md bg-muted p-3 text-xs">
+                          <pre className="bg-muted rounded-md p-3 text-xs whitespace-pre-wrap">
                             {example.strong_output}
                           </pre>
                         </>
@@ -595,16 +589,16 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
                       {index > 0 && <hr className="border-muted" />}
                       <div className="space-y-4">
                         <div>
-                          <p className="mb-2 text-sm font-medium text-destructive">Weak Version</p>
-                          <pre className="whitespace-pre-wrap rounded-md bg-destructive/10 p-3 text-xs">
+                          <p className="text-destructive mb-2 text-sm font-medium">Weak Version</p>
+                          <pre className="bg-destructive/10 rounded-md p-3 text-xs whitespace-pre-wrap">
                             {example.weak_version}
                           </pre>
                           {example.weak_output && (
                             <>
-                              <p className="mb-2 mt-3 text-xs font-medium text-muted-foreground">
+                              <p className="text-muted-foreground mt-3 mb-2 text-xs font-medium">
                                 Output:
                               </p>
-                              <pre className="whitespace-pre-wrap rounded-md bg-muted p-3 text-xs">
+                              <pre className="bg-muted rounded-md p-3 text-xs whitespace-pre-wrap">
                                 {example.weak_output}
                               </pre>
                             </>
@@ -612,15 +606,15 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
                         </div>
                         <div>
                           <p className="mb-2 text-sm font-medium text-green-600">Strong Version</p>
-                          <pre className="whitespace-pre-wrap rounded-md bg-green-500/10 p-3 text-xs">
+                          <pre className="rounded-md bg-green-500/10 p-3 text-xs whitespace-pre-wrap">
                             {example.strong_version}
                           </pre>
                           {example.strong_output && (
                             <>
-                              <p className="mb-2 mt-3 text-xs font-medium text-muted-foreground">
+                              <p className="text-muted-foreground mt-3 mb-2 text-xs font-medium">
                                 Output:
                               </p>
-                              <pre className="whitespace-pre-wrap rounded-md bg-muted p-3 text-xs">
+                              <pre className="bg-muted rounded-md p-3 text-xs whitespace-pre-wrap">
                                 {example.strong_output}
                               </pre>
                             </>
@@ -637,7 +631,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
       )}
 
       {/* Mobile sticky bottom bar */}
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t bg-background p-4 md:hidden">
+      <div className="bg-background fixed inset-x-0 bottom-0 z-50 border-t p-4 md:hidden">
         {!showVoting ? (
           <Button
             size="lg"
@@ -685,7 +679,7 @@ export function PromptDetailContent({ prompt, existingVote }: PromptDetailConten
           </div>
         ) : (
           <div className="space-y-2">
-            <p className="text-center text-sm text-muted-foreground">How did it work?</p>
+            <p className="text-muted-foreground text-center text-sm">How did it work?</p>
             <div className="flex gap-2">
               <Button
                 variant="outline"
