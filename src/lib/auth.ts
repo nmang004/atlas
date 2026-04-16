@@ -83,6 +83,26 @@ export async function requireAdmin(): Promise<AdminAuthResult> {
 }
 
 /**
+ * Check if the current user is the resource owner or an admin.
+ */
+export async function requireOwnerOrAdmin(resourceCreatedBy: string): Promise<AuthResult> {
+  const authResult = await requireAuth()
+
+  if (!authResult.success) {
+    return authResult
+  }
+
+  if (authResult.user.role === 'admin' || authResult.user.id === resourceCreatedBy) {
+    return authResult
+  }
+
+  return {
+    success: false,
+    response: NextResponse.json({ error: 'Not authorized' }, { status: 403 }),
+  }
+}
+
+/**
  * Rate limiting check for voting.
  * Returns true if within limits, false if rate limited.
  */
