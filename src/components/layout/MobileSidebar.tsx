@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 import {
   Sparkles,
@@ -13,12 +13,14 @@ import {
   Flag,
   Plus,
   Settings,
+  LogOut,
 } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose } from '@/components/ui/sheet'
 import { NAV_ITEMS, ADMIN_NAV_ITEMS, CONTRIBUTE_NAV_ITEM } from '@/lib/constants'
+import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils'
 import type { User } from '@/types'
 
@@ -42,6 +44,7 @@ interface MobileSidebarProps {
 }
 
 export function MobileSidebar({ open, onClose, user, isAdmin }: MobileSidebarProps) {
+  const router = useRouter()
   const pathname = usePathname()
 
   const isActive = (href: string) => {
@@ -172,6 +175,20 @@ export function MobileSidebar({ open, onClose, user, isAdmin }: MobileSidebarPro
               <p className="truncate text-xs text-white/50">{user.email}</p>
             </div>
           )}
+          <Button
+            variant="ghost"
+            className="mt-2 min-h-10 w-full justify-start text-white/60 hover:bg-white/10 hover:text-white"
+            onClick={async () => {
+              const supabase = createClient()
+              await supabase.auth.signOut()
+              onClose()
+              router.push('/login')
+              router.refresh()
+            }}
+          >
+            <LogOut className="mr-2 h-4 w-4" />
+            Log out
+          </Button>
         </nav>
       </SheetContent>
     </Sheet>
