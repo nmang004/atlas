@@ -78,12 +78,12 @@ export function ProfileSettingsTab({ user }: ProfileSettingsTabProps) {
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-xl font-bold text-primary-foreground">
+            <div className="bg-primary text-primary-foreground flex h-16 w-16 items-center justify-center rounded-full text-xl font-bold">
               {initials}
             </div>
             <div>
               <p className="font-medium">{user.name || 'No name set'}</p>
-              <p className="text-sm text-muted-foreground">{user.email}</p>
+              <p className="text-muted-foreground text-sm">{user.email}</p>
               <Badge variant={user.role === 'admin' ? 'default' : 'secondary'} className="mt-1">
                 {user.role}
               </Badge>
@@ -100,20 +100,22 @@ export function ProfileSettingsTab({ user }: ProfileSettingsTabProps) {
               maxLength={100}
               className="max-w-md"
             />
-            <p className="text-xs text-muted-foreground">
+            <p className="text-muted-foreground text-xs">
               This is how your name will appear across the platform.
             </p>
           </div>
 
           <div className="space-y-2">
             <Label>Email</Label>
-            <Input value={user.email} disabled className="max-w-md bg-muted" />
-            <p className="text-xs text-muted-foreground">Email address cannot be changed.</p>
+            <Input value={user.email} disabled className="bg-muted max-w-md" />
+            <p className="text-muted-foreground text-xs">Email address cannot be changed.</p>
           </div>
 
           <div className="space-y-2">
             <Label>Member Since</Label>
-            <p className="text-sm">{new Date(user.created_at).toLocaleDateString()}</p>
+            <p className="text-sm">
+              {user.created_at ? new Date(user.created_at).toLocaleDateString() : 'Unknown'}
+            </p>
           </div>
 
           <Button type="submit" disabled={isSubmitting}>

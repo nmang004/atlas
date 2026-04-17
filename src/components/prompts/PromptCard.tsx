@@ -23,8 +23,8 @@ export const PromptCard = memo(function PromptCard({ prompt }: PromptCardProps) 
   const remainingTags = prompt.tags.length - MAX_VISIBLE_TAGS
 
   return (
-    <Link href={`/prompts/${prompt.id}`} className="block group">
-      <Card className="h-full transition-all hover:shadow-md hover:border-primary/20 active:shadow-sm">
+    <Link href={`/prompts/${prompt.id}`} className="group block">
+      <Card className="hover:border-primary/20 h-full transition-all hover:shadow-md active:shadow-sm">
         <CardHeader className="pb-2 md:pb-3">
           <div className="flex items-start justify-between gap-2">
             <CardTitle className="line-clamp-2 text-base md:text-lg">{prompt.title}</CardTitle>
@@ -39,7 +39,7 @@ export const PromptCard = memo(function PromptCard({ prompt }: PromptCardProps) 
             )}
           </div>
           {prompt.category_name && (
-            <p className="text-xs text-muted-foreground md:text-sm">{prompt.category_name}</p>
+            <p className="text-muted-foreground text-xs md:text-sm">{prompt.category_name}</p>
           )}
         </CardHeader>
         <CardContent className="space-y-3 md:space-y-4">
@@ -58,24 +58,26 @@ export const PromptCard = memo(function PromptCard({ prompt }: PromptCardProps) 
           </div>
 
           {/* Stats - responsive layout */}
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground md:text-sm">
+          <div className="text-muted-foreground flex flex-wrap items-center gap-x-4 gap-y-1 text-xs md:text-sm">
             <div className="flex items-center gap-1.5">
-              <div className="flex h-5 w-5 items-center justify-center rounded bg-gradient-to-br from-primary/10 to-secondary/10 md:h-6 md:w-6">
-                <ThumbsUp className="h-3 w-3 text-primary md:h-3.5 md:w-3.5" />
+              <div className="from-primary/10 to-secondary/10 flex h-5 w-5 items-center justify-center rounded bg-linear-to-br md:h-6 md:w-6">
+                <ThumbsUp className="text-primary h-3 w-3 md:h-3.5 md:w-3.5" />
               </div>
-              <span className="font-medium text-foreground">{formatRating(prompt.rating_score)}</span>
+              <span className="text-foreground font-medium">
+                {formatRating(prompt.rating_score)}
+              </span>
               <span className="text-[10px] md:text-xs">({prompt.vote_count})</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <div className="flex h-5 w-5 items-center justify-center rounded bg-gradient-to-br from-primary/10 to-secondary/10 md:h-6 md:w-6">
-                <Clock className="h-3 w-3 text-secondary md:h-3.5 md:w-3.5" />
+              <div className="from-primary/10 to-secondary/10 flex h-5 w-5 items-center justify-center rounded bg-linear-to-br md:h-6 md:w-6">
+                <Clock className="text-secondary h-3 w-3 md:h-3.5 md:w-3.5" />
               </div>
               <span>{formatRelativeTime(prompt.last_verified_at)}</span>
             </div>
           </div>
 
           {prompt.model_version && (
-            <p className="text-[10px] text-muted-foreground md:text-xs">
+            <p className="text-muted-foreground text-[10px] md:text-xs">
               Optimized for {prompt.model_version}
             </p>
           )}

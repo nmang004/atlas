@@ -1,187 +1,198 @@
 import Link from 'next/link'
 
-import { AlertTriangle, Clock } from 'lucide-react'
+import { AlertTriangle } from 'lucide-react'
 
-import { FlaggedPromptActions } from '@/components/admin/FlaggedPromptActions'
+import { PublishButton } from '@/components/admin/PublishButton'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { STALE_THRESHOLD_DAYS } from '@/lib/constants'
 import { createClient } from '@/lib/supabase/server'
 import { formatRelativeTime } from '@/lib/utils'
 
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Review Flagged Prompts - Quality Control',
-  description:
-    'Review and resolve flagged or stale prompts. Maintain prompt quality by addressing user feedback and outdated content.',
+  title: 'Flagged Items - Admin',
+  description: 'Review and resolve flagged skills, MCPs, and prompts.',
 }
 
-interface FlaggedPrompt {
+interface FlaggedItem {
   id: string
   title: string
-  category_name: string | null
-  is_flagged: boolean
-  last_verified_at: string
-  negative_feedback: string[]
+  slug?: string
+  created_at: string
+  author: { name: string } | null
 }
 
-interface PromptWithCategory {
+interface FlaggedPromptItem {
   id: string
   title: string
-  is_flagged: boolean
-  last_verified_at: string
-  category: { name: string } | null
+  created_at: string
 }
 
-interface VoteFeedback {
-  prompt_id: string
-  feedback: string | null
-}
+async function getFlaggedItems() {
+  const supabase = await createClient()
 
-async function getFlaggedAndStalePrompts(): Promise<FlaggedPrompt[]> {
-  const supabase = createClient()
-
-  const staleThreshold = new Date()
-  staleThreshold.setDate(staleThreshold.getDate() - STALE_THRESHOLD_DAYS)
-
-  // Fetch all prompts and filter client-side for complex conditions
-  const { data: allPrompts, error } = await supabase
-    .from('prompts')
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: skills } = await (supabase.from('skills') as any)
     .select(
       `
       id,
       title,
-      is_flagged,
-      last_verified_at,
-      category:categories(name)
+      slug,
+      created_at,
+      author:users!skills_created_by_fkey(name)
     `
     )
-    .order('is_flagged', { ascending: false })
-    .order('last_verified_at', { ascending: true })
+    .eq('is_flagged', true)
+    .order('created_at', { ascending: false })
 
-  if (error || !allPrompts) {
-    console.error('Error fetching prompts:', error)
-    return []
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: mcps } = await (supabase.from('mcps') as any)
+    .select(
+      `
+      id,
+      title,
+      slug,
+      created_at,
+      author:users!mcps_created_by_fkey(name)
+    `
+    )
+    .eq('is_flagged', true)
+    .order('created_at', { ascending: false })
+
+  const { data: prompts } = await supabase
+    .from('prompts')
+    .select('id, title, created_at')
+    .eq('is_flagged', true)
+    .order('created_at', { ascending: false })
+
+  return {
+    skills: (skills as FlaggedItem[] | null) ?? [],
+    mcps: (mcps as FlaggedItem[] | null) ?? [],
+    prompts: (prompts as FlaggedPromptItem[] | null) ?? [],
   }
-
-  // Cast to proper type
-  const typedPrompts = allPrompts as unknown as PromptWithCategory[]
-
-  // Filter for flagged or stale prompts
-  const prompts = typedPrompts.filter((p) => {
-    if (p.is_flagged) {
-      return true
-    }
-    const verifiedDate = new Date(p.last_verified_at)
-    return verifiedDate < staleThreshold
-  })
-
-  if (prompts.length === 0) {
-    return []
-  }
-
-  // Get negative feedback for each prompt
-  const promptIds = prompts.map((p) => p.id)
-  const { data: votesData } = await supabase
-    .from('prompt_votes')
-    .select('prompt_id, feedback')
-    .in('prompt_id', promptIds)
-    .eq('outcome', 'negative')
-
-  // Cast to proper type and filter for non-null feedback
-  const votes = (votesData as unknown as VoteFeedback[] | null) || []
-
-  const feedbackByPrompt: Record<string, string[]> = {}
-  votes.forEach((vote) => {
-    if (vote.feedback) {
-      if (!feedbackByPrompt[vote.prompt_id]) {
-        feedbackByPrompt[vote.prompt_id] = []
-      }
-      feedbackByPrompt[vote.prompt_id].push(vote.feedback)
-    }
-  })
-
-  return prompts.map((prompt) => ({
-    id: prompt.id,
-    title: prompt.title,
-    category_name: prompt.category?.name || null,
-    is_flagged: prompt.is_flagged,
-    last_verified_at: prompt.last_verified_at,
-    negative_feedback: feedbackByPrompt[prompt.id] || [],
-  }))
 }
 
-export default async function FlaggedPromptsPage() {
-  const flaggedPrompts = await getFlaggedAndStalePrompts()
+export default async function FlaggedItemsPage() {
+  const { skills, mcps, prompts } = await getFlaggedItems()
+  const isEmpty = skills.length === 0 && mcps.length === 0 && prompts.length === 0
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">Flagged & Stale Prompts</h1>
+        <h1 className="text-2xl font-bold">Flagged Items</h1>
         <p className="text-muted-foreground">
-          Prompts that need review or have been flagged by users
+          Review flagged skills, MCPs, and prompts. Publishing will also remove the flag.
         </p>
       </div>
 
-      {flaggedPrompts.length === 0 ? (
+      {isEmpty ? (
         <div className="py-12 text-center">
-          <p className="text-lg font-medium text-muted-foreground">No prompts need review</p>
-          <p className="text-sm text-muted-foreground">All prompts are up to date and unflagged</p>
+          <p className="text-muted-foreground text-lg font-medium">No flagged items</p>
+          <p className="text-muted-foreground text-sm">All content is in good standing</p>
         </div>
       ) : (
-        <div className="space-y-4">
-          {flaggedPrompts.map((prompt) => (
-            <Card key={prompt.id}>
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <CardTitle className="text-lg">{prompt.title}</CardTitle>
-                    <p className="text-sm text-muted-foreground">
-                      {prompt.category_name || 'Uncategorized'}
-                    </p>
-                  </div>
-                  <div className="flex gap-2">
-                    {prompt.is_flagged && (
+        <>
+          {skills.length > 0 && (
+            <div className="space-y-4">
+              <h2 className="text-lg font-semibold">Skills ({skills.length})</h2>
+              {skills.map((skill) => (
+                <Card key={skill.id}>
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <CardTitle className="text-lg">
+                          <Link href={`/skills/${skill.slug}`} className="hover:underline">
+                            {skill.title}
+                          </Link>
+                        </CardTitle>
+                        <p className="text-muted-foreground text-sm">
+                          by {skill.author?.name ?? 'Unknown'}
+                        </p>
+                      </div>
                       <Badge variant="destructive">
                         <AlertTriangle className="mr-1 h-3 w-3" />
-                        Flagged
+                        Flagged {formatRelativeTime(skill.created_at)}
                       </Badge>
-                    )}
-                    <Badge variant="warning">
-                      <Clock className="mr-1 h-3 w-3" />
-                      {formatRelativeTime(prompt.last_verified_at)}
-                    </Badge>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {prompt.negative_feedback.length > 0 && (
-                  <div>
-                    <p className="mb-2 text-sm font-medium">User Feedback:</p>
-                    <ul className="list-inside list-disc space-y-1 text-sm text-muted-foreground">
-                      {prompt.negative_feedback.map((feedback, i) => (
-                        <li key={i}>{feedback}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                <div className="flex flex-wrap gap-2">
-                  <Link href={`/prompts/${prompt.id}`}>
-                    <Button size="sm">View Prompt</Button>
-                  </Link>
-                  <Link href={`/prompts/${prompt.id}/edit`}>
-                    <Button size="sm" variant="outline">
-                      Edit
-                    </Button>
-                  </Link>
-                  <FlaggedPromptActions promptId={prompt.id} isFlagged={prompt.is_flagged} />
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex justify-end">
+                      <PublishButton entityType="skill" id={skill.id} />
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+
+          {mcps.length > 0 && (
+            <div className="space-y-4">
+              <h2 className="text-lg font-semibold">MCPs ({mcps.length})</h2>
+              {mcps.map((mcp) => (
+                <Card key={mcp.id}>
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <CardTitle className="text-lg">
+                          <Link href={`/mcps/${mcp.slug}`} className="hover:underline">
+                            {mcp.title}
+                          </Link>
+                        </CardTitle>
+                        <p className="text-muted-foreground text-sm">
+                          by {mcp.author?.name ?? 'Unknown'}
+                        </p>
+                      </div>
+                      <Badge variant="destructive">
+                        <AlertTriangle className="mr-1 h-3 w-3" />
+                        Flagged {formatRelativeTime(mcp.created_at)}
+                      </Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex justify-end">
+                      <PublishButton entityType="mcp" id={mcp.id} />
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+
+          {prompts.length > 0 && (
+            <div className="space-y-4">
+              <h2 className="text-lg font-semibold">Prompts ({prompts.length})</h2>
+              {prompts.map((prompt) => (
+                <Card key={prompt.id}>
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <CardTitle className="text-lg">
+                          <Link href={`/prompts/${prompt.id}`} className="hover:underline">
+                            {prompt.title}
+                          </Link>
+                        </CardTitle>
+                      </div>
+                      <Badge variant="destructive">
+                        <AlertTriangle className="mr-1 h-3 w-3" />
+                        Flagged {formatRelativeTime(prompt.created_at)}
+                      </Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex justify-end gap-2">
+                      <Link href={`/prompts/${prompt.id}/edit`}>
+                        <button className="text-muted-foreground hover:text-foreground text-sm underline">
+                          Edit
+                        </button>
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+        </>
       )}
     </div>
   )

@@ -20,20 +20,18 @@ const outfit = Outfit({
 export function generateMetadata(): Metadata {
   return {
     title: {
-      default: 'Atlas - Prompt Governance Platform',
+      default: 'Atlas - Skill & MCP Marketplace',
       template: '%s | Atlas',
     },
     description:
-      'A living prompt library that standardizes AI/LLM usage across teams through crowdsourced quality maintenance and voting at the point of use.',
+      'Internal platform for discovering, sharing, and installing Claude Code skills and MCP configurations.',
     keywords: [
+      'claude code skills',
+      'mcp servers',
+      'skill marketplace',
       'prompt library',
-      'prompt governance',
-      'AI prompts',
-      'LLM prompts',
-      'prompt management',
+      'AI tools',
       'team collaboration',
-      'ChatGPT prompts',
-      'Claude prompts',
     ],
     authors: [{ name: 'Scorpion' }],
     creator: 'Scorpion',
@@ -47,15 +45,15 @@ export function generateMetadata(): Metadata {
       locale: 'en_US',
       url: 'https://www.scorpionatlas.co',
       siteName: 'Atlas',
-      title: 'Atlas - Prompt Governance Platform',
+      title: 'Atlas - Skill & MCP Marketplace',
       description:
-        'A living prompt library that standardizes AI/LLM usage across teams through crowdsourced quality maintenance and voting at the point of use.',
+        'Internal platform for discovering, sharing, and installing Claude Code skills and MCP configurations.',
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'Atlas - Prompt Governance Platform',
+      title: 'Atlas - Skill & MCP Marketplace',
       description:
-        'A living prompt library that standardizes AI/LLM usage across teams through crowdsourced quality maintenance and voting at the point of use.',
+        'Internal platform for discovering, sharing, and installing Claude Code skills and MCP configurations.',
     },
     robots: {
       index: true,
@@ -92,7 +90,8 @@ const jsonLd = {
       '@id': 'https://www.scorpionatlas.co/#website',
       url: 'https://www.scorpionatlas.co',
       name: 'Atlas',
-      description: 'AI Prompt Governance Platform',
+      description:
+        'Internal platform for discovering, sharing, and installing Claude Code skills and MCP configurations.',
       publisher: {
         '@id': 'https://www.scorpionatlas.co/#organization',
       },
@@ -104,19 +103,19 @@ const jsonLd = {
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
       description:
-        'A living prompt library that standardizes AI/LLM usage across teams through crowdsourced quality maintenance and voting at the point of use.',
+        'Internal platform for discovering, sharing, and installing Claude Code skills and MCP configurations.',
       offers: {
         '@type': 'Offer',
         price: '0',
         priceCurrency: 'USD',
       },
       featureList: [
-        'AI Prompt Library',
-        'Variable Injection',
-        'Crowdsourced Quality Voting',
+        'Skill Marketplace',
+        'MCP Server Registry',
+        'One-Click Installation',
         'Team Collaboration',
-        'Prompt Categories and Tags',
-        'Before/After Examples',
+        'Skill Categories and Tags',
+        'Usage Analytics',
       ],
     },
   ],
@@ -132,12 +131,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={`${outfit.variable}`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <PostHogProvider>
             <QueryProvider>
               <TooltipProvider>{children}</TooltipProvider>

@@ -1,399 +1,150 @@
 import Link from 'next/link'
 
-import {
-  ArrowRight,
-  Blocks,
-  Brain,
-  CheckCircle2,
-  Chrome,
-  Clock,
-  Code2,
-  Copy,
-  GitBranch,
-  Heart,
-  LineChart,
-  MessageSquare,
-  PenTool,
-  Rocket,
-  Search,
-  Share2,
-  Smartphone,
-  Sparkles,
-  Target,
-  Users,
-  Zap,
-} from 'lucide-react'
+import { ArrowRight, Key, Globe, Sparkles, BarChart3, GitBranch } from 'lucide-react'
 
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Product Roadmap - Upcoming Atlas Features',
+  title: 'Roadmap',
   description:
-    'See what features are coming to Atlas. From browser extensions to AI-powered suggestions, explore the future of prompt governance.',
-  openGraph: {
-    title: 'Atlas Roadmap - Upcoming Features',
-    description:
-      'See what features are coming to Atlas. From browser extensions to AI-powered suggestions, explore the future of prompt governance.',
-  },
+    'See what is coming next for Atlas — planned features, in-progress work, and upcoming improvements.',
 }
 
-type RoadmapStatus = 'completed' | 'in-progress' | 'planned' | 'considering'
-
-interface RoadmapItem {
-  title: string
-  description: string
-  icon: React.ReactNode
-  status: RoadmapStatus
-  quarter?: string
-}
-
-const roadmapItems: RoadmapItem[] = [
-  // Currently Building
+const items = [
   {
-    title: 'Favorites Section',
+    icon: Key,
+    title: 'SSO Integration',
     description:
-      'Save your most-used prompts for quick access. Star prompts and view them in a dedicated favorites view.',
-    icon: <Heart className="h-5 w-5" />,
-    status: 'in-progress',
-    quarter: 'Q1 2026',
+      'Single sign-on support using Scorpion corporate credentials. Log in once and access Atlas without a separate account or password.',
+    status: 'In Progress' as const,
   },
   {
-    title: 'Create Your Own Prompts',
-    description:
-      'Let users create and save personal prompts. Share them with the team or keep them private for your own use.',
-    icon: <PenTool className="h-5 w-5" />,
-    status: 'in-progress',
-    quarter: 'Q1 2026',
-  },
-  {
-    title: 'Enhanced Search',
-    description:
-      'Smarter search with filters for rating, recency, and usage. Find the perfect prompt faster with advanced query options.',
-    icon: <Search className="h-5 w-5" />,
-    status: 'in-progress',
-    quarter: 'Q1 2026',
-  },
-  {
-    title: 'Prompt Collections',
-    description:
-      'Group related prompts into collections. Create workflows like "New Client Onboarding" or "Monthly Reporting" bundles.',
-    icon: <Blocks className="h-5 w-5" />,
-    status: 'in-progress',
-    quarter: 'Q1 2026',
-  },
-  {
-    title: 'Usage Statistics',
-    description:
-      'See how often prompts are copied and which ones you use most. Personal usage insights on your dashboard.',
-    icon: <LineChart className="h-5 w-5" />,
-    status: 'in-progress',
-    quarter: 'Q1 2026',
-  },
-  // Planned
-  {
+    icon: Globe,
     title: 'Browser Extension',
     description:
-      'Access Atlas prompts directly from any webpage. Quick search, copy, and paste without leaving your current tab.',
-    icon: <Chrome className="h-5 w-5" />,
-    status: 'planned',
-    quarter: 'Q2 2026',
+      'A Chrome extension that lets you search and install Atlas skills directly from your browser. No need to open the Atlas dashboard — find what you need from any tab.',
+    status: 'Planned' as const,
   },
   {
-    title: 'Prompt Analytics Dashboard',
-    description:
-      'Track which prompts are most popular, usage trends over time, and team adoption metrics.',
-    icon: <LineChart className="h-5 w-5" />,
-    status: 'planned',
-    quarter: 'Q2 2026',
-  },
-  {
-    title: 'Version History',
-    description:
-      'Track changes to prompts over time. See who made edits, compare versions, and restore previous iterations.',
-    icon: <GitBranch className="h-5 w-5" />,
-    status: 'planned',
-    quarter: 'Q2 2026',
-  },
-  {
-    title: 'Keyboard Shortcuts',
-    description:
-      'Power user shortcuts for quick navigation, copying, and voting. Speed up your workflow with hotkeys.',
-    icon: <Zap className="h-5 w-5" />,
-    status: 'planned',
-    quarter: 'Q2 2026',
-  },
-  {
-    title: 'Team Workspaces',
-    description:
-      'Organize prompts by team or department. Set custom permissions and share across workspace boundaries.',
-    icon: <Users className="h-5 w-5" />,
-    status: 'planned',
-    quarter: 'Q3 2026',
-  },
-  {
-    title: 'Prompt Duplication',
-    description:
-      'Clone existing prompts as a starting point. Quickly create variations without starting from scratch.',
-    icon: <Copy className="h-5 w-5" />,
-    status: 'planned',
-    quarter: 'Q2 2026',
-  },
-  // Considering
-  {
+    icon: Sparkles,
     title: 'AI-Powered Suggestions',
     description:
-      'Get intelligent prompt recommendations based on your context, past usage, and team patterns.',
-    icon: <Brain className="h-5 w-5" />,
-    status: 'considering',
+      'Get skill and MCP config recommendations based on your usage patterns, team role, and the tools you use most. Personalized suggestions to help you discover relevant content faster.',
+    status: 'Planned' as const,
   },
   {
-    title: 'API Access',
+    icon: BarChart3,
+    title: 'Team Analytics',
     description:
-      'Programmatic access to your prompt library. Integrate Atlas with your existing tools and workflows.',
-    icon: <Code2 className="h-5 w-5" />,
-    status: 'considering',
+      'Dashboard showing which skills and MCPs are most popular, who is contributing the most, and how the library is growing over time. Insights for admins and team leads.',
+    status: 'Planned' as const,
   },
   {
-    title: 'Slack & Teams Integration',
+    icon: GitBranch,
+    title: 'Prompt Versioning',
     description:
-      'Access and share prompts directly from Slack or Microsoft Teams. Quick commands for instant access.',
-    icon: <MessageSquare className="h-5 w-5" />,
-    status: 'considering',
-  },
-  {
-    title: 'Prompt Templates',
-    description:
-      'Create reusable templates for common prompt patterns. Build your own framework for consistent outputs.',
-    icon: <Blocks className="h-5 w-5" />,
-    status: 'considering',
-  },
-  {
-    title: 'Import/Export',
-    description:
-      'Bulk import prompts from spreadsheets or other tools. Export your library for backup or migration.',
-    icon: <Share2 className="h-5 w-5" />,
-    status: 'considering',
-  },
-  {
-    title: 'Mobile App',
-    description:
-      'Native mobile experience for iOS and Android. Access your prompts on the go.',
-    icon: <Smartphone className="h-5 w-5" />,
-    status: 'considering',
-  },
-  {
-    title: 'Prompt Performance Scoring',
-    description:
-      'AI-analyzed quality scores based on prompt structure, clarity, and effectiveness patterns.',
-    icon: <Target className="h-5 w-5" />,
-    status: 'considering',
+      'Version history for prompts and skills. Track changes over time, compare versions, and roll back to previous iterations if needed.',
+    status: 'Coming Soon' as const,
   },
 ]
 
-const statusConfig: Record<
-  RoadmapStatus,
-  { label: string; color: string; bgColor: string; icon: React.ReactNode }
-> = {
-  completed: {
-    label: 'Completed',
-    color: 'text-success',
-    bgColor: 'bg-success/10',
-    icon: <CheckCircle2 className="h-4 w-4" />,
-  },
-  'in-progress': {
-    label: 'In Progress',
-    color: 'text-primary',
-    bgColor: 'bg-primary/10',
-    icon: <Rocket className="h-4 w-4" />,
-  },
-  planned: {
-    label: 'Planned',
-    color: 'text-secondary',
-    bgColor: 'bg-secondary/10',
-    icon: <Clock className="h-4 w-4" />,
-  },
-  considering: {
-    label: 'Considering',
-    color: 'text-muted-foreground',
-    bgColor: 'bg-muted',
-    icon: <Sparkles className="h-4 w-4" />,
-  },
+function getStatusStyle(status: string) {
+  switch (status) {
+    case 'In Progress':
+      return 'border-blue-500/30 bg-blue-500/10 text-blue-400/80'
+    case 'Coming Soon':
+      return 'border-amber-500/30 bg-amber-500/10 text-amber-400/80'
+    case 'Planned':
+      return 'border-white/10 bg-white/5 text-white/40'
+    default:
+      return 'border-white/10 bg-white/5 text-white/40'
+  }
 }
 
 export default function RoadmapPage() {
-  const groupedItems = {
-    'in-progress': roadmapItems.filter((item) => item.status === 'in-progress'),
-    planned: roadmapItems.filter((item) => item.status === 'planned'),
-    considering: roadmapItems.filter((item) => item.status === 'considering'),
-  }
-
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-primary-light/30 via-background to-background pb-12 pt-16 dark:from-navy dark:via-background">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-5" />
-        <div className="container relative">
-          <div className="mx-auto max-w-3xl text-center">
-            <Badge variant="secondary" className="mb-6">
-              <Rocket className="mr-1 h-3 w-3" />
-              Product Roadmap
-            </Badge>
+    <>
+      {/* Hero */}
+      <section className="bg-navy relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-24">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute top-1/2 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,127,253,0.06)_0%,transparent_70%)]" />
+        </div>
 
-            <h1 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-              The Future of
-              <br />
-              <span className="text-gradient">Atlas</span>
+        <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <h1 className="font-heading text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+              Roadmap
             </h1>
-
-            <p className="mb-8 text-lg text-muted-foreground">
-              See what we&apos;re building next. These features are shaped by user feedback and our
-              mission to make prompt governance seamless.
+            <p className="mt-6 text-lg text-white/50 sm:text-xl">
+              What&apos;s coming next for Atlas — planned features and upcoming improvements.
             </p>
-
-            <Button asChild>
-              <Link href="/feedback">
-                <MessageSquare className="mr-2 h-4 w-4" />
-                Share Your Ideas
-              </Link>
-            </Button>
           </div>
         </div>
       </section>
 
-      {/* Legend */}
-      <section className="border-b bg-muted/30 py-4">
-        <div className="container">
-          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8">
-            {Object.entries(statusConfig).map(([status, config]) => (
-              <div key={status} className="flex items-center gap-2">
-                <div className={`flex h-6 w-6 items-center justify-center rounded-full ${config.bgColor} ${config.color}`}>
-                  {config.icon}
+      {/* Roadmap items */}
+      <section className="bg-background border-t border-white/[0.06] py-24 lg:py-32">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="space-y-6">
+            {items.map((item) => (
+              <div
+                key={item.title}
+                className="relative rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 text-left"
+              >
+                {/* Gradient left border */}
+                <div className="absolute top-6 bottom-6 left-0 w-px bg-gradient-to-b from-transparent via-blue-500/40 to-transparent" />
+
+                <div className="flex items-start gap-5">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.04]">
+                    <item.icon className="text-primary h-5 w-5" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <h3 className="font-heading text-lg font-semibold text-white">
+                        {item.title}
+                      </h3>
+                      <span
+                        className={`rounded-md border px-2 py-0.5 text-xs font-medium ${getStatusStyle(item.status)}`}
+                      >
+                        {item.status}
+                      </span>
+                    </div>
+                    <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/40">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
-                <span className="text-sm font-medium">{config.label}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Roadmap Sections */}
-      <section className="py-16">
-        <div className="container">
-          <div className="mx-auto max-w-4xl space-y-16">
-            {/* In Progress */}
-            <div>
-              <div className="mb-6 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                  <Rocket className="h-5 w-5" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold">Currently Building</h2>
-                  <p className="text-muted-foreground">Features actively in development</p>
-                </div>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {groupedItems['in-progress'].map((item) => (
-                  <RoadmapCard key={item.title} item={item} />
-                ))}
-              </div>
-            </div>
+      {/* CTA */}
+      <section className="bg-navy relative overflow-hidden py-24 lg:py-32">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute top-1/2 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,127,253,0.06)_0%,transparent_70%)]" />
+        </div>
 
-            {/* Planned */}
-            <div>
-              <div className="mb-6 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary/10 text-secondary">
-                  <Clock className="h-5 w-5" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold">Coming Soon</h2>
-                  <p className="text-muted-foreground">On the roadmap for this year</p>
-                </div>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {groupedItems.planned.map((item) => (
-                  <RoadmapCard key={item.title} item={item} />
-                ))}
-              </div>
-            </div>
-
-            {/* Considering */}
-            <div>
-              <div className="mb-6 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-muted-foreground">
-                  <Sparkles className="h-5 w-5" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold">Under Consideration</h2>
-                  <p className="text-muted-foreground">Ideas we&apos;re exploring</p>
-                </div>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {groupedItems.considering.map((item) => (
-                  <RoadmapCard key={item.title} item={item} compact />
-                ))}
-              </div>
-            </div>
+        <div className="relative mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="font-heading text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            Have a feature request?
+          </h2>
+          <p className="mx-auto mt-4 max-w-md text-lg text-white/45">
+            Let us know what you would like to see in Atlas next.
+          </p>
+          <div className="mt-10">
+            <Button size="lg" className="gap-2 px-8" asChild>
+              <Link href="/feedback">
+                Send Feedback
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
-
-      {/* CTA Section */}
-      <section className="border-t bg-gradient-to-b from-primary/5 to-secondary/5 py-16">
-        <div className="container">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="mb-4 text-2xl font-bold">Have an idea?</h2>
-            <p className="mb-6 text-muted-foreground">
-              Your feedback directly influences our roadmap. Tell us what features would make Atlas
-              more valuable for you.
-            </p>
-            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button asChild>
-                <Link href="/feedback">
-                  <Zap className="mr-2 h-4 w-4" />
-                  Submit Feedback
-                </Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/changelog">
-                  View Changelog
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  )
-}
-
-function RoadmapCard({ item, compact = false }: { item: RoadmapItem; compact?: boolean }) {
-  const config = statusConfig[item.status]
-
-  return (
-    <Card className="transition-all hover:shadow-md">
-      <CardHeader className={compact ? 'pb-2' : ''}>
-        <div className="flex items-start justify-between gap-2">
-          <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${config.bgColor} ${config.color}`}>
-            {item.icon}
-          </div>
-          {item.quarter && (
-            <Badge variant="outline" className="shrink-0 text-xs">
-              {item.quarter}
-            </Badge>
-          )}
-        </div>
-        <CardTitle className={compact ? 'text-base' : 'text-lg'}>{item.title}</CardTitle>
-      </CardHeader>
-      <CardContent className={compact ? 'pt-0' : ''}>
-        <CardDescription className={compact ? 'text-sm' : ''}>
-          {item.description}
-        </CardDescription>
-      </CardContent>
-    </Card>
+    </>
   )
 }

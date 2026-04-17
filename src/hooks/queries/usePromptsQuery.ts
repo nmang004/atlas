@@ -148,7 +148,7 @@ export function usePromptQuery(id: string) {
 
       // Sort variables by order_index
       if (prompt.variables && Array.isArray(prompt.variables)) {
-        prompt.variables.sort((a, b) => a.order_index - b.order_index)
+        prompt.variables.sort((a, b) => (a.order_index ?? 0) - (b.order_index ?? 0))
       }
 
       return prompt
@@ -177,24 +177,29 @@ export function useOptimisticVoteUpdate() {
   return {
     updatePromptRating: (promptId: string, isPositive: boolean) => {
       // Optimistically update the prompt in cache
-      queryClient.setQueryData(promptsKeys.detail(promptId), (old: PromptWithDetails | undefined) => {
-        if (!old) {
-          return old
-        }
+      queryClient.setQueryData(
+        promptsKeys.detail(promptId),
+        (old: PromptWithDetails | undefined) => {
+          if (!old) {
+            return old
+          }
 
-        const newVoteCount = old.vote_count + 1
-        const currentPositiveVotes = Math.round((old.rating_score / 100) * old.vote_count)
-        const newPositiveVotes = currentPositiveVotes + (isPositive ? 1 : 0)
-        const newRating = (newPositiveVotes / newVoteCount) * 100
+          const newVoteCount = (old.vote_count ?? 0) + 1
+          const currentPositiveVotes = Math.round(
+            ((old.rating_score ?? 0) / 100) * (old.vote_count ?? 0)
+          )
+          const newPositiveVotes = currentPositiveVotes + (isPositive ? 1 : 0)
+          const newRating = (newPositiveVotes / newVoteCount) * 100
 
-        return {
-          ...old,
-          vote_count: newVoteCount,
-          rating_score: newRating,
-          is_flagged: !isPositive ? true : old.is_flagged,
-          last_verified_at: isPositive ? new Date().toISOString() : old.last_verified_at,
+          return {
+            ...old,
+            vote_count: newVoteCount,
+            rating_score: newRating,
+            is_flagged: !isPositive ? true : old.is_flagged,
+            last_verified_at: isPositive ? new Date().toISOString() : old.last_verified_at,
+          }
         }
-      })
+      )
     },
   }
 }

@@ -15,10 +15,11 @@ const voteSchema = z.object({
   feedback: z.string().max(2000).optional(),
 })
 
-export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params
     // Validate prompt ID
-    const paramsResult = paramsSchema.safeParse(params)
+    const paramsResult = paramsSchema.safeParse({ id })
     if (!paramsResult.success) {
       return NextResponse.json({ error: 'Invalid prompt ID' }, { status: 400 })
     }
@@ -53,7 +54,7 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
 
     const { outcome, feedback } = result.data
     const promptId = paramsResult.data.id
-    const supabase = createClient()
+    const supabase = await createClient()
 
     // Check if prompt exists
     const { data: prompt, error: promptError } = await supabase
@@ -68,12 +69,18 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
 
     // Upsert vote (replace existing vote if any)
     // First, try to delete existing vote, then insert new one
-    await supabase.from('prompt_votes').delete().eq('prompt_id', promptId).eq('user_id', user.id)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (supabase.from('votes') as any)
+      .delete()
+      .eq('entity_type', 'prompt')
+      .eq('entity_id', promptId)
+      .eq('user_id', user.id)
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: vote, error: voteError } = await (supabase.from('prompt_votes') as any)
+    const { data: vote, error: voteError } = await (supabase.from('votes') as any)
       .insert({
-        prompt_id: promptId,
+        entity_type: 'prompt',
+        entity_id: promptId,
         user_id: user.id,
         outcome,
         feedback: outcome === 'negative' ? feedback : null,
@@ -96,10 +103,11 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
   }
 }
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id: paramId } = await params
     // Validate prompt ID
-    const paramsResult = paramsSchema.safeParse(params)
+    const paramsResult = paramsSchema.safeParse({ id: paramId })
     if (!paramsResult.success) {
       return NextResponse.json({ error: 'Invalid prompt ID' }, { status: 400 })
     }
@@ -112,12 +120,13 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
     const user = authResult.user
     const promptId = paramsResult.data.id
-    const supabase = createClient()
+    const supabase = await createClient()
 
-    const { data: vote } = await supabase
-      .from('prompt_votes')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: vote } = await (supabase.from('votes') as any)
       .select('*')
-      .eq('prompt_id', promptId)
+      .eq('entity_type', 'prompt')
+      .eq('entity_id', promptId)
       .eq('user_id', user.id)
       .maybeSingle()
 

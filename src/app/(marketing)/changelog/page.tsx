@@ -1,418 +1,163 @@
 import Link from 'next/link'
 
-import {
-  BarChart3,
-  BookOpen,
-  Bug,
-  CheckCircle2,
-  Gauge,
-  Globe,
-  Heart,
-  History,
-  Layers,
-  LayoutDashboard,
-  Lock,
-  Moon,
-  RefreshCw,
-  Rocket,
-  Search,
-  Settings,
-  Shield,
-  Sparkles,
-  Variable,
-  Vote,
-  Zap,
-} from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Changelog - Atlas Version History & Release Notes',
-  description:
-    'Stay up to date with Atlas releases. See new features, improvements, and fixes in each version of our AI prompt governance platform.',
-  openGraph: {
-    title: 'Atlas Changelog - Version History & Release Notes',
-    description:
-      'Stay up to date with Atlas releases. See new features, improvements, and fixes in each version.',
-  },
+  title: 'Changelog',
+  description: 'See what is new in Atlas — release notes, updates, and improvements.',
 }
 
-interface ChangelogEntry {
-  version: string
-  date: string
-  title: string
-  description: string
-  isCurrent?: boolean
-  thankYouMessage?: {
-    title: string
-    message: string
-    signature: string
-  }
-  categories: {
-    name: string
-    icon: React.ReactNode
-    items: string[]
-  }[]
-}
-
-const changelog: ChangelogEntry[] = [
+const entries = [
   {
-    version: '1.1',
-    date: 'January 14, 2026',
-    title: 'Community & Communication Update',
+    date: 'April 2026',
+    title: 'Atlas Rework: Skills & MCP Marketplace',
+    type: 'Major Release' as const,
     description:
-      'Major improvements to user experience based on team feedback, plus new ways to share your thoughts and see what\'s coming next.',
-    isCurrent: true,
-    thankYouMessage: {
-      title: 'Thank You, Scorpion SEO Team',
-      message:
-        'A heartfelt thank you to the entire Scorpion SEO team for your incredible support, feedback, and enthusiasm for Atlas. Your insights and real-world usage drive every improvement we make. Together, we\'re building something that makes everyone\'s work better, faster, and more consistent. I\'m grateful to be building this with all of you.',
-      signature: 'Nick',
-    },
-    categories: [
-      {
-        name: 'New Pages',
-        icon: <Sparkles className="h-5 w-5" />,
-        items: [
-          'Changelog page with full version history',
-          'Roadmap page showing upcoming features',
-          'Anonymous feedback form',
-          'Announcement banners for new releases',
-          'Dedicated Features page with detailed breakdowns',
-          'How it Works page with visual walkthrough',
-          'Use Cases page with industry examples',
-        ],
-      },
-      {
-        name: 'User Experience',
-        icon: <Rocket className="h-5 w-5" />,
-        items: [
-          'Quick Start is now the default prompt variant',
-          'Renamed "Data Requirements" to "Data Recommendations"',
-          'Feedback link added to dashboard sidebar',
-          'Roadmap and Feedback links in footer',
-          'Product navigation links in marketing header',
-          'CTAs on About page linking to dedicated pages',
-          'Updated footer with direct page links',
-        ],
-      },
-      {
-        name: 'Bug Fixes',
-        icon: <Bug className="h-5 w-5" />,
-        items: [
-          'Fixed 406 error when viewing prompts without prior votes',
-          'Improved vote fetching reliability',
-        ],
-      },
+      'Complete platform rework. Atlas is now a full-featured marketplace for skills and MCP server configurations. New features include a curated skill library, MCP config listings with install instructions, GitHub import, community voting, admin moderation queue, Cmd+K global search, and a refreshed dark-mode UI.',
+    highlights: [
+      'Skill library with category browsing, search, and filtering',
+      'MCP server config listings with JSON viewer and environment variable documentation',
+      'GitHub import — pull skills directly from any repository',
+      'Community voting and quality ratings',
+      'Admin moderation and review queue',
+      'Global Cmd+K search across skills, MCPs, and prompts',
     ],
   },
   {
-    version: '1.0',
-    date: 'January 12, 2026',
-    title: 'Initial Launch',
+    date: 'January 2026',
+    title: 'SME Knowledge Base',
+    type: 'Removed' as const,
     description:
-      'The complete prompt governance platform with everything you need to standardize AI workflows across your team.',
-    categories: [
-      {
-        name: 'Prompt Library',
-        icon: <BookOpen className="h-5 w-5" />,
-        items: [
-          'Centralized prompt storage with categories',
-          'Tag-based organization and filtering',
-          'Before/after teaching examples',
-          'Markdown rendering for rich content',
-          'One-click copy to clipboard',
-        ],
-      },
-      {
-        name: 'Variable Injection',
-        icon: <Variable className="h-5 w-5" />,
-        items: [
-          'Dynamic text field variables',
-          'Textarea variables for longer content',
-          'Select dropdown variables with predefined options',
-          'Real-time variable substitution on copy',
-        ],
-      },
-      {
-        name: 'Prompt Variants',
-        icon: <Layers className="h-5 w-5" />,
-        items: [
-          'Quick Start variant for fast usage',
-          'Advanced variant with full customization',
-          'Per-prompt variant configurations',
-          'Data requirements guidance',
-        ],
-      },
-      {
-        name: 'Quality Voting',
-        icon: <Vote className="h-5 w-5" />,
-        items: [
-          'Positive/negative voting system',
-          'Optional feedback with votes',
-          'Automatic rating calculation (% positive)',
-          'Vote rate limiting to prevent abuse',
-        ],
-      },
-      {
-        name: 'Stale Detection',
-        icon: <RefreshCw className="h-5 w-5" />,
-        items: [
-          'Automatic detection of unused prompts (60+ days)',
-          'Flagging system for negative feedback',
-          'Admin queue for prompts needing review',
-        ],
-      },
-      {
-        name: 'Search & Filtering',
-        icon: <Search className="h-5 w-5" />,
-        items: [
-          'Full-text search across prompts',
-          'Category filtering with counts',
-          'Tag filtering with popularity sorting',
-          'Collapsible tag filter panel',
-          'Debounced search for performance',
-        ],
-      },
-      {
-        name: 'Dashboard UI',
-        icon: <LayoutDashboard className="h-5 w-5" />,
-        items: [
-          'Responsive sidebar navigation',
-          'Server Components with Suspense streaming',
-          'Optimistic UI updates for voting',
-          'Toast notifications for actions',
-          'Scorpion corporate branding',
-        ],
-      },
-      {
-        name: 'Theme Support',
-        icon: <Moon className="h-5 w-5" />,
-        items: [
-          'Light and dark mode themes',
-          'System preference detection',
-          'User preference persistence',
-          'Smooth theme transitions',
-        ],
-      },
-      {
-        name: 'User Settings',
-        icon: <Settings className="h-5 w-5" />,
-        items: [
-          'User profile management',
-          'Theme preference settings',
-          'Display name customization',
-        ],
-      },
-      {
-        name: 'Admin Controls',
-        icon: <Shield className="h-5 w-5" />,
-        items: [
-          'Full CRUD for prompts',
-          'Category management',
-          'Flagged prompt review queue',
-          'User role management',
-        ],
-      },
-      {
-        name: 'Security',
-        icon: <Lock className="h-5 w-5" />,
-        items: [
-          'Row-level security on all tables',
-          'Role-based access control (Admin/User)',
-          'Secure authentication via Supabase Auth',
-          'Password leak detection (HaveIBeenPwned)',
-          'Comprehensive security headers',
-        ],
-      },
-      {
-        name: 'Performance',
-        icon: <Gauge className="h-5 w-5" />,
-        items: [
-          'Database query caching',
-          'Pagination for large datasets',
-          'Optimized database indexes',
-          'Edge network CDN delivery',
-        ],
-      },
-      {
-        name: 'Analytics & Monitoring',
-        icon: <BarChart3 className="h-5 w-5" />,
-        items: [
-          'PostHog product analytics',
-          'User identification and tracking',
-          'Sentry error monitoring',
-          'Performance tracing',
-        ],
-      },
-      {
-        name: 'SEO & Marketing',
-        icon: <Globe className="h-5 w-5" />,
-        items: [
-          'Public about page',
-          'Public security page',
-          'SEO-optimized meta titles',
-          'JSON-LD structured data',
-          'OpenGraph metadata',
-        ],
-      },
+      'Introduced the SME Knowledge Base for subject matter expert documentation. This feature was later removed during the April 2026 rework to focus the platform on skills and MCP configurations.',
+    highlights: [],
+  },
+  {
+    date: 'December 2025',
+    title: 'Initial Launch: Prompt Library',
+    type: 'Launch' as const,
+    description:
+      'Atlas launched as an internal prompt library for the Scorpion team. The initial release included a shared prompt collection with variable support, copy-to-clipboard, and basic category organization.',
+    highlights: [
+      'Shared prompt library with template variables',
+      'Category-based organization',
+      'One-click copy to clipboard',
+      'Dark mode with Scorpion navy palette',
     ],
   },
 ]
 
+function getTypeStyle(type: string) {
+  switch (type) {
+    case 'Major Release':
+      return 'border-blue-500/30 bg-blue-500/10 text-blue-400/80'
+    case 'Removed':
+      return 'border-white/10 bg-white/5 text-white/40'
+    case 'Launch':
+      return 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400/80'
+    default:
+      return 'border-white/10 bg-white/5 text-white/40'
+  }
+}
+
 export default function ChangelogPage() {
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-primary-light/30 via-background to-background pb-16 pt-16 dark:from-navy dark:via-background">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-5" />
-        <div className="container relative">
-          <div className="mx-auto max-w-4xl text-center">
-            <Badge variant="secondary" className="mb-6">
-              <History className="mr-1 h-3 w-3" />
-              Version History
-            </Badge>
+    <>
+      {/* Hero */}
+      <section className="bg-navy relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-24">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute top-1/2 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,127,253,0.06)_0%,transparent_70%)]" />
+        </div>
 
-            <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              What&apos;s new in
-              <br />
-              <span className="text-gradient">Atlas</span>
+        <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <h1 className="font-heading text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+              Changelog
             </h1>
-
-            <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground sm:text-xl">
-              Track every feature, improvement, and fix. Stay informed about the latest updates to
-              your prompt governance platform.
+            <p className="mt-6 text-lg text-white/50 sm:text-xl">
+              What&apos;s new in Atlas — release notes, updates, and improvements.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="py-16">
-        <div className="container">
-          <div className="mx-auto max-w-5xl">
-            <div className="relative">
-              {/* Timeline line */}
-              <div className="absolute left-0 top-0 hidden h-full w-px bg-gradient-to-b from-primary via-secondary to-border md:left-[11.5rem] md:block" />
+      {/* Changelog entries */}
+      <section className="bg-background border-t border-white/[0.06] py-24 lg:py-32">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="relative space-y-12">
+            {/* Timeline line */}
+            <div className="absolute top-0 bottom-0 left-[7px] hidden w-px bg-white/[0.06] sm:block" />
 
-              <div className="space-y-16">
-                {changelog.map((entry) => (
-                  <div key={entry.version} className="relative">
-                    {/* Version header */}
-                    <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-start">
-                      {/* Date column */}
-                      <div className="flex shrink-0 items-center gap-3 md:w-44 md:flex-col md:items-end md:text-right">
-                        <div className="relative z-10 hidden h-4 w-4 rounded-full border-4 border-primary bg-background md:block" />
-                        <span className="text-sm font-medium text-muted-foreground">
-                          {entry.date}
-                        </span>
-                      </div>
+            {entries.map((entry, idx) => (
+              <div key={idx} className="relative flex gap-6 sm:gap-8">
+                {/* Timeline dot */}
+                <div className="hidden sm:block">
+                  <div className="bg-primary/60 relative top-2 h-[15px] w-[15px] rounded-full border-2 border-[hsl(var(--background))]" />
+                </div>
 
-                      {/* Content */}
-                      <div className="flex-1 md:pl-8">
-                        <div className="mb-2 flex flex-wrap items-center gap-3">
-                          <h2 className="text-3xl font-bold">v{entry.version}</h2>
-                          {entry.isCurrent && (
-                            <Badge className="bg-gradient-to-r from-primary to-secondary">
-                              <Sparkles className="mr-1 h-3 w-3" />
-                              Latest
-                            </Badge>
-                          )}
-                        </div>
-                        <h3 className="mb-2 text-xl font-semibold text-foreground">
-                          {entry.title}
-                        </h3>
-                        <p className="text-muted-foreground">{entry.description}</p>
-                      </div>
-                    </div>
-
-                    {/* Categories grid */}
-                    <div className="md:ml-52">
-                      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                        {entry.categories.map((category) => (
-                          <Card
-                            key={category.name}
-                            className="transition-all hover:shadow-md hover:shadow-primary/5"
-                          >
-                            <CardHeader className="pb-3">
-                              <div className="flex items-center gap-2">
-                                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 text-primary">
-                                  {category.icon}
-                                </div>
-                                <CardTitle className="text-base">{category.name}</CardTitle>
-                              </div>
-                            </CardHeader>
-                            <CardContent className="pt-0">
-                              <ul className="space-y-2">
-                                {category.items.map((item) => (
-                                  <li
-                                    key={item}
-                                    className="flex items-start gap-2 text-sm text-muted-foreground"
-                                  >
-                                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success" />
-                                    <span>{item}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </CardContent>
-                          </Card>
-                        ))}
-                      </div>
-
-                      {/* Thank you message - shown directly under version */}
-                      {entry.thankYouMessage && (
-                        <Card className="mt-6 border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
-                          <CardContent className="pt-6">
-                            <div className="flex items-start gap-4">
-                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                                <Heart className="h-5 w-5 text-primary" />
-                              </div>
-                              <div>
-                                <h3 className="mb-2 font-semibold">{entry.thankYouMessage.title}</h3>
-                                <p className="text-sm text-muted-foreground">
-                                  {entry.thankYouMessage.message}
-                                </p>
-                                <p className="mt-3 font-medium">— {entry.thankYouMessage.signature}</p>
-                              </div>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      )}
-                    </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="text-sm font-medium text-white/50">{entry.date}</span>
+                    <span
+                      className={`rounded-md border px-2 py-0.5 text-xs font-medium ${getTypeStyle(entry.type)}`}
+                    >
+                      {entry.type}
+                    </span>
                   </div>
-                ))}
+
+                  <h3 className="font-heading mt-2 text-xl font-semibold text-white">
+                    {entry.title}
+                  </h3>
+                  <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/40">
+                    {entry.description}
+                  </p>
+
+                  {entry.highlights.length > 0 && (
+                    <ul className="mt-4 space-y-2">
+                      {entry.highlights.map((highlight) => (
+                        <li
+                          key={highlight}
+                          className="flex items-start gap-3 text-sm text-white/40"
+                        >
+                          <span className="bg-primary/50 mt-1.5 block h-1.5 w-1.5 shrink-0 rounded-full" />
+                          {highlight}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="border-t bg-gradient-to-b from-primary/5 to-secondary/5 py-20">
-        <div className="container">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-bold sm:text-4xl">Ready to get started?</h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Experience all these features and more. Start standardizing your AI workflow today.
-            </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button size="lg" className="gap-2" asChild>
-                <Link href="/signup">
-                  <Zap className="h-4 w-4" />
-                  Start Using Atlas Free
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <Link href="/about">Learn More</Link>
-              </Button>
-            </div>
+      {/* CTA */}
+      <section className="bg-navy relative overflow-hidden py-24 lg:py-32">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute top-1/2 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,127,253,0.06)_0%,transparent_70%)]" />
+        </div>
+
+        <div className="relative mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="font-heading text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            Try the latest version
+          </h2>
+          <p className="mx-auto mt-4 max-w-md text-lg text-white/45">
+            Sign up and explore everything new in Atlas.
+          </p>
+          <div className="mt-10">
+            <Button size="lg" className="gap-2 px-8" asChild>
+              <Link href="/signup">
+                Get Started
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
-    </div>
+    </>
   )
 }

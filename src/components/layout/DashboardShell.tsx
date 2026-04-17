@@ -1,32 +1,21 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
-import { useRouter, usePathname, useSearchParams } from 'next/navigation'
-
+import { CommandPalette } from '@/components/layout/CommandPalette'
 import { Header } from '@/components/layout/Header'
 import { MobileSidebar } from '@/components/layout/MobileSidebar'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { identifyUser } from '@/lib/posthog'
 import type { User } from '@/types'
 
-interface Category {
-  id: string
-  name: string
-  prompt_count: number
-}
-
 interface DashboardShellProps {
-  categories: Category[]
+  children: React.ReactNode
   user: User | null
   isAdmin: boolean
-  children: React.ReactNode
 }
 
-export function DashboardShell({ categories, user, isAdmin, children }: DashboardShellProps) {
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+export function DashboardShell({ children, user, isAdmin }: DashboardShellProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   // Identify user in PostHog for analytics tracking
@@ -41,54 +30,27 @@ export function DashboardShell({ categories, user, isAdmin, children }: Dashboar
     }
   }, [user])
 
-  const handleSearch = useCallback(
-    (query: string) => {
-      const params = new URLSearchParams(searchParams.toString())
-      if (query.trim()) {
-        params.set('search', query)
-      } else {
-        params.delete('search')
-      }
-      // Navigate to prompts page with search if not already there
-      const targetPath = pathname === '/prompts' ? pathname : '/prompts'
-      router.push(`${targetPath}?${params.toString()}`)
-    },
-    [router, pathname, searchParams]
-  )
-
-  const headerUser = user
-    ? {
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      }
-    : null
-
   return (
     <div className="flex h-screen">
-      {/* Desktop sidebar - hidden on mobile/tablet */}
-      <div className="hidden lg:block">
-        <Sidebar categories={categories} isAdmin={isAdmin} />
-      </div>
+      {/* Desktop sidebar */}
+      <Sidebar user={user} isAdmin={isAdmin} />
 
-      {/* Mobile sidebar drawer */}
+      {/* Mobile sidebar */}
       <MobileSidebar
-        categories={categories}
-        isAdmin={isAdmin}
         open={mobileMenuOpen}
-        onOpenChange={setMobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+        user={user}
+        isAdmin={isAdmin}
       />
 
       {/* Main content area */}
-      <div className="flex flex-1 flex-col overflow-hidden">
-        <Header
-          user={headerUser}
-          onSearch={handleSearch}
-          showSearch={true}
-          onMenuClick={() => setMobileMenuOpen(true)}
-        />
+      <div className="flex flex-1 flex-col lg:pl-64">
+        <Header onMenuClick={() => setMobileMenuOpen(true)} />
         <main className="flex-1 overflow-y-auto p-4 md:p-6">{children}</main>
       </div>
+
+      {/* Command palette */}
+      <CommandPalette />
     </div>
   )
 }

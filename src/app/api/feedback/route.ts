@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     const { type, message } = result.data
 
     // Store feedback in Supabase
-    const supabase = createClient()
+    const supabase = await createClient()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { error } = await (supabase.from('feedback') as any).insert({ type, message })
 

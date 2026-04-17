@@ -31,7 +31,7 @@ async function getSettingsData(): Promise<{
   votes: VoteWithPrompt[]
   adminStats: AdminStats | null
 }> {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const {
     data: { user: authUser },

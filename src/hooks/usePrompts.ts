@@ -68,7 +68,8 @@ export function usePrompt(id: string) {
           *,
           category:categories(*),
           variables:prompt_variables(*),
-          examples:prompt_examples(*)
+          examples:prompt_examples(*),
+          variants:prompt_variants(*)
         `
         )
         .eq('id', id)
@@ -78,7 +79,7 @@ export function usePrompt(id: string) {
         setError(fetchError.message)
         setPrompt(null)
       } else {
-        setPrompt(data)
+        setPrompt(data as unknown as PromptWithDetails)
       }
 
       setLoading(false)

@@ -10,7 +10,7 @@ const deleteSchema = z.object({
 
 export async function DELETE(request: NextRequest) {
   try {
-    const supabase = createClient()
+    const supabase = await createClient()
 
     const {
       data: { user },

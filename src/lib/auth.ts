@@ -15,7 +15,7 @@ export type AdminAuthResult =
  * Returns either the user object or an appropriate error response.
  */
 export async function requireAuth(): Promise<AuthResult> {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const {
     data: { user },
@@ -83,11 +83,31 @@ export async function requireAdmin(): Promise<AdminAuthResult> {
 }
 
 /**
+ * Check if the current user is the resource owner or an admin.
+ */
+export async function requireOwnerOrAdmin(resourceCreatedBy: string): Promise<AuthResult> {
+  const authResult = await requireAuth()
+
+  if (!authResult.success) {
+    return authResult
+  }
+
+  if (authResult.user.role === 'admin' || authResult.user.id === resourceCreatedBy) {
+    return authResult
+  }
+
+  return {
+    success: false,
+    response: NextResponse.json({ error: 'Not authorized' }, { status: 403 }),
+  }
+}
+
+/**
  * Rate limiting check for voting.
  * Returns true if within limits, false if rate limited.
  */
 export async function checkVoteRateLimit(userId: string): Promise<boolean> {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   // Call the database function to check/update rate limit
   // Using type assertion since the function is defined in migrations but not in generated types

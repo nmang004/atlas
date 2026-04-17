@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 }
 
 async function getPrompt(id: string): Promise<PromptWithDetails | null> {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const { data: promptData, error } = await supabase
     .from('prompts')
@@ -39,14 +39,14 @@ async function getPrompt(id: string): Promise<PromptWithDetails | null> {
   const prompt = promptData as unknown as PromptWithDetails
 
   if (prompt.variables && Array.isArray(prompt.variables)) {
-    prompt.variables.sort((a, b) => a.order_index - b.order_index)
+    prompt.variables.sort((a, b) => (a.order_index ?? 0) - (b.order_index ?? 0))
   }
 
   return prompt
 }
 
 async function getCategories(): Promise<Category[]> {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const { data, error } = await supabase.from('categories').select('*').order('name')
 
@@ -58,7 +58,7 @@ async function getCategories(): Promise<Category[]> {
 }
 
 async function checkAdminAccess(): Promise<boolean> {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const {
     data: { user },
@@ -78,14 +78,15 @@ async function checkAdminAccess(): Promise<boolean> {
   return profile?.role === 'admin'
 }
 
-export default async function EditPromptPage({ params }: { params: { id: string } }) {
+export default async function EditPromptPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const isAdmin = await checkAdminAccess()
 
   if (!isAdmin) {
     redirect('/prompts')
   }
 
-  const [prompt, categories] = await Promise.all([getPrompt(params.id), getCategories()])
+  const [prompt, categories] = await Promise.all([getPrompt(id), getCategories()])
 
   if (!prompt) {
     notFound()
@@ -94,7 +95,7 @@ export default async function EditPromptPage({ params }: { params: { id: string 
   return (
     <div className="mx-auto max-w-4xl space-y-6">
       <div className="flex items-center gap-4">
-        <Link href={`/prompts/${params.id}`}>
+        <Link href={`/prompts/${id}`}>
           <Button variant="ghost" size="icon">
             <ArrowLeft className="h-4 w-4" />
           </Button>

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 }
 
 async function getCategories(): Promise<Category[]> {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const { data, error } = await supabase.from('categories').select('*').order('name')
 
@@ -29,7 +29,7 @@ async function getCategories(): Promise<Category[]> {
 }
 
 async function checkAdminAccess(): Promise<boolean> {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const {
     data: { user },

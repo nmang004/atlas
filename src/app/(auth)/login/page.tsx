@@ -78,12 +78,12 @@ export default function LoginPage() {
       description: 'You have successfully signed in.',
     })
 
-    router.push('/prompts')
+    router.push('/skills')
     router.refresh()
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted/50 p-4">
+    <div className="bg-muted/50 flex min-h-screen items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1 text-center">
           <div className="mb-4 flex justify-center">
@@ -133,7 +133,7 @@ export default function LoginPage() {
             <Button type="submit" className="min-h-12 w-full text-base" disabled={isSubmitting}>
               {isSubmitting ? 'Signing in...' : 'Sign in'}
             </Button>
-            <p className="text-center text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-center text-sm">
               Don&apos;t have an account?{' '}
               <Link href="/signup" className="text-primary underline-offset-4 hover:underline">
                 Sign up
