@@ -13,6 +13,33 @@ import { cn } from '@/lib/utils'
 const navLinks = [
   { href: '/features', label: 'Features' },
   { href: '/how-it-works', label: 'How It Works' },
+  { href: '/use-cases', label: 'Use Cases' },
+]
+
+const footerColumns = [
+  {
+    title: 'Product',
+    links: [
+      { href: '/features', label: 'Features' },
+      { href: '/how-it-works', label: 'How It Works' },
+      { href: '/use-cases', label: 'Use Cases' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { href: '/about', label: 'About' },
+      { href: '/security', label: 'Security' },
+      { href: '/feedback', label: 'Feedback' },
+    ],
+  },
+  {
+    title: 'Resources',
+    links: [
+      { href: '/changelog', label: 'Changelog' },
+      { href: '/roadmap', label: 'Roadmap' },
+    ],
+  },
 ]
 
 function MarketingHeader() {
@@ -125,15 +152,50 @@ function MarketingHeader() {
 
 function MarketingFooter() {
   return (
-    <footer className="border-t border-white/5">
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-8 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="bg-primary flex h-6 w-6 items-center justify-center rounded-md">
-            <Layers className="h-3 w-3 text-white" />
+    <footer className="border-t border-white/[0.06]">
+      <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Brand column */}
+          <div>
+            <Link href="/" className="flex items-center gap-2">
+              <div className="bg-primary flex h-6 w-6 items-center justify-center rounded-md">
+                <Layers className="h-3 w-3 text-white" />
+              </div>
+              <span className="font-heading text-sm font-semibold text-white/60">Atlas</span>
+            </Link>
+            <p className="mt-3 text-sm leading-relaxed text-white/30">
+              Your team&apos;s skill &amp; MCP library. Built by Scorpion, for Scorpion.
+            </p>
           </div>
-          <span className="font-heading text-sm font-semibold text-white/60">Atlas</span>
-        </Link>
-        <p className="text-sm text-white/30">&copy; {new Date().getFullYear()} Scorpion</p>
+
+          {/* Link columns */}
+          {footerColumns.map((column) => (
+            <div key={column.title}>
+              <p className="text-xs font-medium tracking-wide text-white/40 uppercase">
+                {column.title}
+              </p>
+              <ul className="mt-4 space-y-3">
+                {column.links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-white/30 transition-colors hover:text-white/60"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mt-12 border-t border-white/[0.06] pt-8">
+          <p className="text-sm text-white/20">
+            &copy; {new Date().getFullYear()} Scorpion. All rights reserved.
+          </p>
+        </div>
       </div>
     </footer>
   )
